@@ -1,0 +1,34 @@
+{
+    "subjects": [
+        {
+            "subject": "Numerical Methods and Analysis"
+        },
+        {
+            "subject": "Data Structures and Algorithms"
+        },
+        {
+            "subject": "Computer Organization and Architecture"
+        },
+        {
+            "subject": "Advanced Programming Practice"
+        },
+        {
+            "subject": "Operating Systems"
+        },
+        {
+            "subject": "Design Thinking and Methodology"
+        },
+        {
+            "subject": "Professional Ethics"
+        },
+        {
+            "subject": "Verbal Reasoning"
+        },
+        {
+            "subject": "Data Structures and Algorithms (Lab)"
+        },
+        {
+            "subject": "Operating Systems (Lab)"
+        }
+    ]
+}
