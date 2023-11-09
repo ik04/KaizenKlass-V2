@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Enums\Role;
+use App\Http\Requests\RegisterUserRequest;
 use App\Models\User;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -11,63 +13,25 @@ use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
+    public function __construct(protected UserService $service)
+    {
+        
+    }
     // todo: shift to service class logic
-    public function registerAdmin(Request $request){
-        $validation = Validator::make($request->all(),[
-            "email" => "required|email|unique:users", // todo: add regex
-            "name" => "required|string",
-            "password" =>"required|string"
-        ]);
-        if($validation->fails()){
-            return response()->json($validation->errors()->all(),400);
-        }
-        $validated = $validation->validated();
-        $user = User::create([
-            "email" => $validated["email"],
-            "name" => $validated["name"],
-            "password" => Hash::make($validated["password"]),
-            "user_uuid" => Str::uuid(),
-            "role" => Role::ADMIN->value
-        ]);
+    public function registerAdmin(RegisterUserRequest $request){ 
+        $validated = $request->validated();   
+        $user = $this->service->register($validated["email"],$validated["name"],$validated["password"],Role::ADMIN);
         unset($user->id);
         return response()->json(["user"=>$user],201);
     }
-    public function registerContributor(Request $request){
-        $validation = Validator::make($request->all(),[
-            "email" => "required|email|unique:users", // todo: add regex
-            "name" => "required|string",
-            "password" =>"required|string"
-        ]);
-        if($validation->fails()){
-            return response()->json($validation->errors()->all(),400);
-        }
-        $validated = $validation->validated();
-        $user = User::create([
-            "email" => $validated["email"],
-            "name" => $validated["name"],
-            "password" => Hash::make($validated["password"]),
-            "user_uuid" => Str::uuid(),
-            "role" => Role::CONTRIBUTOR->value
-        ]);
+    public function registerContributor(RegisterUserRequest $request){
+        $validated = $request->validated();
+        $user = $this->service->register($validated["email"],$validated["name"],$validated["password"],Role::CONTRIBUTOR);
         return response()->json(["user"=>$user],201);
     }
-    public function registerCrosschecker(Request $request){
-        $validation = Validator::make($request->all(),[
-            "email" => "required|email|unique:users", // todo: add regex
-            "name" => "required|string",
-            "password" =>"required|string"
-        ]);
-        if($validation->fails()){
-            return response()->json($validation->errors()->all(),400);
-        }
-        $validated = $validation->validated();
-        $user = User::create([
-            "email" => $validated["email"],
-            "name" => $validated["name"],
-            "password" => Hash::make($validated["password"]),
-            "user_uuid" => Str::uuid(),
-            "role" => Role::CROSSCHECKER->value
-        ]);
+    public function registerCrosschecker(RegisterUserRequest $request){
+        $validated = $request->validated();
+        $user = $this->service->register($validated["email"],$validated["name"],$validated["password"],Role::CROSSCHECKER);
         return response()->json(["user"=>$user],201);
     }
     public function login(Request $request){
@@ -87,7 +51,7 @@ class UserController extends Controller
             return response()->json(["error"=>"Incorrect Password"],401);
         }
             $userToken = $user->createToken("myusertoken")->plainTextToken;
-            $user->id = null;
+            unset($user->id);
             return response()->json(["user"=>$user,"user_token"=>$userToken],200)->withCookie(cookie()->forever('at',$userToken));
     }
 
