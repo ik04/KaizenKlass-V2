@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\Role;
+use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\RegisterUserRequest;
 use App\Models\User;
 use App\Services\UserService;
@@ -10,9 +11,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Ramsey\Uuid\Uuid;
 
 class UserController extends Controller
 {
+    // todo: learn exception handling
     public function __construct(protected UserService $service)
     {
         
@@ -34,34 +37,19 @@ class UserController extends Controller
         $user = $this->service->register($validated["email"],$validated["name"],$validated["password"],Role::CROSSCHECKER);
         return response()->json(["user"=>$user],201);
     }
-    public function login(Request $request){
-        $validation = Validator::make($request->all(),[
-            "email" => "required|email",
-            "password" => "required|string"
-        ]);
-        if($validation->fails()){
-            return response()->json($validation->errors()->all(),400);
-        }
-        $validated = $validation->validated();
-        $user = User::where("email",$validated["email"])->first();
-        if(!$user){
-            return response()->json(["error"=>"User not Found, Please Register"],401);
-        }
-        if(!Hash::check($validated["password"],$user->password)){
-            return response()->json(["error"=>"Incorrect Password"],401);
-        }
-            $userToken = $user->createToken("myusertoken")->plainTextToken;
-            unset($user->id);
-            return response()->json(["user"=>$user,"user_token"=>$userToken],200)->withCookie(cookie()->forever('at',$userToken));
+    public function login(LoginUserRequest $request){
+        $validated = $request->validated();
+        $user = $this->service->login($validated["email"],$validated["password"]);
+        $userToken = $user->createToken("myusertoken")->plainTextToken;
+        unset($user->id);
+        return response()->json(["user"=>$user,"user_token"=>$userToken],200)->withCookie(cookie()->forever('at',$userToken));
     }
 
     public function logout(Request $request){
-
-        $request->user()->tokens()->delete();
-        $response =  [
+        $this->service->logout($request);
+        return response([
             'message' => 'logged out'
-        ];
-        return response($response,200);
+        ],200);
     }
 
     public function userData(Request $request){
@@ -91,42 +79,29 @@ class UserController extends Controller
             'access_token' => $request -> cookie('at'),
         ],200);
     }
-    public function deleteUser($userUuid)
+    public function deleteUser(Uuid $userUuid)
 {
-    $user = User::where('user_uuid', $userUuid)->first();
-
-    if (!$user) {
-        return response()->json(["error" => "User not found"], 404);
-    }
-
-    $user->delete();
-
+    // todo: add more checks, to prevent bs
+    $this->service->deleteUser($userUuid);
     return response()->json(["message" => "User deleted successfully"], 200);
 }
 
-public function updateUser(Request $request, $userUuid)
-{
+// public function updateUser(Request $request, $userUuid)
+// {
+//     $user = User::where('user_uuid', $userUuid)->first();
 
-    $user = User::where('user_uuid', $userUuid)->first();
+//     if (!$user) {
+//         return response()->json(["error" => "User not found"], 404);
+//     }
 
-    if (!$user) {
-        return response()->json(["error" => "User not found"], 404);
-    }
+//     $user->save();
 
-    $user->save();
-
-    return response()->json(["user" => $user], 200);
-}
+//     return response()->json(["user" => $user], 200);
+// }
 
 public function deleteOwnAccount(Request $request, $userUuid)
 {
-    if ($userUuid !== $request->user()->user_uuid) {
-        return response()->json(["error" => "Unauthorized"], 401);
-    }
-
-    // Delete the authenticated user's account
-    $request->user()->delete();
-
+    $this->service->deleteOwnAccount($request,$userUuid);
     return response()->json(["message" => "Account deleted successfully"], 200);
 }
 
