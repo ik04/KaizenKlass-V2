@@ -48,4 +48,5 @@ class UserService{
         }
         $request->user()->delete();
     }
+ 
 }
