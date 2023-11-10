@@ -22,6 +22,10 @@ class SubjectService{
         return $subjects;
     }
     public function deleteSubject(Uuid $subjectUuid){
+        if (!Subject::where('subject_uuid', $subjectUuid)->exists()) {
+            return response()->json(["error" => "Subject not found"], 404);
+        }
+        Subject::where('subject_uuid', $subjectUuid)->delete();
 
     }
 }

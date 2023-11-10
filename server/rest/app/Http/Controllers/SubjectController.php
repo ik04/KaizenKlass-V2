@@ -37,11 +37,7 @@ class SubjectController extends Controller
 
     public function deleteSubject($subjectUuid)
     {
-        if (!Subject::where('subject_uuid', $subjectUuid)->exists()) {
-            
-            return response()->json(["error" => "Subject not found"], 404);
-        }
-        Subject::where('subject_uuid', $subjectUuid)->delete();
+        $this->service->deleteSubject($subjectUuid);
         return response()->json(["message" => "Subject deleted successfully"], 200);
     }
 
