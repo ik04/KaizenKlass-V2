@@ -1,4 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
+import { Landing } from "~/components/landing";
 
 export const meta: MetaFunction = () => {
   return [
@@ -8,5 +9,9 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
-  return <div className="text-red-500">hi mom</div>;
+  return (
+    <div className="">
+      <Landing />
+    </div>
+  );
 }

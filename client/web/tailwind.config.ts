@@ -3,7 +3,18 @@ import type { Config } from "tailwindcss";
 export default {
   content: ["./app/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        highlight: "#E5E5CB",
+        highlightSecondary: "#D5CEA3",
+        primary: "#1A120B",
+        primaryLighter: "#3C2A21",
+      },
+      fontFamily: {
+        display: ["DM Serif Display", "sans"],
+        base: ["Oxanium", "sans"],
+      },
+    },
   },
   plugins: [],
 } satisfies Config;
