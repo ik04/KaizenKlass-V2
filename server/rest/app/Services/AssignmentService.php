@@ -144,6 +144,12 @@ class AssignmentService{
                 "solutions" => $solutionsData
             ];
         }
+        public function getAssignmentsWithSubjects(){
+            $assignments = Assignment::join("subjects","subjects.id","=","assignments.subject_id")->select("assignments.title","assignments.assignment_uuid","subjects.subject")->get();
+            return $assignments;
+
+
+        }
         
     
     }

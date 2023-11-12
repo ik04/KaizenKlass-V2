@@ -299,7 +299,7 @@ public function getSolutionsByAssignment($assignmentUuid)
 
 
     public function getAssignmentsWithSubjects(Request $request){
-    $assignments = Assignment::join("subjects","subjects.id","=","assignments.subject_id")->select("assignments.title","assignments.assignment_uuid","subjects.subject")->get();
+        $assignments = $this->service->getAssignmentsWithSubjects();
     return response()->json(["assignments"=>$assignments],200);
     }
 
