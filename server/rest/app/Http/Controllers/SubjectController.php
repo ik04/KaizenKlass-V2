@@ -41,18 +41,7 @@ class SubjectController extends Controller
         return response()->json(["message" => "Subject deleted successfully"], 200);
     }
 
-    public function getAssignmentsBySubject(Request $request, $subjectUuid){
-
-        $subject = Subject::where('subject_uuid', $subjectUuid)->first();
-
-    if (!$subject) {
-        return response()->json(["error" => "Subject not found"], 404);
-    }
-    $subjectId = $this->getSubjectId($subjectUuid);
-    $assignments = Assignment::select(["title","assignment_uuid"])->where("subject_id",$subjectId)->get();
-    return response()->json(["assignments"=>$assignments,"subject"=>$subject["subject"]],200);
-    }
-
+  
 }
 // todo: continue shifting
 // todo: test for edgecases and implement checks

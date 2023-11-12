@@ -26,6 +26,6 @@ class SubjectService{
             return response()->json(["error" => "Subject not found"], 404);
         }
         Subject::where('subject_uuid', $subjectUuid)->delete();
-
     }
+    
 }

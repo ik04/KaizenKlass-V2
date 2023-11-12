@@ -31,7 +31,7 @@ Route::prefix("v1")->group(function(){
     Route::post("login",[UserController::class,"login"]);
     Route::get("user-data",[UserController::class,"userData"]); // No regular users
     Route::get("get-subjects",[SubjectController::class,"getSubjects"]);
-    Route::get("get-subject-assignments/{subjectUuid}",[SubjectController::class,"getAssignmentsBySubject"]); // used in subjects page
+    Route::get("get-subject-assignments/{subjectUuid}",[AssignmentController::class,"getAssignmentsBySubject"]); // used in subjects page
     Route::get("get-assignment-solutions/{assignmentUuid}",[AssignmentController::class,"getSolutionsByAssignment"]); // for each assignment
     Route::get("get-assignment-subjects",[AssignmentController::class,"getAssignmentsWithSubjects"]); // for assignments page
     Route::get("get-assignments/{assignmentUuid}",[AssignmentController::class,"getAssignment"]); // for each assignment
