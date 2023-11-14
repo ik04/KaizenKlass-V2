@@ -6,6 +6,7 @@ use App\Models\Subject;
 use App\Models\User;
 use App\Services\SubjectService;
 use Exception;
+use Illuminate\Validation\ValidationException;
 use Ramsey\Uuid\Uuid;
 
 class AssignmentService{
@@ -46,6 +47,12 @@ class AssignmentService{
             "assignment_uuid" => Uuid::uuid4(),
         ];
     
+        // if ($content && !preg_match('~https:\/\/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]{33})\/view\?usp=sharing~', $content)) {
+        //     throw ValidationException::withMessages(["content" => ["Invalid Gdrive link"]]);
+        // }
+
+        // todo: fix this everywhere
+
         if($content){
             $assignmentData["content"] = $content;
         }

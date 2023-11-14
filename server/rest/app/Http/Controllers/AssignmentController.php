@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
 use App\Exceptions\NotFoundException;
-
+use Illuminate\Validation\ValidationException;
 
 // todo: exception handling
 // ! breaking change: adding content table in the future
@@ -42,15 +42,24 @@ class AssignmentController extends Controller
     }
 
     public function addAssignment(AddAssignmentRequest $request){
-        $validated = $request->validated();
-        $assignment = $this->service->addAssignment(
-            $validated["title"],
-            $validated["description"],
-            $validated["subject_uuid"],
-            $validated["content"] ?? null,
-            $validated["link"] ?? null
-        );
-        return response()->json(["assignment" => $assignment],201);
+        try{
+
+            $validated = $request->validated();
+            
+            $assignment = $this->service->addAssignment(
+                $validated["title"],
+                $validated["description"],
+                $validated["subject_uuid"],
+                $validated["content"] ?? null,
+                $validated["link"] ?? null
+            );
+            return response()->json(["assignment" => $assignment],201);
+        }catch(ValidationException $e){
+            return response()->json(["error" => $e->getMessage()],400);
+        }
+        catch(Exception $e){
+            return response()->json(["error" => $e->getMessage()],400);
+        }
     }
     
     // public function addAssignment(Request $request){

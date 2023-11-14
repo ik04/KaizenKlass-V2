@@ -76,7 +76,7 @@ class SolutionService{
     }
     $solution->delete();
     }
-    
+
     public function deleteOwnSolution(string $solutionUuid,int $userId){
         $solution = Solution::where('solution_uuid', $solutionUuid)
         ->where('user_id', $userId)
@@ -84,6 +84,7 @@ class SolutionService{
         if (!$solution) {
         throw new SolutionNotFoundException(message:"Solution not found",code:404);
     }
+    
     $solution->delete();
     }
 }
