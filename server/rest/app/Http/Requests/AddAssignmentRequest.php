@@ -13,9 +13,16 @@ class AddAssignmentRequest extends FormRequest
         return [
             "title" => "required|string",
             "subject_uuid" => "required|uuid",
-            "description" => "string|nullable",
+            "description" => "string",
             "link"=>"string|nullable",
             "content" => "regex:~https:\/\/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]{33})\/view\?usp=sharing~|string|nullable",];
+    }
+
+    public function messages(): array
+    {
+        return [
+            "content.regex" => "The content field must be a valid Google Drive URL.",
+        ];
     }
 
     protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
@@ -26,7 +33,6 @@ class AddAssignmentRequest extends FormRequest
     protected function errorResponse(\Illuminate\Contracts\Validation\Validator $validator)
     {
         return response()->json([
-            'message' => 'Invalid Gdrive link',
             'errors' => $validator->errors(),
         ], 422);
     }
