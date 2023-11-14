@@ -17,21 +17,16 @@ class AddSolutionRequest extends FormRequest
         
     }
 
-    protected function withValidator($validator)
-    {
-        $validator->after(function ($validator) {
-            $content = $this->input('content');
-
-            if ($content && !preg_match('~https:\/\/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]{33})\/view\?usp=sharing~', $content)) {
-                $validator->errors()->add('content', 'The content field must be a valid Google Drive link.');
-            }
-        });
-    }
-
     protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
     {
-        throw new ValidationException($validator, $this->response(
-            $this->formatErrors($validator)
-        ));
+        throw new ValidationException($validator, $this->errorResponse($validator));
+    }
+
+    protected function errorResponse(\Illuminate\Contracts\Validation\Validator $validator)
+    {
+        return response()->json([
+            'message' => 'Invalid Gdrive link',
+            'errors' => $validator->errors(),
+        ], 422);
     }
 }
