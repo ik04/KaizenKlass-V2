@@ -9,6 +9,7 @@ export default {
         highlightSecondary: "#D5CEA3",
         primary: "#1A120B",
         primaryLighter: "#3C2A21",
+        dashboard: "#251A10",
       },
       fontFamily: {
         display: ["DM Serif Display", "sans"],
