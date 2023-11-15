@@ -16,7 +16,7 @@ export const Dashboard = ({ children }: { children: React.ReactNode }) => {
         </div>
       </div>
       <div className="sidebar-and-content flex h-full w-full">
-        <div className="sidebar h-full bg-dashboard items-center space-y-16 w-[150px] py-10 flex flex-col">
+        <div className="sidebar h-full bg-dashboard items-center space-y-20 w-[150px] py-10 flex flex-col">
           {sidebarIcons.map((icon) => (
             <Link key={icon.name} to={icon.href}>
               <img src={icon.img} alt={icon.name} />
