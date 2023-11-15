@@ -4,7 +4,11 @@ import React from "react";
 export const Dashboard = ({ children }: { children: React.ReactNode }) => {
   const sidebarIcons = [
     { href: "/home", img: "/assets/home.svg", name: "home" },
-    { href: "/", img: "/assets/assignments.svg", name: "assignments" },
+    {
+      href: "/assignments",
+      img: "/assets/assignments.svg",
+      name: "assignments",
+    },
     { href: "/", img: "/assets/skull.svg", name: "deadlines" },
   ];
   return (
