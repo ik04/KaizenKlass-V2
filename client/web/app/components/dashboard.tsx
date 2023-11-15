@@ -23,7 +23,9 @@ export const Dashboard = ({ children }: { children: React.ReactNode }) => {
             </Link>
           ))}
         </div>
-        <div className="content p-10">{children}</div>
+        <div className="content overflow-auto w-full px-16 py-10 mb-16">
+          {children}
+        </div>
       </div>
     </div>
   );
