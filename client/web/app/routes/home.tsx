@@ -5,7 +5,7 @@ import { SubjectCard } from "~/components/subjectCard";
 
 export default function home() {
   const { subjects }: { subjects: Subject[] } = useLoaderData();
-  console.log(subjects);
+  // console.log(subjects);
   return (
     <div className="bg-primary min-h-screen">
       <Dashboard>
@@ -23,6 +23,7 @@ export default function home() {
     </div>
   );
 }
+// todo: make an actual dashboard with useful info to replace subjects page and make subjects page its own thing
 export async function loader() {
   const url = `${process.env.PUBLIC_DOMAIN}/api/v1/get-subjects`;
   const resp = await axios.get(url);

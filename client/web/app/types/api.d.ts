@@ -6,4 +6,5 @@ interface Assignment {
   title: string;
   assignment_uuid: string;
   subject: string;
+  subject_uuid: string;
 }

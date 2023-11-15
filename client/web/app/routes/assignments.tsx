@@ -5,19 +5,20 @@ import { Dashboard } from "~/components/dashboard";
 
 export default function assignments() {
   const { assignments }: { assignments: Assignment[] } = useLoaderData();
-  console.log(assignments);
+  //   console.log(assignments);
   return (
     <div className="bg-primary h-screen">
       <Dashboard>
         <div className="font-display text-highlightSecondary mb-7 text-6xl">
           Assignments
         </div>
-        <div className="">
+        <div className="flex flex-col space-y-7">
           {assignments.map((assignment) => (
             <AssignmentCard
               subject={assignment.subject}
               title={assignment.title}
               assignment_uuid={assignment.assignment_uuid}
+              subject_uuid={assignment.subject_uuid}
             />
           ))}
         </div>
