@@ -9,8 +9,8 @@ export const AssignmentCard = ({
 }: {
   title: string;
   assignment_uuid: string;
-  subject: string;
-  subject_uuid: string;
+  subject?: string;
+  subject_uuid?: string;
 }) => {
   return (
     <Link
@@ -20,12 +20,14 @@ export const AssignmentCard = ({
       <Link to={`/assignment/${assignment_uuid}`} className="">
         <h2 className="text-4xl font-base text-highlight">{title}</h2>
       </Link>
-      <Link
-        to={`/subject/${subject_uuid}`}
-        className="text-highlightSecondary font-base"
-      >
-        {subject}
-      </Link>
+      {subject && subject_uuid && (
+        <Link
+          to={`/subject/${subject_uuid}`}
+          className="text-highlightSecondary font-base"
+        >
+          {subject}
+        </Link>
+      )}
     </Link>
   );
 };

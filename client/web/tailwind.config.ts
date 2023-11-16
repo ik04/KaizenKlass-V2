@@ -19,3 +19,16 @@ export default {
   },
   plugins: [],
 } satisfies Config;
+
+/**
+ * 
+    future pallette
+    
+ *  colors: {
+        highlight: "#EEEEEE",
+        highlightSecondary: "#00ADB5",
+        primary: "#303841",
+        primaryLighter: "#3A4750",
+        dashboard: "#251A10",
+      },
+ */
