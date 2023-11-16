@@ -4,7 +4,6 @@ import { Dashboard } from "~/components/dashboard";
 import { SubjectCard } from "~/components/subjectCard";
 
 export default function home() {
-  //
   const { subjects }: { subjects: Subject[] } = useLoaderData();
   // console.log(subjects);
   return (

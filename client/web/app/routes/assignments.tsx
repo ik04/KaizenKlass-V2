@@ -1,7 +1,6 @@
 import { useLoaderData } from "@remix-run/react";
 import axios from "axios";
 import { AssignmentCard } from "~/components/assignmentCard";
-import { BackButton } from "~/components/backButton";
 import { Dashboard } from "~/components/dashboard";
 
 export default function assignments() {
@@ -10,11 +9,8 @@ export default function assignments() {
   return (
     <div className="bg-primary h-screen">
       <Dashboard>
-        <div className="header w-full h-20 mb-10 flex justify-between items-center text-5xl">
-          <BackButton />
-          <div className="font-display text-highlightSecondary mb-7 text-5xl">
-            Assignments
-          </div>
+        <div className="font-display text-highlightSecondary mb-7 text-6xl">
+          Assignments
         </div>
         <div className="flex flex-col space-y-7">
           {assignments.map((assignment) => (
