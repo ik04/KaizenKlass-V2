@@ -1,28 +1,26 @@
 import { useLoaderData } from "@remix-run/react";
 import axios from "axios";
-import { AssignmentCard } from "~/components/assignmentCard";
+import React from "react";
 import { BackButton } from "~/components/backButton";
 import { Dashboard } from "~/components/dashboard";
+import { DeadlineCard } from "~/components/deadlineCard";
 
-export default function assignments() {
-  const { assignments }: { assignments: Assignment[] } = useLoaderData();
-  //   console.log(assignments);
+export default function deadlines() {
+  const { assignments }: { assignments: AssignmentWithDeadline[] } =
+    useLoaderData();
   return (
     <div className="bg-main h-screen">
       <Dashboard>
         <div className="header w-full h-20 mb-10 flex justify-between items-center text-5xl">
           <BackButton />
-          <div className="font-display text-highlightSecondary mb-7 text-5xl">
-            Assignments
-          </div>
+          <div className="font-display text-highlightSecondary">Deadlines</div>
         </div>
-        <div className="flex flex-col space-y-7 mb-20">
+        <div className="flex flex-col space-y-7">
           {assignments.map((assignment) => (
-            <AssignmentCard
-              subject={assignment.subject}
-              title={assignment.title}
+            <DeadlineCard
               assignment_uuid={assignment.assignment_uuid}
-              subject_uuid={assignment.subject_uuid}
+              title={assignment.title}
+              deadline={assignment.deadline}
             />
           ))}
         </div>
@@ -32,7 +30,7 @@ export default function assignments() {
 }
 
 export const loader = async () => {
-  const url = `${process.env.PUBLIC_DOMAIN}/api/v1/get-assignment-subjects`;
+  const url = `${process.env.PUBLIC_DOMAIN}/api/v1/get-deadlines`;
   const resp = await axios.get(url);
   return resp.data;
 };

@@ -9,7 +9,7 @@ export const Dashboard = ({ children }: { children: React.ReactNode }) => {
       img: "/assets/assignments.svg",
       name: "assignments",
     },
-    { href: "/", img: "/assets/skull.svg", name: "deadlines" },
+    { href: "/deadlines", img: "/assets/skull.svg", name: "deadlines" },
   ];
   return (
     <div className="flex-col h-screen fixed">

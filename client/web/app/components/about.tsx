@@ -1,6 +1,6 @@
 export const About = () => {
   return (
-    <div className="h-screen bg-primary flex justify-center items-center">
+    <div className="h-screen bg-main flex justify-center items-center">
       <div className="about-section w-full justify-evenly flex items-center space-x-56">
         <div className="content flex flex-col space-y-4 items-start">
           <h2 className="font-display text-highlight text-[80px]">

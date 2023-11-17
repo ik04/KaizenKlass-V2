@@ -12,13 +12,13 @@ export default function subject() {
   }: { assignments: Assignment[]; subject: string } = useLoaderData();
   console.log(assignments);
   return (
-    <div className="bg-primary h-screen">
+    <div className="bg-main h-screen">
       <Dashboard>
         <div className="header w-full h-20 mb-10 flex justify-between items-center text-5xl">
           <BackButton />
           <div className="font-display text-highlightSecondary">{subject}</div>
         </div>
-        <div className="flex-col space-y-7 flex">
+        <div className="flex-col space-y-7 flex mb-20">
           {assignments.map((assignment) => (
             <AssignmentCard
               subject={assignment.subject}

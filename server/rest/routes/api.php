@@ -36,6 +36,7 @@ Route::prefix("v1")->group(function(){
     Route::get("get-assignment-subjects",[AssignmentController::class,"getAssignmentsWithSubjects"]); // for assignments page
     Route::get("get-assignments/{assignmentUuid}",[AssignmentController::class,"getAssignment"]); // for each assignment
     Route::get("get-assignments",[AssignmentController::class,"getAssignments"]);
+    Route::get("get-deadlines",[AssignmentController::class,"getAssignmentsWithDeadline"]);
 
 
     // * contributor routes

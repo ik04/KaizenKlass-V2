@@ -154,8 +154,14 @@ class AssignmentService{
         public function getAssignmentsWithSubjects(){
             $assignments = Assignment::join("subjects","subjects.id","=","assignments.subject_id")->select("assignments.title","assignments.assignment_uuid","subjects.subject","subjects.subject_uuid")->get();
             return $assignments;
-
-
+        }
+        public function getAssignmentsWithDeadline(){
+            $currentDateTime = now(); // Get the current date and time
+            $assignments = Assignment::select("title", "deadline", "assignment_uuid")
+            ->where("deadline", "!=", null)
+            ->where("deadline", ">", $currentDateTime) 
+            ->get();            
+            return $assignments;
         }
         
     

@@ -8,7 +8,7 @@ export default function home() {
   const { subjects }: { subjects: Subject[] } = useLoaderData();
   // console.log(subjects);
   return (
-    <div className="bg-primary min-h-screen">
+    <div className="bg-main min-h-screen">
       <Dashboard>
         <div className="grid grid-cols-4">
           {subjects.map((subject) => (

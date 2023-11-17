@@ -318,5 +318,9 @@ public function getSolutionsByAssignment($assignmentUuid)
     $subjectAndAssignments = $this->service->getAssignmentsBySubject($subjectUuid);
     return response()->json(["assignments"=>$subjectAndAssignments["assignments"],"subject"=>$subjectAndAssignments["subjectName"]],200);
     }
+
+    public function getAssignmentsWithDeadline(){
+        $assignmentsWithDeadline = $this->service->getAssignmentsWithDeadline();
+        return response()->json(["assignments"=>$assignmentsWithDeadline],200);
+    }
 }
-// todo: shift to service classes
