@@ -16,6 +16,7 @@ class Assignment extends Model
         "assignment_uuid",
         "link",
         "content",
+        "deadline"
     ];
 
     /**

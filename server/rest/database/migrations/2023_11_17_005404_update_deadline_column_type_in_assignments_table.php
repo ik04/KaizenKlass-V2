@@ -12,9 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('assignments', function (Blueprint $table) {
-            $table->after("assignment_uuid", function(Blueprint $table) {
-                $table->foreign("subject_id")->references('id')->on('subjects')->onDelete('cascade');
-            });
+            $table->dateTime("deadline")->nullable()->change();
         });
     }
 
@@ -23,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // Schema::table('assignments', function (Blueprint $table) {
-        //     $table->dropForeign(['subject_id']);
-        // });
+        Schema::table('assignments', function (Blueprint $table) {
+            //
+        });
     }
 };

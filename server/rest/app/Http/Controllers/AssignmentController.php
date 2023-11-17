@@ -51,7 +51,8 @@ class AssignmentController extends Controller
                 $validated["description"],
                 $validated["subject_uuid"],
                 $validated["content"] ?? null,
-                $validated["link"] ?? null
+                $validated["link"] ?? null,
+                $validated["deadline"] ?? null
             );
             return response()->json(["assignment" => $assignment],201);
         }catch(ValidationException $e){

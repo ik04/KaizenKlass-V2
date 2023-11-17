@@ -33,7 +33,7 @@ class AssignmentService{
     return $result;
     }
 
-    public function addAssignment(string $title,string $description,string $subjectUuid,?string $content = null, ?string $link = null){
+    public function addAssignment(string $title,string $description,string $subjectUuid,?string $content = null, ?string $link = null,?string $deadline = null){
         if (!Subject::where("subject_uuid", $subjectUuid)->exists()) {
             return response()->json(["message" => "Subject not found"], 404);
         }
@@ -46,12 +46,6 @@ class AssignmentService{
             "subject_id" => $subjectId,
             "assignment_uuid" => Uuid::uuid4(),
         ];
-    
-        // if ($content && !preg_match('~https:\/\/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]{33})\/view\?usp=sharing~', $content)) {
-        //     throw ValidationException::withMessages(["content" => ["Invalid Gdrive link"]]);
-        // }
-
-        // todo: fix this everywhere
 
         if($content){
             $assignmentData["content"] = $content;
@@ -59,6 +53,9 @@ class AssignmentService{
     
         if($link){
             $assignmentData["link"] = $link;
+        }
+        if($deadline){
+            $assignmentData["deadline"] = $deadline;
         }
     
         $assignment = Assignment::create($assignmentData);
@@ -90,6 +87,9 @@ class AssignmentService{
             
         if (isset($data['content'])) {
             $assignment->content = $data['content'];
+        }
+        if (isset($data['deadline'])) {
+            $assignment->deadline = $data['deadline'];
         }
             
         $assignment->save();

@@ -15,6 +15,7 @@ class AddAssignmentRequest extends FormRequest
             "subject_uuid" => "required|uuid",
             "description" => "string",
             "link"=>"string|nullable",
+            "deadline" =>"nullable|date_format:Y-m-d H:i:s",
             "content" => "regex:~https:\/\/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]{33})\/view\?usp=sharing~|string|nullable",];
     }
 
