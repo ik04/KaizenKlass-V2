@@ -13,8 +13,8 @@ export default function subject() {
   }: { assignments: Assignment[]; subject: string } = useLoaderData();
   console.log(assignments);
   const [isEmpty, setIsEmpty] = useState<boolean>(false);
+
   useEffect(() => {
-    console.log(assignments.length);
     if (assignments.length === 0) {
       setIsEmpty(true);
     }
