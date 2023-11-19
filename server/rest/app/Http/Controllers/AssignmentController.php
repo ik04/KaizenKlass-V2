@@ -135,7 +135,6 @@ class AssignmentController extends Controller
             return response()->json(["assignment" => $assignment], 200);
         }catch(Exception $e){
             abort(code:404,message:$e->getMessage());
-
         }
     }
 

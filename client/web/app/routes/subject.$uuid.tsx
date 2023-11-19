@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { AssignmentCard } from "~/components/assignmentCard";
 import { BackButton } from "~/components/backButton";
 import { Dashboard } from "~/components/dashboard";
+import { EmptyState } from "~/components/emptyState";
 
 export default function subject() {
   const {
@@ -11,6 +12,14 @@ export default function subject() {
     subject,
   }: { assignments: Assignment[]; subject: string } = useLoaderData();
   console.log(assignments);
+  const [isEmpty, setIsEmpty] = useState<boolean>(false);
+  useEffect(() => {
+    console.log(assignments.length);
+    if (assignments.length === 0) {
+      setIsEmpty(true);
+    }
+  }, []);
+
   return (
     <div className="bg-main h-screen">
       <Dashboard>
@@ -18,16 +27,21 @@ export default function subject() {
           <BackButton />
           <div className="font-display text-highlightSecondary">{subject}</div>
         </div>
-        <div className="flex-col space-y-7 flex mb-20">
-          {assignments.map((assignment) => (
-            <AssignmentCard
-              subject={assignment.subject}
-              title={assignment.title}
-              assignment_uuid={assignment.assignment_uuid}
-              subject_uuid={assignment.subject_uuid}
-            />
-          ))}
-        </div>
+        {!isEmpty ? (
+          <div className="flex-col space-y-7 flex mb-20">
+            {assignments.map((assignment) => (
+              <AssignmentCard
+                key={assignment.subject_uuid}
+                subject={assignment.subject}
+                title={assignment.title}
+                assignment_uuid={assignment.assignment_uuid}
+                subject_uuid={assignment.subject_uuid}
+              />
+            ))}
+          </div>
+        ) : (
+          <EmptyState />
+        )}
       </Dashboard>
     </div>
   );
@@ -43,7 +57,7 @@ export const loader = async ({ params }: any) => {
       subject: resp.data.subject,
       assignments: resp.data.assignments,
     };
-    return resp.data;
+    return data;
   } catch (error) {
     console.error(error);
   }

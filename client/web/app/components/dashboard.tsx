@@ -15,9 +15,9 @@ export const Dashboard = ({ children }: { children: React.ReactNode }) => {
     <div className="flex-col h-screen fixed">
       <div className="w-screen bg-dashboard flex justify-start items-center px-10 space-x-10 h-28">
         <img src="/assets/hamburger.svg" alt="hamburger" className="w-16" />
-        <div className="text-highlight font-display text-[55px]">
+        <Link to={"/"} className="text-highlight font-display text-[55px]">
           KaizenKlass
-        </div>
+        </Link>
       </div>
       <div className="sidebar-and-content flex h-full w-full">
         <div className="sidebar h-full bg-dashboard items-center space-y-20 w-[150px] py-10 flex flex-col">

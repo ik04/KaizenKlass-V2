@@ -9,6 +9,7 @@ use App\Services\SubjectService;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Validation\ValidationException;
+use InvalidArgumentException;
 use Ramsey\Uuid\Uuid;
 
 class AssignmentService{
@@ -16,6 +17,19 @@ class AssignmentService{
         
 
     }
+    private function convertDriveLinkToDownloadLink(string $originalLink): ?string
+{
+    $fileIdRegex = '/\/d\/(.+?)\/|id=(.+?)&|&id=(.+?)($|&)/';
+    if (preg_match($fileIdRegex, $originalLink, $match)) {
+        $fileId = $match[1] ?? $match[2] ?? $match[3];
+        $downloadLink = "https://drive.google.com/uc?export=download&id={$fileId}";
+        return $downloadLink;
+    }
+
+    throw new InvalidArgumentException("Invalid Google Drive link format");
+}
+
+
     public function getAssignmentId($assignmentUuid){
         $actualAssignmentId = Assignment::where("assignment_uuid", $assignmentUuid)->first()->id;
         return $actualAssignmentId;
@@ -27,7 +41,6 @@ class AssignmentService{
     if (!$subject) {
         return response()->json(["error" => "Subject not found"], 404);
     }
-
     $subjectId = $this->subjectService->getSubjectId($subjectUuid);
     $assignments = Assignment::select(["title","assignment_uuid"])->where("subject_id",$subjectId)->get();
     $result = ["assignments" => $assignments,"subjectName" => $subject["subject"]];
@@ -48,7 +61,7 @@ class AssignmentService{
         ];
 
         if($content){
-            $assignmentData["content"] = $content;
+            $assignmentData["content"] = $this->convertDriveLinkToDownloadLink($content);
         }
         if($link){
             $assignmentData["link"] = $link;
