@@ -24,18 +24,27 @@ export const DeadlineCard = ({
     const hoursUntilDeadline = Math.floor(
       (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
     );
+    const minutesUntilDeadline = Math.floor(
+      (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+    );
 
     if (daysUntilDeadline > 0) {
       setReadableDeadline(
         `${daysUntilDeadline} day${daysUntilDeadline === 1 ? "" : "s"}`
       );
-    } else {
+    } else if (hoursUntilDeadline > 0) {
       setIsDanger(true);
       setReadableDeadline(
         `${hoursUntilDeadline} hour${hoursUntilDeadline === 1 ? "" : "s"}`
       );
+    } else {
+      setIsDanger(true);
+      setReadableDeadline(
+        `${minutesUntilDeadline} minute${minutesUntilDeadline === 1 ? "" : "s"}`
+      );
     }
   };
+
   useEffect(() => {
     calculateTimeUntilDeadline(deadline);
   }, [deadline]);

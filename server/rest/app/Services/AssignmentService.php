@@ -1,10 +1,12 @@
 <?php
 namespace App\Services;
 
+use App\Exceptions\SubjectNotFoundException;
 use App\Models\Assignment;
 use App\Models\Subject;
 use App\Models\User;
 use App\Services\SubjectService;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Validation\ValidationException;
 use Ramsey\Uuid\Uuid;
@@ -14,12 +16,10 @@ class AssignmentService{
         
 
     }
-
     public function getAssignmentId($assignmentUuid){
         $actualAssignmentId = Assignment::where("assignment_uuid", $assignmentUuid)->first()->id;
         return $actualAssignmentId;
     }
-
 
     public function getAssignmentsBySubject(string $subjectUuid){
     $subject = Subject::where('subject_uuid', $subjectUuid)->first();
@@ -27,6 +27,7 @@ class AssignmentService{
     if (!$subject) {
         return response()->json(["error" => "Subject not found"], 404);
     }
+
     $subjectId = $this->subjectService->getSubjectId($subjectUuid);
     $assignments = Assignment::select(["title","assignment_uuid"])->where("subject_id",$subjectId)->get();
     $result = ["assignments" => $assignments,"subjectName" => $subject["subject"]];
@@ -35,9 +36,8 @@ class AssignmentService{
 
     public function addAssignment(string $title,string $description,string $subjectUuid,?string $content = null, ?string $link = null,?string $deadline = null){
         if (!Subject::where("subject_uuid", $subjectUuid)->exists()) {
-            return response()->json(["message" => "Subject not found"], 404);
+            throw new SubjectNotFoundException(message:"Invalid Subject uuid",code:400);
         }
-    
         $subjectId = $this->subjectService->getSubjectId($subjectUuid);
     
         $assignmentData = [
@@ -50,16 +50,14 @@ class AssignmentService{
         if($content){
             $assignmentData["content"] = $content;
         }
-    
         if($link){
             $assignmentData["link"] = $link;
         }
         if($deadline){
-            $assignmentData["deadline"] = $deadline;
+            $assignmentData["deadline"] = Carbon::parse($deadline);
         }
     
         $assignment = Assignment::create($assignmentData);
-
         return $assignment;
 
     }
@@ -89,7 +87,7 @@ class AssignmentService{
             $assignment->content = $data['content'];
         }
         if (isset($data['deadline'])) {
-            $assignment->deadline = $data['deadline'];
+            $assignment->deadline = Carbon::parse($data['deadline']);
         }
             
         $assignment->save();
@@ -138,7 +136,6 @@ class AssignmentService{
                     "content" => $solution->content
                 ];
             }
-    
             // Return the assignment details without file content
             return [
                 "assignment" => [
@@ -155,14 +152,11 @@ class AssignmentService{
             $assignments = Assignment::join("subjects","subjects.id","=","assignments.subject_id")->select("assignments.title","assignments.assignment_uuid","subjects.subject","subjects.subject_uuid")->get();
             return $assignments;
         }
-        public function getAssignmentsWithDeadline(){
-            $currentDateTime = now(); // Get the current date and time
+        public function getAssignmentsWithDeadline() {
+            $currentDateTime = Carbon::now();
             $assignments = Assignment::select("title", "deadline", "assignment_uuid")
-            ->where("deadline", "!=", null)
-            ->where("deadline", ">", $currentDateTime) 
-            ->get();            
+                ->whereNotNull("deadline")->where("deadline",">",$currentDateTime)
+                ->get();
             return $assignments;
         }
-        
-    
     }

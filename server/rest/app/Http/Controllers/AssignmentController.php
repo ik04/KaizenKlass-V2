@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
 use App\Exceptions\NotFoundException;
+use App\Exceptions\SubjectNotFoundException;
 use Illuminate\Validation\ValidationException;
 
 // todo: exception handling
@@ -60,6 +61,9 @@ class AssignmentController extends Controller
         }
         catch(Exception $e){
             return response()->json(["error" => $e->getMessage()],400);
+        }
+        catch(SubjectNotFoundException $e){
+            return response()->json(["error"=>$e->getMessage()],$e->getCode());
         }
     }
     

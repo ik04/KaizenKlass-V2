@@ -6,6 +6,7 @@ use App\Http\Controllers\SolutionController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserController;
 use App\Models\Subject;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Ramsey\Uuid\Uuid;
@@ -22,7 +23,13 @@ use Ramsey\Uuid\Uuid;
 */
 Route::prefix("v1")->group(function(){
     Route::get("/healthcheck",function(){
-        return response()->json(["message" => "Hi from KaizenKlass ~Ishaan Khurana"]);
+        $test = Carbon::parse("2023-11-19 17:45:49");
+        $now = Carbon::now();
+        if($now->gt($test)){
+            return response()->json(["message" => "greater"]);
+        }else{
+            return response()->json(["message" => "lesser"]);
+        }
     });
     
     Route::post("register-admin",[UserController::class,"registerAdmin"]);
