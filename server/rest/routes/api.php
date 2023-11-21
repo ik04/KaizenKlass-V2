@@ -23,13 +23,7 @@ use Ramsey\Uuid\Uuid;
 */
 Route::prefix("v1")->group(function(){
     Route::get("/healthcheck",function(){
-        $test = Carbon::parse("2023-11-19 17:45:49");
-        $now = Carbon::now();
-        if($now->gt($test)){
-            return response()->json(["message" => "greater"]);
-        }else{
-            return response()->json(["message" => "lesser"]);
-        }
+      return response()->json(["message"=>"hello from kaizenklass"]);
     });
     
     Route::post("register-admin",[UserController::class,"registerAdmin"]);

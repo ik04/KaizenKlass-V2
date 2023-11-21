@@ -28,4 +28,8 @@ class SubjectService{
         Subject::where('subject_uuid', $subjectUuid)->delete();
     }
     
+    public function getSubjectDetails($subjectId){
+        $subjectDetails = Subject::select("subject","subject_uuid")->where("id",$subjectId)->first();
+        return $subjectDetails;
+    }
 }

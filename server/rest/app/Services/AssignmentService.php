@@ -134,6 +134,7 @@ class AssignmentService{
             if (!$assignment) {
                 return response()->json(["message" => "Assignment not found"], 404);
             }
+            $subjectDetails = $this->subjectService->getSubjectDetails($assignment->subject_id);
     
             $solutionsData = [];
             foreach ($assignment->solutions as $solution) {
@@ -156,7 +157,10 @@ class AssignmentService{
                     "description" => $assignment->description,
                     "link" => $assignment->link,
                     "assignment_uuid" => $assignment->assignment_uuid,
-                    "content" => $assignment->content
+                    "content" => $assignment->content,
+                    "subject" => $subjectDetails->subject,
+                    "subject_uuid" => $subjectDetails->subject_uuid
+
                 ],
                 "solutions" => $solutionsData
             ];

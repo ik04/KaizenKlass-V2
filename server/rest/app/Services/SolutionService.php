@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Exceptions\SolutionNotFoundException;
 use App\Models\Solution;
 use Exception;
+use InvalidArgumentException;
 use Ramsey\Uuid\Uuid;
 
 class SolutionService{
@@ -13,8 +14,21 @@ class SolutionService{
         
     }
 
+    private function convertDriveLinkToDownloadLink(string $originalLink): ?string
+    {
+        $fileIdRegex = '/\/d\/(.+?)\/|id=(.+?)&|&id=(.+?)($|&)/';
+        if (preg_match($fileIdRegex, $originalLink, $match)) {
+            $fileId = $match[1] ?? $match[2] ?? $match[3];
+            $downloadLink = "https://drive.google.com/uc?export=download&id={$fileId}";
+            return $downloadLink;
+        }
+    
+        throw new InvalidArgumentException("Invalid Google Drive link format");
+    }
+
     public function addSolution(string $description,string $assignmentUuid,string $content,int $userId){
         $assignmentId = $this->assignmentService->getAssignmentId($assignmentUuid);
+        $content = $this->convertDriveLinkToDownloadLink($content);
             $solution = Solution::create([
              "description" => $description,
              "user_id" => $userId,

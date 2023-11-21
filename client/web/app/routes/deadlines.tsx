@@ -25,7 +25,7 @@ export default function deadlines() {
           <div className="font-display text-highlightSecondary">Deadlines</div>
         </div>
         {!isEmpty ? (
-          <div className="flex flex-col space-y-7">
+          <div className="flex flex-col space-y-7 mb-20">
             {assignments.map((assignment) => (
               <DeadlineCard
                 assignment_uuid={assignment.assignment_uuid}
