@@ -8,8 +8,10 @@ export default function assignment() {
     assignment,
     solutions,
   }: { assignment: Assignment; solutions: Solution[] } = useLoaderData();
-  console.log(assignment, solutions.length);
-  // todo: refactor back functionality with this section
+  console.log(assignment, solutions);
+  // ! refactor back functionality with this section
+  // ! link tags taking all the space
+  // ? limit to 1 answer per assignment
 
   return (
     <div className="bg-main h-screen">
@@ -29,21 +31,46 @@ export default function assignment() {
             <div className="Title font-base text-highlight text-4xl ">
               {assignment.title}
             </div>
-            <div className="description font-base font-semibold text-highlightSecondary">
+            <div className="description font-base font-semibold text-highlight">
               {assignment.description}
             </div>
+            <a
+              href={`${assignment.link}`}
+              target="_blank"
+              className="flex justify-start"
+            >
+              <div className="text-highlight font-base hover:p-1 font-bold hover:bg-highlight transition-all duration-150 hover:text-mainLighter">
+                Visit Classroom
+              </div>
+            </a>
             <a
               href={`${assignment.content}`}
               target="_blank"
               className="flex justify-start"
             >
-              <div className="text-highlight font-base font-bold hover:bg-highlightSecondary transition-all duration-150 hover:text-mainLighter">
+              <div className="text-highlight font-base hover:p-1 font-bold hover:bg-highlight transition-all duration-150 hover:text-mainLighter">
                 Download Content
               </div>
             </a>
             {solutions.length > 0 && (
               <>
-                <div className=""></div>
+                <div className="w-full border border-highlightSecondary border-dashed"></div>
+                {solutions.map((solution) => (
+                  <div className="py-2">
+                    <div className="font-base text-2xl text-highlightSecondary   font-bold">
+                      Posted by: {solution.username}
+                    </div>
+                    <div className="description font-base text-highlightSecondary">
+                      {solution.description}
+                    </div>
+                    <a
+                      href={`${solution.content}`}
+                      className="text-highlightSecondary font-base font-semibold hover:p-1 hover:bg-highlightSecondary transition-all duration-150 hover:text-mainLighter"
+                    >
+                      Download Answer Content
+                    </a>
+                  </div>
+                ))}
               </>
             )}
           </div>

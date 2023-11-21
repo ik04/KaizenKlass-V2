@@ -10,6 +10,7 @@ interface Assignment {
   deadline?: string;
   description?: string;
   content?: string;
+  link: string;
 }
 interface AssignmentWithDeadline {
   title: string;
@@ -20,4 +21,5 @@ interface Solution {
   content: string;
   solution_uuid: string;
   description: string;
+  username: string;
 }

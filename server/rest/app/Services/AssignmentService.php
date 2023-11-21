@@ -13,6 +13,7 @@ use InvalidArgumentException;
 use Ramsey\Uuid\Uuid;
 
 class AssignmentService{
+    // todo: allow multiple links, allow both drive links and content in the future
     public function __construct(protected SubjectService $subjectService){
         
 
@@ -28,6 +29,7 @@ class AssignmentService{
 
     throw new InvalidArgumentException("Invalid Google Drive link format");
 }
+
 
 
     public function getAssignmentId($assignmentUuid){
