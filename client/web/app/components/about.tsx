@@ -16,7 +16,7 @@ export const About = () => {
 
           <p className="font-base text-highlightSecondary w-[800px] text-2xl">
             I know that this problem isn't limited to myself and so i want to
-            build a platform to combat these issues. i'll also creep in festures
+            build a platform to combat these issues. i'll also creep in features
             to help out students generally as well as point them to
             organizations that can help them grow, in my opinion the only reason
             we do assignments is to get by and get marks. Its a waste of our
