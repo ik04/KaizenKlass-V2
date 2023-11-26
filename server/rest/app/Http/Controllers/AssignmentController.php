@@ -66,6 +66,10 @@ class AssignmentController extends Controller
             return response()->json(["error"=>$e->getMessage()],$e->getCode());
         }
     }
+    public function test(){
+        $assignments = $this->service->test();
+        return response()->json(["assignments"=>$assignments]);
+    }
     
     // public function addAssignment(Request $request){
     //     //  * 7 fields

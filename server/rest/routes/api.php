@@ -25,6 +25,8 @@ Route::prefix("v1")->group(function(){
     Route::get("/healthcheck",function(){
       return response()->json(["message"=>"hello from kaizenklass"]);
     });
+
+    Route::get("/test",[AssignmentController::class,"test"]);
     
     Route::post("register-admin",[UserController::class,"registerAdmin"]);
     Route::post("register-contributor",[UserController::class,"registerContributor"]);
