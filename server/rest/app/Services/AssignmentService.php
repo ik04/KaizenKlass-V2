@@ -168,7 +168,7 @@ class AssignmentService{
             ];
         }
         public function getAssignmentsWithSubjects(){
-            $assignments = Assignment::join("subjects","subjects.id","=","assignments.subject_id")->select("assignments.title","assignments.assignment_uuid","subjects.subject","subjects.subject_uuid")->paginate(5);
+            $assignments = Assignment::join("subjects","subjects.id","=","assignments.subject_id")->select("assignments.title","assignments.assignment_uuid","subjects.subject","subjects.subject_uuid")->orderBy("assignments.id","DESC")->paginate(5);
             return $assignments;
         }
         public function test(){

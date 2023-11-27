@@ -1,6 +1,7 @@
 import { useLoaderData } from "@remix-run/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { AddAssignmentButton } from "~/components/addAssignmentButton";
 import { AssignmentCard } from "~/components/assignmentCard";
 import { BackButton } from "~/components/backButton";
 import { Dashboard } from "~/components/dashboard";
@@ -48,6 +49,9 @@ export default function assignments() {
             Assignments
           </div>
         </div>
+        <div className="justify-center items-center my-4">
+          <AddAssignmentButton baseUrl={baseUrl} />
+        </div>
         <div className="flex flex-col space-y-7 mb-10">
           {assignments &&
             assignments.map((assignment) => (
@@ -60,6 +64,7 @@ export default function assignments() {
               />
             ))}
         </div>
+
         {!isLastPage && (
           <div className="load-more flex mb-20 justify-center items-center cursor-pointer">
             <div
