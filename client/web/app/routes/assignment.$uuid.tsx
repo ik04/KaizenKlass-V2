@@ -1,6 +1,7 @@
 import { Link, useLoaderData } from "@remix-run/react";
 import axios from "axios";
 import React from "react";
+import { BackButton } from "~/components/backButton";
 import { Dashboard } from "~/components/dashboard";
 
 export default function assignment() {
@@ -9,14 +10,17 @@ export default function assignment() {
     solutions,
   }: { assignment: Assignment; solutions: Solution[] } = useLoaderData();
   console.log(assignment, solutions);
-  // ! refactor back functionality with this section
   // ! link tags taking all the space
   // ? limit to 1 answer per assignment
+  // ! back button looks jank
 
   return (
     <div className="bg-main h-screen">
       <Dashboard>
         <div className="folder flex flex-col">
+          <div className="p-1">
+            <BackButton />
+          </div>
           <div className="flex justify-end">
             <div className="subject-file-name border-b-mainLighter h-0 px-4 max-w-[20%] border-r-[25px] border-r-transparent border-l-[25px] border-l-transparent flex justify-start border-b-[50px]">
               <Link
