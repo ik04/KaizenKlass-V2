@@ -9,7 +9,6 @@ import { Dashboard } from "~/components/dashboard";
 export default function assignments() {
   // const { assignments }: { assignments: Assignment[] } = useLoaderData();
   // ? directly set nextpage url?
-
   const { baseUrl }: { baseUrl: string } = useLoaderData();
   const [assignments, setAssignments] = useState<Assignment[]>([]);
   const [page, setPage] = useState(1);
