@@ -8,13 +8,19 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from "@remix-run/react";
+import { GlobalState } from "./context/GlobalState";
+import axios from "axios";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
 ];
 
+axios.defaults.withCredentials = true;
+
 export default function App() {
+  const { baseUrl }: { baseUrl: string } = useLoaderData();
   return (
     <html lang="en">
       <head>
@@ -24,7 +30,9 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
+        <GlobalState baseUrl={baseUrl}>
+          <Outlet />
+        </GlobalState>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
@@ -32,3 +40,8 @@ export default function App() {
     </html>
   );
 }
+
+export const loader = async () => {
+  const baseUrl: string = process.env.PUBLIC_DOMAIN || "";
+  return { baseUrl };
+};

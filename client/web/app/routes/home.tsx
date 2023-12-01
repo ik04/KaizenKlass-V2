@@ -12,7 +12,7 @@ export default function home() {
       <Dashboard>
         <div className="grid grid-cols-4">
           {subjects.map((subject) => (
-            <div className="py-5">
+            <div key={subject.subject} className="py-10">
               <SubjectCard
                 subject={subject.subject}
                 uuid={subject.subject_uuid}

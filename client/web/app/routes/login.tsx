@@ -18,7 +18,8 @@ export default function login() {
       password,
     });
     console.log(resp);
-    navigate("/home");
+    // navigate("/home");
+    location.href = "/home";
   };
 
   // ! fix hackey vh, i suck at fe

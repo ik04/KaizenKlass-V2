@@ -25,6 +25,7 @@ export const Dashboard = ({ children }: { children: React.ReactNode }) => {
         <div className="nav-links flex justify-between px-10">
           {navlinks.map((navlink) => (
             <Link
+              key={navlink.name}
               to={navlink.href}
               className="text-highlight text-2xl uppercase font-base"
             >
