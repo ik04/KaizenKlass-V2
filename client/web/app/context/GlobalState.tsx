@@ -12,8 +12,8 @@ export const GlobalState = ({
 }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const [role, setRole] = useState("");
-  const [uuid, setUuid] = useState("");
+  const [role, setRole] = useState(0);
+  const [userUuid, setUserUuid] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const callUserData = async () => {
@@ -25,7 +25,7 @@ export const GlobalState = ({
     setUsername(resp.data.username);
     setEmail(resp.data.email);
     setRole(resp.data.role);
-    setUuid(resp.data.uuid);
+    setUserUuid(resp.data.uuid);
   };
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export const GlobalState = ({
   //! fix the context for root
   return (
     <GlobalContext.Provider
-      value={{ isAuthenticated, role, username, uuid, email }}
+      value={{ isAuthenticated, role, username, userUuid, email }}
     >
       {children}
     </GlobalContext.Provider>

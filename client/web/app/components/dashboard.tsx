@@ -1,7 +1,9 @@
 import { Link } from "@remix-run/react";
-import React from "react";
+import React, { useContext } from "react";
+import { GlobalContext } from "~/context/GlobalContext";
 
 export const Dashboard = ({ children }: { children: React.ReactNode }) => {
+  const { isAuthenticated } = useContext(GlobalContext);
   const sidebarIcons = [
     { href: "/home", img: "/assets/home.svg", name: "home" },
     {
@@ -11,7 +13,7 @@ export const Dashboard = ({ children }: { children: React.ReactNode }) => {
     },
     { href: "/deadlines", img: "/assets/skull.svg", name: "deadlines" },
   ];
-  const navlinks = [{ name: "login", href: "/login" }];
+  let navlinks = [{ name: "login", href: "/login" }];
   // todo: add active state
   return (
     <div className="flex-col h-screen fixed">

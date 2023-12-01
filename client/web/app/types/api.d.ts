@@ -28,3 +28,11 @@ interface Subject {
   subject: string;
   subject_uuid: string;
 }
+
+interface GlobalContextValue {
+  isAuthenticated: boolean;
+  role: number;
+  email: string;
+  username: string;
+  userUuid: string;
+}
