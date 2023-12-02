@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { GlobalContext } from "~/context/GlobalContext";
 
 export const Dashboard = ({ children }: { children: React.ReactNode }) => {
-  const { isAuthenticated } = useContext(GlobalContext);
+  const { isAuthenticated, username } = useContext(GlobalContext);
   const sidebarIcons = [
     { href: "/home", img: "/assets/home.svg", name: "home" },
     {
@@ -13,7 +13,9 @@ export const Dashboard = ({ children }: { children: React.ReactNode }) => {
     },
     { href: "/deadlines", img: "/assets/skull.svg", name: "deadlines" },
   ];
-  let navlinks = [{ name: "login", href: "/login" }];
+  const navlinks = [{ name: "login", href: "/login" }];
+  const authLinks = [{ name: username, href: "/profile" }];
+
   // todo: add active state
   return (
     <div className="flex-col h-screen fixed">
@@ -25,15 +27,31 @@ export const Dashboard = ({ children }: { children: React.ReactNode }) => {
           </Link>
         </div>
         <div className="nav-links flex justify-between px-10">
-          {navlinks.map((navlink) => (
-            <Link
-              key={navlink.name}
-              to={navlink.href}
-              className="text-highlight text-2xl uppercase font-base"
-            >
-              {navlink.name}
-            </Link>
-          ))}
+          {!isAuthenticated ? (
+            <>
+              {navlinks.map((navlink) => (
+                <Link
+                  key={navlink.name}
+                  to={navlink.href}
+                  className="text-highlight text-2xl uppercase font-base"
+                >
+                  {navlink.name}
+                </Link>
+              ))}
+            </>
+          ) : (
+            <>
+              {authLinks.map((navlink) => (
+                <Link
+                  key={navlink.name}
+                  to={navlink.href}
+                  className="text-highlight text-2xl uppercase font-base"
+                >
+                  {navlink.name}
+                </Link>
+              ))}
+            </>
+          )}
         </div>
       </div>
       <div className="sidebar-and-content flex h-full w-full">

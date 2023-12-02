@@ -13,6 +13,8 @@ export default function assignment() {
   // ! link tags taking all the space
   // ? limit to 1 answer per assignment
   // ! back button looks jank
+  // todo: add dates
+  // todo: ideate on figma design for divisions
 
   return (
     <div className="bg-main h-screen">
@@ -60,12 +62,9 @@ export default function assignment() {
               <>
                 <div className="w-full border border-highlightSecondary border-dashed"></div>
                 {solutions.map((solution) => (
-                  <div className="py-2">
-                    <div className="font-base text-2xl text-highlightSecondary   font-bold">
+                  <div className="flex flex-col justify-between items-start">
+                    <div className="font-base text-2xl text-highlightSecondary mb-2 capitalize font-bold">
                       Posted by: {solution.username}
-                    </div>
-                    <div className="description font-base text-highlightSecondary">
-                      {solution.description}
                     </div>
                     <a
                       href={`${solution.content}`}
@@ -73,6 +72,10 @@ export default function assignment() {
                     >
                       Download Answer Content
                     </a>
+                    <div className="description font-base text-highlightSecondary mb-[2px]">
+                      {solution.description}
+                    </div>
+                    <div className="w-full border border-highlightSecondary border-dashed"></div>
                   </div>
                 ))}
               </>
