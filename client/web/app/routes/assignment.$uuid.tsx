@@ -8,17 +8,16 @@ export default function assignment() {
   const {
     assignment,
     solutions,
-  }: { assignment: Assignment; solutions: Solution[] } = useLoaderData();
+    baseUrl,
+  }: { assignment: Assignment; solutions: Solution[]; baseUrl: string } =
+    useLoaderData();
   console.log(assignment, solutions);
-  // ! link tags taking all the space
   // ? limit to 1 answer per assignment
-  // ! back button looks jank
   // todo: add dates
   // todo: ideate on figma design for divisions
-
   return (
     <div className="bg-main h-screen">
-      <Dashboard>
+      <Dashboard baseUrl={baseUrl}>
         <div className="folder flex flex-col">
           <div className="p-1">
             <BackButton />
@@ -96,6 +95,7 @@ export const loader = async ({ params }: any) => {
     const data = {
       solutions: resp.data.solutions,
       assignment: resp.data.assignment,
+      baseUrl: process.env.PUBLIC_DOMAIN,
     };
     return data;
   } catch (error) {

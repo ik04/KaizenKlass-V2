@@ -5,11 +5,12 @@ import { SubjectCard } from "~/components/subjectCard";
 
 export default function home() {
   //
-  const { subjects }: { subjects: Subject[] } = useLoaderData();
+  const { subjects, baseUrl }: { subjects: Subject[]; baseUrl: string } =
+    useLoaderData();
   // console.log(subjects);
   return (
     <div className="bg-main min-h-screen">
-      <Dashboard>
+      <Dashboard baseUrl={baseUrl}>
         <div className="grid grid-cols-4">
           {subjects.map((subject) => (
             <div key={subject.subject} className="py-10">
@@ -28,6 +29,9 @@ export default function home() {
 export async function loader() {
   const url = `${process.env.PUBLIC_DOMAIN}/api/v1/get-subjects`;
   const resp = await axios.get(url);
-  // console.log(resp);
-  return resp.data;
+  const data = {
+    subjects: resp.data.subjects,
+    baseUrl: process.env.PUBLIC_DOMAIN,
+  };
+  return data;
 }

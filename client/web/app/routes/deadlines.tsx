@@ -7,7 +7,10 @@ import { DeadlineCard } from "~/components/deadlineCard";
 import { EmptyState } from "~/components/emptyState";
 
 export default function deadlines() {
-  const { assignments }: { assignments: AssignmentWithDeadline[] } =
+  const {
+    assignments,
+    baseUrl,
+  }: { assignments: AssignmentWithDeadline[]; baseUrl: string } =
     useLoaderData();
   const [isEmpty, setIsEmpty] = useState<boolean>();
 
@@ -19,7 +22,7 @@ export default function deadlines() {
 
   return (
     <div className="bg-main h-screen">
-      <Dashboard>
+      <Dashboard baseUrl={baseUrl}>
         <div className="header w-full h-20 mb-10 flex justify-between items-center text-5xl">
           <BackButton />
           <div className="font-display text-highlightSecondary">Deadlines</div>
@@ -45,5 +48,9 @@ export default function deadlines() {
 export const loader = async () => {
   const url = `${process.env.PUBLIC_DOMAIN}/api/v1/get-deadlines`;
   const resp = await axios.get(url);
-  return resp.data;
+  const data = {
+    assignments: resp.data.assignments,
+    baseUrl: process.env.PUBLIC_DOMAIN,
+  };
+  return data;
 };

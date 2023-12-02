@@ -10,7 +10,9 @@ export default function subject() {
   const {
     assignments,
     subject,
-  }: { assignments: Assignment[]; subject: string } = useLoaderData();
+    baseUrl,
+  }: { assignments: Assignment[]; subject: string; baseUrl: string } =
+    useLoaderData();
   console.log(assignments);
   const [isEmpty, setIsEmpty] = useState<boolean>(false);
 
@@ -22,7 +24,7 @@ export default function subject() {
 
   return (
     <div className="bg-main h-screen">
-      <Dashboard>
+      <Dashboard baseUrl={baseUrl}>
         <div className="header w-full h-20 mb-10 flex justify-between items-center text-5xl">
           <BackButton />
           <div className="font-display text-highlightSecondary">{subject}</div>
@@ -56,6 +58,7 @@ export const loader = async ({ params }: any) => {
     const data = {
       subject: resp.data.subject,
       assignments: resp.data.assignments,
+      baseUrl: process.env.PUBLIC_DOMAIN,
     };
     return data;
   } catch (error) {

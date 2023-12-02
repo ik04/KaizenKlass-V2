@@ -41,7 +41,7 @@ export default function assignments() {
   }, []);
   return (
     <div className="bg-main h-screen">
-      <Dashboard>
+      <Dashboard baseUrl={baseUrl}>
         <div className="header w-full h-20 mb-10 flex justify-between items-center text-5xl">
           <BackButton />
           <div className="font-display text-highlightSecondary mb-7 text-5xl">

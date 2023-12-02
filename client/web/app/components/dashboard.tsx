@@ -1,8 +1,16 @@
 import { Link } from "@remix-run/react";
+import axios from "axios";
 import React, { useContext } from "react";
 import { GlobalContext } from "~/context/GlobalContext";
 
-export const Dashboard = ({ children }: { children: React.ReactNode }) => {
+// ! shift dashboard to global ( this is bad practice lmao)
+export const Dashboard = ({
+  children,
+  baseUrl,
+}: {
+  children: React.ReactNode;
+  baseUrl: string;
+}) => {
   const { isAuthenticated, username } = useContext(GlobalContext);
   const sidebarIcons = [
     { href: "/home", img: "/assets/home.svg", name: "home" },
@@ -15,6 +23,10 @@ export const Dashboard = ({ children }: { children: React.ReactNode }) => {
   ];
   const navlinks = [{ name: "login", href: "/login" }];
   const authLinks = [{ name: username, href: "/profile" }];
+  const logout = async () => {
+    const resp = await axios.post(`${baseUrl}/api/v1/logout`);
+    location.reload();
+  };
 
   // todo: add active state
   return (
@@ -26,33 +38,37 @@ export const Dashboard = ({ children }: { children: React.ReactNode }) => {
             KaizenKlass
           </Link>
         </div>
-        <div className="nav-links flex justify-between px-10">
-          {!isAuthenticated ? (
-            <>
-              {navlinks.map((navlink) => (
-                <Link
-                  key={navlink.name}
-                  to={navlink.href}
-                  className="text-highlight text-2xl uppercase font-base"
-                >
-                  {navlink.name}
-                </Link>
-              ))}
-            </>
-          ) : (
-            <>
-              {authLinks.map((navlink) => (
-                <Link
-                  key={navlink.name}
-                  to={navlink.href}
-                  className="text-highlight text-2xl uppercase font-base"
-                >
-                  {navlink.name}
-                </Link>
-              ))}
-            </>
-          )}
-        </div>
+        {!isAuthenticated ? (
+          <div className="nav-links flex items-center justify-between px-10">
+            {navlinks.map((navlink) => (
+              <Link
+                key={navlink.name}
+                to={navlink.href}
+                className="text-highlight text-2xl uppercase font-base"
+              >
+                {navlink.name}
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <div className="nav-links px-10 flex space-x-3 items-center">
+            {authLinks.map((navlink) => (
+              <Link
+                key={navlink.name}
+                to={navlink.href}
+                className="text-highlight text-2xl uppercase font-base"
+              >
+                {navlink.name}
+              </Link>
+            ))}
+            <div
+              onClick={logout}
+              className="text-highlight hover:text-red-500 cursor-pointer duration-150 text-2xl uppercase font-base"
+            >
+              Logout
+            </div>
+          </div>
+        )}
       </div>
       <div className="sidebar-and-content flex h-full w-full">
         <div className="sidebar h-full bg-dashboard items-center space-y-20 w-[150px] py-10 flex flex-col">

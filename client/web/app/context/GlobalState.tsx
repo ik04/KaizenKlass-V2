@@ -15,6 +15,7 @@ export const GlobalState = ({
   const [role, setRole] = useState(0);
   const [userUuid, setUserUuid] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // ? should i rename this to name or keep as username
 
   const callUserData = async () => {
     const resp = await axios.get(`${baseUrl}/api/v1/user-data`);
