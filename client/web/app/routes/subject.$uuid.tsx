@@ -1,19 +1,27 @@
 import { useLoaderData, useParams } from "@remix-run/react";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AddSubjectAssignmentButton } from "~/components/addSubjectAssignmentButton";
 import { AssignmentCard } from "~/components/assignmentCard";
 import { BackButton } from "~/components/backButton";
 import { Dashboard } from "~/components/dashboard";
 import { EmptyState } from "~/components/emptyState";
+import { GlobalContext } from "~/context/GlobalContext";
 
 export default function subject() {
   const {
     assignments,
     subject,
     baseUrl,
-  }: { assignments: Assignment[]; subject: string; baseUrl: string } =
-    useLoaderData();
+    uuid,
+  }: {
+    assignments: Assignment[];
+    subject: string;
+    baseUrl: string;
+    uuid: string;
+  } = useLoaderData();
   console.log(assignments);
+  const { isAuthenticated } = useContext(GlobalContext);
   const [isEmpty, setIsEmpty] = useState<boolean>(false);
 
   useEffect(() => {
@@ -31,6 +39,12 @@ export default function subject() {
         </div>
         {!isEmpty ? (
           <div className="flex-col space-y-7 flex mb-20">
+            {isAuthenticated && (
+              <AddSubjectAssignmentButton
+                baseUrl={baseUrl}
+                subjectUuid={uuid}
+              />
+            )}
             {assignments.map((assignment) => (
               <AssignmentCard
                 key={assignment.subject_uuid}
@@ -59,6 +73,7 @@ export const loader = async ({ params }: any) => {
       subject: resp.data.subject,
       assignments: resp.data.assignments,
       baseUrl: process.env.PUBLIC_DOMAIN,
+      uuid: uuid,
     };
     return data;
   } catch (error) {

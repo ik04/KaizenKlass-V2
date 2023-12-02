@@ -44,7 +44,7 @@ class AssignmentService{
         return response()->json(["error" => "Subject not found"], 404);
     }
     $subjectId = $this->subjectService->getSubjectId($subjectUuid);
-    $assignments = Assignment::select(["title","assignment_uuid"])->where("subject_id",$subjectId)->get();
+    $assignments = Assignment::select(["title","assignment_uuid"])->where("subject_id",$subjectId)->orderBy("created_at","DESC")->get();
     $result = ["assignments" => $assignments,"subjectName" => $subject["subject"]];
     return $result;
     }

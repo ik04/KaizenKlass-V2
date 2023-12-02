@@ -1,15 +1,17 @@
 import { useLoaderData } from "@remix-run/react";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AddAssignmentButton } from "~/components/addAssignmentButton";
 import { AssignmentCard } from "~/components/assignmentCard";
 import { BackButton } from "~/components/backButton";
 import { Dashboard } from "~/components/dashboard";
+import { GlobalContext } from "~/context/GlobalContext";
 
 export default function assignments() {
   // const { assignments }: { assignments: Assignment[] } = useLoaderData();
   // ? directly set nextpage url?
   const { baseUrl }: { baseUrl: string } = useLoaderData();
+  const { isAuthenticated } = useContext(GlobalContext);
   const [assignments, setAssignments] = useState<Assignment[]>([]);
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState();
@@ -49,7 +51,7 @@ export default function assignments() {
           </div>
         </div>
         <div className="justify-center items-center my-4">
-          <AddAssignmentButton baseUrl={baseUrl} />
+          {isAuthenticated && <AddAssignmentButton baseUrl={baseUrl} />}
         </div>
         <div className="flex flex-col space-y-7 mb-10">
           {assignments &&

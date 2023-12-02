@@ -51,7 +51,10 @@ export const Dashboard = ({
             ))}
           </div>
         ) : (
-          <div className="nav-links px-10 flex space-x-3 items-center">
+          <div
+            className="nav-links px-10 flex space-x-5
+           items-center"
+          >
             {authLinks.map((navlink) => (
               <Link
                 key={navlink.name}
