@@ -21,6 +21,7 @@ export const AddAssignmentButton = ({ baseUrl }: { baseUrl: string }) => {
     getSubjects();
   }, []);
 
+  // todo: add datetime picker
   return (
     <Dialog>
       <DialogTrigger className="w-full">
@@ -31,7 +32,7 @@ export const AddAssignmentButton = ({ baseUrl }: { baseUrl: string }) => {
         </div>
       </DialogTrigger>
       <DialogContent>
-        <div className="">
+        <div className="font-base">
           <Label>Subject</Label>
           <Select required onValueChange={(value) => setSubject(value)}>
             <SelectTrigger className="">
@@ -49,9 +50,10 @@ export const AddAssignmentButton = ({ baseUrl }: { baseUrl: string }) => {
             </SelectContent>
           </Select>
           <Label>Title</Label>
-          <Input />
+          <Input placeholder="Title" required />
           <Label>Description</Label>
-          <Textarea />
+          <Textarea placeholder="description (optional)" />
+          <Label>Deadline</Label>
         </div>
       </DialogContent>
     </Dialog>
