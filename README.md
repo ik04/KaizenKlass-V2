@@ -3,6 +3,9 @@ This is a new and improved of the old kaizenklass, its still under development b
 As development continues, i will integrate other featured to make life easier for everyone using the site, some of which include links to other projects, notes, test paper and more. any feedback is welcome and will also be accepted through a feedback section on the website itself.
 
 ## Tech stack 
+- ![React](https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+- ![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+
 
 ## For Contributions:
 this is a script to install the necessary dependecies to run this project 
