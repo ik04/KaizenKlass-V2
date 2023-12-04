@@ -2,6 +2,14 @@
 This is a new and improved of the old kaizenklass, its still under development but brings with it a new take on the ui and a shift in frameworks. This web app will utilze remix to optimize load times and make for an overall better experience, the goal of this project is to store and document assignments allowing students an easier way to look at old assignments and at the same time storing multiple solutions to those assignmnets.
 As development continues, i will integrate other featured to make life easier for everyone using the site, some of which include links to other projects, notes, test paper and more. any feedback is welcome and will also be accepted through a feedback section on the website itself.
 
+![image](https://github.com/ik04/KaizenKlass-V2/assets/63468587/73fd6124-4fe0-475d-becb-bd9afee06ac7)
+
+![image](https://github.com/ik04/KaizenKlass-V2/assets/63468587/8abf1a42-0461-4582-ac0e-e83c1e447e51)
+
+![image](https://github.com/ik04/KaizenKlass-V2/assets/63468587/995ccf71-8209-4653-9098-22f858938c89)
+
+
+
 ## Tech stack 
 - ![React](https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
 - ![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
