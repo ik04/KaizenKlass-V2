@@ -18,8 +18,13 @@ As development continues, i will integrate other featured to make life easier fo
 ## For Contributions:
 this is a script to install the necessary dependecies to run this project 
 - [This is for laravel](https://gist.github.com/ik04/79fb2921145d8fee7302b4f7fddd7c2a)
+if you're using windows:
+- Install Php and xampp for windows [here](https://www.apachefriends.org/)
+- Install Composer for windows [here](https://getcomposer.org/)
+
 - [This is to install nvm](https://gist.github.com/ik04/b94423df79ed7f777b2c359c2f669b1b)
-after nvm is setup just run 
+- after nvm is setup just run
+  
 ```bash
 nvm install node
 ```
