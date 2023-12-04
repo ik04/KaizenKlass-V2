@@ -12,6 +12,7 @@ import {
 } from "@remix-run/react";
 import { GlobalState } from "./context/GlobalState";
 import axios from "axios";
+import { Toaster } from "./components/ui/toaster";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
@@ -31,6 +32,7 @@ export default function App() {
       </head>
       <body>
         <GlobalState baseUrl={baseUrl}>
+          <Toaster />
           <Outlet />
         </GlobalState>
         <ScrollRestoration />
