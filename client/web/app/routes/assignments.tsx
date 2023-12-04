@@ -11,7 +11,7 @@ export default function assignments() {
   // const { assignments }: { assignments: Assignment[] } = useLoaderData();
   // ? directly set nextpage url?
   const { baseUrl }: { baseUrl: string } = useLoaderData();
-  const { isAuthenticated } = useContext(GlobalContext);
+  const { isAuthenticated, role } = useContext(GlobalContext);
   const [assignments, setAssignments] = useState<Assignment[]>([]);
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState();
@@ -51,7 +51,9 @@ export default function assignments() {
           </div>
         </div>
         <div className="justify-center items-center my-4">
-          {isAuthenticated && <AddAssignmentButton baseUrl={baseUrl} />}
+          {isAuthenticated && role === 2 && (
+            <AddAssignmentButton baseUrl={baseUrl} />
+          )}
         </div>
         <div className="flex flex-col space-y-7 mb-10">
           {assignments &&

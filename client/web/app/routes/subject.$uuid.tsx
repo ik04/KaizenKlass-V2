@@ -21,7 +21,7 @@ export default function subject() {
     uuid: string;
   } = useLoaderData();
   console.log(assignments);
-  const { isAuthenticated } = useContext(GlobalContext);
+  const { isAuthenticated, role } = useContext(GlobalContext);
   const [isEmpty, setIsEmpty] = useState<boolean>(false);
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export default function subject() {
         </div>
         {!isEmpty ? (
           <div className="flex-col space-y-7 flex mb-20">
-            {isAuthenticated && (
+            {isAuthenticated && role === 2 && (
               <AddSubjectAssignmentButton
                 baseUrl={baseUrl}
                 subjectUuid={uuid}

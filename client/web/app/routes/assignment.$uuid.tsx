@@ -1,17 +1,25 @@
 import { Link, useLoaderData } from "@remix-run/react";
 import axios from "axios";
-import React from "react";
+import React, { useContext } from "react";
 import { BackButton } from "~/components/backButton";
 import { Dashboard } from "~/components/dashboard";
+import { AddSolutionButton } from "~/components/addSolutionButton";
+import { GlobalContext } from "~/context/GlobalContext";
 
 export default function assignment() {
   const {
     assignment,
     solutions,
     baseUrl,
-  }: { assignment: Assignment; solutions: Solution[]; baseUrl: string } =
-    useLoaderData();
+    uuid,
+  }: {
+    assignment: Assignment;
+    solutions: Solution[];
+    baseUrl: string;
+    uuid: string;
+  } = useLoaderData();
   console.log(assignment, solutions);
+  const { isAuthenticated } = useContext(GlobalContext);
   // ? limit to 1 answer per assignment
   // todo: add dates
   // todo: ideate on figma design for divisions
@@ -80,6 +88,11 @@ export default function assignment() {
               </>
             )}
           </div>
+          {isAuthenticated && (
+            <div className="mt-10">
+              <AddSolutionButton assignmentUuid={uuid} baseUrl={baseUrl} />
+            </div>
+          )}
         </div>
       </Dashboard>
     </div>
@@ -96,6 +109,7 @@ export const loader = async ({ params }: any) => {
       solutions: resp.data.solutions,
       assignment: resp.data.assignment,
       baseUrl: process.env.PUBLIC_DOMAIN,
+      uuid: uuid,
     };
     return data;
   } catch (error) {
