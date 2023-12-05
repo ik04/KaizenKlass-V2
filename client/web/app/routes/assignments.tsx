@@ -5,6 +5,7 @@ import { AddAssignmentButton } from "~/components/addAssignmentButton";
 import { AssignmentCard } from "~/components/assignmentCard";
 import { BackButton } from "~/components/backButton";
 import { Dashboard } from "~/components/dashboard";
+import { EmptyState } from "~/components/emptyState";
 import { GlobalContext } from "~/context/GlobalContext";
 
 export default function assignments() {
@@ -16,6 +17,8 @@ export default function assignments() {
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState();
   const [isLastPage, setIsLastPage] = useState(false);
+  const [isEmpty, setIsEmpty] = useState<boolean>(false);
+
   const callAssignmentsWithSubjects = async () => {
     const url = `${baseUrl}/api/v1/get-assignment-subjects?page=1`;
     const resp = await axios.get(url);
@@ -40,6 +43,10 @@ export default function assignments() {
   };
   useEffect(() => {
     callAssignmentsWithSubjects();
+    if (assignments.length === 0) {
+      setIsEmpty(true);
+    }
+    console.log(isEmpty);
   }, []);
   return (
     <div className="bg-main h-screen">
@@ -55,29 +62,31 @@ export default function assignments() {
             <AddAssignmentButton baseUrl={baseUrl} />
           )}
         </div>
-        <div className="flex flex-col space-y-7 mb-10">
-          {assignments &&
-            assignments.map((assignment) => (
-              <AssignmentCard
-                key={assignment.assignment_uuid}
-                subject={assignment.subject}
-                title={assignment.title}
-                assignment_uuid={assignment.assignment_uuid}
-                subject_uuid={assignment.subject_uuid}
-              />
-            ))}
-        </div>
-
-        {!isLastPage && (
-          <div className="load-more flex mb-20 justify-center items-center cursor-pointer">
-            <div
-              className="uppercase font-base text-highlightSecondary border-highlightSecondary border-2 w-[40%] flex justify-center items-center text-2xl p-2"
-              onClick={callNextPage}
-            >
-              load more
-            </div>
+        <>
+          <div className="flex flex-col space-y-7 mb-10">
+            {assignments &&
+              assignments.map((assignment) => (
+                <AssignmentCard
+                  key={assignment.assignment_uuid}
+                  subject={assignment.subject}
+                  title={assignment.title}
+                  assignment_uuid={assignment.assignment_uuid}
+                  subject_uuid={assignment.subject_uuid}
+                />
+              ))}
           </div>
-        )}
+
+          {!isLastPage && (
+            <div className="load-more flex mb-20 justify-center items-center cursor-pointer">
+              <div
+                className="uppercase font-base text-highlightSecondary border-highlightSecondary border-2 w-[40%] flex justify-center items-center text-2xl p-2"
+                onClick={callNextPage}
+              >
+                load more
+              </div>
+            </div>
+          )}
+        </>
       </Dashboard>
     </div>
   );

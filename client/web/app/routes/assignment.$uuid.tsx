@@ -40,7 +40,7 @@ export default function assignment() {
               </Link>
             </div>
           </div>
-          <div className="bg-mainLighter rounded-s-2xl p-4 flex flex-col space-y-3">
+          <div className="bg-mainLighter h-min-[50%] rounded-s-2xl p-4 flex flex-col space-y-3">
             <div className="Title font-base text-highlight text-4xl ">
               {assignment.title}
             </div>
@@ -82,7 +82,7 @@ export default function assignment() {
                     <div className="description font-base text-highlightSecondary mb-[2px]">
                       {solution.description}
                     </div>
-                    <div className="w-full border border-highlightSecondary border-dashed"></div>
+                    {/* <div className="w-full border border-highlightSecondary border-dashed"></div> */}
                   </div>
                 ))}
               </>

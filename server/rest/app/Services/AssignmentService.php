@@ -49,7 +49,7 @@ class AssignmentService{
     return $result;
     }
 
-    public function addAssignment(string $title,string $description,string $subjectUuid,?string $content = null, ?string $link = null,?string $deadline = null){
+    public function addAssignment(string $title,?string $description,string $subjectUuid,?string $content = null, ?string $link = null,?string $deadline = null){
         if (!Subject::where("subject_uuid", $subjectUuid)->exists()) {
             throw new SubjectNotFoundException(message:"Invalid Subject uuid",code:400);
         }

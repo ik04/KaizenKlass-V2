@@ -37,14 +37,13 @@ export default function subject() {
           <BackButton />
           <div className="font-display text-highlightSecondary">{subject}</div>
         </div>
+        {isAuthenticated && role === 2 && (
+          <div className="mb-7">
+            <AddSubjectAssignmentButton baseUrl={baseUrl} subjectUuid={uuid} />
+          </div>
+        )}
         {!isEmpty ? (
           <div className="flex-col space-y-7 flex mb-20">
-            {isAuthenticated && role === 2 && (
-              <AddSubjectAssignmentButton
-                baseUrl={baseUrl}
-                subjectUuid={uuid}
-              />
-            )}
             {assignments.map((assignment) => (
               <AssignmentCard
                 key={assignment.subject_uuid}

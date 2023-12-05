@@ -49,11 +49,12 @@ class AssignmentController extends Controller
             
             $assignment = $this->service->addAssignment(
                 $validated["title"],
-                $validated["description"],
+                $validated["description"] ?? null,
                 $validated["subject_uuid"],
                 $validated["content"] ?? null,
                 $validated["link"] ?? null,
-                $validated["deadline"] ?? null
+                $validated["deadline"] ?? null    // 
+
             );
             return response()->json(["assignment" => $assignment],201);
         }catch(ValidationException $e){

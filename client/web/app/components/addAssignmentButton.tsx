@@ -39,7 +39,7 @@ export const AddAssignmentButton = ({ baseUrl }: { baseUrl: string }) => {
       title: "Assignment Added!",
       description: `${title} has been added to the assignments`,
     });
-    location.reload();
+    // location.reload();
   };
 
   // todo: add datetime picker
