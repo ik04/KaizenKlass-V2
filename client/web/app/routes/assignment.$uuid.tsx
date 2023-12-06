@@ -5,6 +5,7 @@ import { BackButton } from "~/components/backButton";
 import { Dashboard } from "~/components/dashboard";
 import { AddSolutionButton } from "~/components/addSolutionButton";
 import { GlobalContext } from "~/context/GlobalContext";
+import { EditAssignmentButton } from "~/components/editAssignmentButton";
 
 export default function assignment() {
   const {
@@ -19,7 +20,14 @@ export default function assignment() {
     uuid: string;
   } = useLoaderData();
   console.log(assignment, solutions);
-  const { isAuthenticated } = useContext(GlobalContext);
+  const deleteAssignment = async () => {
+    const resp = await axios.delete(
+      `${baseUrl}/api/v1/delete-assignment/${uuid}`
+    );
+    console.log("deleted assignment!");
+    history.back();
+  };
+  const { isAuthenticated, role } = useContext(GlobalContext);
   // ? limit to 1 answer per assignment
   // todo: add dates
   // todo: ideate on figma design for divisions
@@ -41,30 +49,52 @@ export default function assignment() {
             </div>
           </div>
           <div className="bg-mainLighter h-min-[50%] rounded-s-2xl p-4 flex flex-col space-y-3">
-            <div className="Title font-base text-highlight text-4xl ">
-              {assignment.title}
+            <div className="Title font-base flex items-center space-x-3 text-highlight text-4xl ">
+              <h1>{assignment.title}</h1>
+              {isAuthenticated && role == 2 && (
+                <>
+                  <EditAssignmentButton
+                    assignmentUuid={uuid}
+                    baseUrl={baseUrl}
+                    originalDescription={assignment.description}
+                    originalLink={assignment.link}
+                    originalSubjectUuid={assignment.subject_uuid}
+                    originalTitle={assignment.title}
+                  />
+                  <img
+                    src="/assets/trash.png"
+                    onClick={deleteAssignment}
+                    className="w-7 mb-2"
+                    alt=""
+                  />
+                </>
+              )}
             </div>
             <div className="description font-base font-semibold text-highlight">
               {assignment.description}
             </div>
-            <a
-              href={`${assignment.link}`}
-              target="_blank"
-              className="flex justify-start"
-            >
-              <div className="text-highlight font-base hover:p-1 font-bold hover:bg-highlight transition-all duration-150 hover:text-mainLighter">
-                Visit Classroom
-              </div>
-            </a>
-            <a
-              href={`${assignment.content}`}
-              target="_blank"
-              className="flex justify-start"
-            >
-              <div className="text-highlight font-base hover:p-1 font-bold hover:bg-highlight transition-all duration-150 hover:text-mainLighter">
-                Download Content
-              </div>
-            </a>
+            {assignment.link !== null && (
+              <a
+                href={`${assignment.link}`}
+                target="_blank"
+                className="flex justify-start"
+              >
+                <div className="text-highlight font-base hover:p-1 font-bold hover:bg-highlight transition-all duration-150 hover:text-mainLighter">
+                  Visit Classroom
+                </div>
+              </a>
+            )}
+            {assignment.content !== null && (
+              <a
+                href={`${assignment.content}`}
+                target="_blank"
+                className="flex justify-start"
+              >
+                <div className="text-highlight font-base hover:p-1 font-bold hover:bg-highlight transition-all duration-150 hover:text-mainLighter">
+                  Download Content
+                </div>
+              </a>
+            )}
             {solutions.length > 0 && (
               <>
                 <div className="w-full border border-highlightSecondary border-dashed"></div>
