@@ -10,10 +10,7 @@ class UpdateAssignmentRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
-    {
-        return false;
-    }
+  
 
     /**
      * Get the validation rules that apply to the request.
@@ -27,6 +24,7 @@ class UpdateAssignmentRequest extends FormRequest
             "description" => "string|nullable",
             "link" => "string|nullable",
             "content" => "string|regex:https:\/\/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]{33})\/view\?usp=sharing|nullable",
+            "subject_uuid" =>"string|nullable"
         ];
     }
     

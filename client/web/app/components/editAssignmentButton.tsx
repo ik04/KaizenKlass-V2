@@ -38,12 +38,12 @@ export const EditAssignmentButton = ({
     const resp = await axios.get(url);
     setSubjects(resp.data.subjects);
   };
-
+  // ! alot of refactors needed
   useEffect(() => {
     getSubjects();
   }, []);
   const editAssignment = async () => {
-    const resp = await axios.post(
+    const resp = await axios.put(
       `${baseUrl}/api/v1/edit-assignment/${assignmentUuid}`,
       {
         title,
@@ -55,16 +55,15 @@ export const EditAssignmentButton = ({
     );
     console.log(resp);
     toast({
-      title: "Assignment Added!",
-      description: `${title} has been added to the assignments`,
+      title: "Assignment Updated!",
     });
-    // location.reload();
+    location.reload();
   };
 
   // todo: add datetime picker
   return (
     <Dialog>
-      <DialogTrigger className="w-full">
+      <DialogTrigger className="">
         <img src="/assets/pencil.png" className="w-7 mb-2" alt="" />
       </DialogTrigger>
       <DialogContent>

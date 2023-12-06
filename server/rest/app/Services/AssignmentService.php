@@ -93,6 +93,10 @@ class AssignmentService{
         if (isset($data['description'])) {
             $assignment->description = $data['description'];
         }
+        if (isset($data['subject_uuid'])) {
+            $subjectId = $this->subjectService->getSubjectId($data['subject_uuid']);
+            $assignment->subject_id = $subjectId;
+        }
             
         if (isset($data['link'])) {
             $assignment->link = $data['link'];

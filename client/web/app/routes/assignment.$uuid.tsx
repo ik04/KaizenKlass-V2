@@ -52,22 +52,22 @@ export default function assignment() {
             <div className="Title font-base flex items-center space-x-3 text-highlight text-4xl ">
               <h1>{assignment.title}</h1>
               {isAuthenticated && role == 2 && (
-                <>
-                  <EditAssignmentButton
-                    assignmentUuid={uuid}
-                    baseUrl={baseUrl}
-                    originalDescription={assignment.description}
-                    originalLink={assignment.link}
-                    originalSubjectUuid={assignment.subject_uuid}
-                    originalTitle={assignment.title}
-                  />
-                  <img
-                    src="/assets/trash.png"
-                    onClick={deleteAssignment}
-                    className="w-7 mb-2"
-                    alt=""
-                  />
-                </>
+                <EditAssignmentButton
+                  assignmentUuid={uuid}
+                  baseUrl={baseUrl}
+                  originalDescription={assignment.description}
+                  originalLink={assignment.link}
+                  originalSubjectUuid={assignment.subject_uuid}
+                  originalTitle={assignment.title}
+                />
+              )}
+              {isAuthenticated && role == 2 && (
+                <img
+                  src="/assets/trash.png"
+                  onClick={deleteAssignment}
+                  className="w-7 mb-2"
+                  alt=""
+                />
               )}
             </div>
             <div className="description font-base font-semibold text-highlight">

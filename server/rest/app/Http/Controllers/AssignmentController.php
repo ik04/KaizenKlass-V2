@@ -136,7 +136,8 @@ class AssignmentController extends Controller
     public function editAssignment(UpdateAssignmentRequest $request, $assignmentUuid)
     {
         try {
-            $assignment = $this->service->editAssignment($request, $assignmentUuid);
+            $validated = $request->validated();
+            $assignment = $this->service->editAssignment($assignmentUuid,$validated);
             return response()->json(["assignment" => $assignment], 200);
         }catch(Exception $e){
             abort(code:404,message:$e->getMessage());
