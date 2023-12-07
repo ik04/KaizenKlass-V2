@@ -6,6 +6,17 @@ import { Textarea } from "./ui/textarea";
 import axios from "axios";
 import { useToast } from "./ui/use-toast";
 
+interface ErrorResponse {
+  response: {
+    data: {
+      errors: {
+        content: string[]; // Adjust the structure based on your actual error response
+        // Add other error fields as needed
+      };
+    };
+  };
+}
+
 export const AddSolutionButton = ({
   baseUrl,
   assignmentUuid,
@@ -18,17 +29,31 @@ export const AddSolutionButton = ({
   const [description, setDescription] = useState<string>();
   const [content, setContent] = useState<string>();
   const addSolution = async () => {
-    const resp = await axios.post(`${baseUrl}/api/v1/add-solution`, {
-      content,
-      description,
-      assignment_uuid: assignmentUuid,
-    });
-    console.log(resp);
-    toast({
-      title: "Solution Added!",
-    });
-    location.reload();
+    try {
+      const resp = await axios.post(`${baseUrl}/api/v1/add-solution`, {
+        content,
+        description,
+        assignment_uuid: assignmentUuid,
+      });
+      console.log(resp);
+      toast({
+        title: "Solution Added!",
+      });
+      location.reload();
+      // ! type it correctly
+    } catch (error) {
+      const typedError = error as ErrorResponse;
+      console.log(typedError.response.data.errors);
+      typedError.response.data.errors.content.forEach((element) => {
+        toast({
+          variant: "destructive",
+          title: "Invalid Input Field!",
+          description: element,
+        });
+      });
+    }
   };
+
   return (
     <Dialog>
       <DialogTrigger className="w-full">
