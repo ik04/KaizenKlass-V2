@@ -11,10 +11,10 @@ export const SubjectCard = ({
   return (
     <Link
       to={`/subject/${uuid}`}
-      className="hover:border-highlight p-2 border border-mainLighter w-80 h-80 rounded-3xl flex flex-col justify-center items-center space-y-5 bg-mainLighter transition-all"
+      className="hover:border-highlight p-5 flex justify-between items-center md:p-2 border border-mainLighter md:w-80 md:h-80 rounded-3xl md:flex md:flex-col md:justify-center md:items-center md:space-y-5 bg-mainLighter transition-all"
     >
-      <img src="/assets/book.svg" className="w-24" alt="folder" />
-      <div className="font-base text-highlightSecondary font-semibold text-center text-2xl">
+      <img src="/assets/book.svg" className="md:w-24 w-14" alt="folder" />
+      <div className="font-base w-full text-highlightSecondary md:p-0 p-4 font-semibold text-center md:text-2xl">
         {subject}
       </div>
     </Link>

@@ -11,7 +11,7 @@ export default function home() {
   return (
     <div className="bg-main min-h-screen">
       <Dashboard baseUrl={baseUrl}>
-        <div className="grid grid-cols-4">
+        <div className="md:grid flex flex-col md:grid-cols-4">
           {subjects.map((subject) => (
             <div key={subject.subject} className="py-10">
               <SubjectCard

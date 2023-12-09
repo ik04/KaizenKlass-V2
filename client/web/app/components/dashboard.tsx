@@ -1,6 +1,6 @@
 import { Link } from "@remix-run/react";
 import axios from "axios";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { GlobalContext } from "~/context/GlobalContext";
 
 // ! shift dashboard to global ( this is bad practice lmao)
@@ -12,6 +12,8 @@ export const Dashboard = ({
   baseUrl: string;
 }) => {
   const { isAuthenticated, username } = useContext(GlobalContext);
+  const [isSidebarExpanded, setSidebarExpanded] = useState(false);
+  const [sidebarItemNames, setSidebarItemNames] = useState<string[]>([]);
   const sidebarIcons = [
     { href: "/home", img: "/assets/home.svg", name: "home" },
     {
@@ -31,12 +33,35 @@ export const Dashboard = ({
     location.reload();
   };
 
+  const toggleSidebar = () => {
+    setSidebarExpanded(!isSidebarExpanded);
+    // Add or remove sidebar item names based on the expanded state
+    if (!isSidebarExpanded) {
+      setSidebarItemNames(["home", "assignments", "deadlines", "resources"]);
+    } else {
+      setSidebarItemNames([]);
+    }
+  };
   // todo: add active state
   return (
-    <div className="flex-col h-screen fixed">
-      <div className="w-screen bg-dashboard flex justify-between items-center h-28">
+    <div
+      className={`flex-col h-screen fixed ${
+        isSidebarExpanded ? "sidebar-expanded" : ""
+      }`}
+    >
+      <div
+        className={`w-screen bg-dashboard flex justify-between items-center h-28 ${
+          isSidebarExpanded ? "expanded" : ""
+        }`}
+      >
+        {" "}
         <div className="flex justify-start items-center px-10 space-x-10">
-          <img src="/assets/hamburger.svg" alt="hamburger" className="w-16" />
+          <img
+            onClick={toggleSidebar}
+            src="/assets/hamburger.svg"
+            alt="hamburger"
+            className="w-16"
+          />
           <Link to={"/"} className="text-highlight font-display text-[55px]">
             KaizenKlass
           </Link>
@@ -77,16 +102,48 @@ export const Dashboard = ({
         )}
       </div>
       <div className="sidebar-and-content flex h-full w-full">
-        <div className="sidebar h-full bg-dashboard items-center space-y-12 w-[150px] py-10 flex flex-col">
-          {sidebarIcons.map((icon) => (
-            <Link key={icon.name} to={icon.href}>
+        <div
+          className={`sidebar h-full bg-dashboard items-center space-y-12 py-10 flex flex-col ${
+            isSidebarExpanded
+              ? "w-[30%] transition-all duration-300"
+              : "transition-all duration-300 w-[150px]"
+          }`}
+        >
+          {sidebarIcons.map((icon, index) => (
+            <Link
+              key={icon.name}
+              className={`${
+                isSidebarExpanded
+                  ? "flex  w-full pl-[35px] justify-center items-center space-x-10"
+                  : ""
+              }`}
+              to={icon.href}
+            >
               <img src={icon.img} alt={icon.name} />
+              {isSidebarExpanded && (
+                <span className="w-[70%] text-left font-base text-highlightSecondary text-2xl uppercase">
+                  {icon.name}
+                </span>
+              )}
             </Link>
           ))}
           <div className="border-2 border-highlightSecondary w-[80%]"></div>
-          {extraSidebarIcons.map((icon) => (
-            <Link key={icon.name} to={icon.href}>
+          {extraSidebarIcons.map((icon, index) => (
+            <Link
+              key={icon.name}
+              className={`${
+                isSidebarExpanded
+                  ? "flex  w-full pl-[35px] justify-center items-center space-x-10"
+                  : ""
+              }`}
+              to={icon.href}
+            >
               <img src={icon.img} alt={icon.name} />
+              {isSidebarExpanded && (
+                <span className="w-[70%] text-left font-base text-highlightSecondary text-2xl uppercase">
+                  {icon.name}
+                </span>
+              )}
             </Link>
           ))}
         </div>
