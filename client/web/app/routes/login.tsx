@@ -10,7 +10,6 @@ export default function login() {
   const { baseUrl }: { baseUrl: string } = useLoaderData();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
 
   const login = async () => {
     const resp = await axios.post(`${baseUrl}/api/v1/login`, {
@@ -18,7 +17,6 @@ export default function login() {
       password,
     });
     console.log(resp);
-    // navigate("/home");
     location.href = "/home";
   };
 

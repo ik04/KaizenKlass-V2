@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectTrigger, SelectValue } from "./ui/select";
 import axios from "axios";
 import { SelectItem } from "@radix-ui/react-select";
 import { useToast } from "./ui/use-toast";
+import { useNavigate } from "@remix-run/react";
 
 export const AddAssignmentButton = ({ baseUrl }: { baseUrl: string }) => {
   const { toast } = useToast();
@@ -22,6 +23,7 @@ export const AddAssignmentButton = ({ baseUrl }: { baseUrl: string }) => {
     const resp = await axios.get(url);
     setSubjects(resp.data.subjects);
   };
+  const navigate = useNavigate();
 
   useEffect(() => {
     getSubjects();
@@ -34,12 +36,11 @@ export const AddAssignmentButton = ({ baseUrl }: { baseUrl: string }) => {
       description,
       subject_uuid: subject,
     });
-    console.log(resp);
     toast({
       title: "Assignment Added!",
       description: `${title} has been added to the assignments`,
     });
-    // location.reload();
+    navigate(`/assignment/${resp.data.assignment.assignment_uuid}`);
   };
 
   // todo: add datetime picker

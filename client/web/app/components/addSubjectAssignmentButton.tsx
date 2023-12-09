@@ -5,6 +5,7 @@ import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import axios from "axios";
 import { useToast } from "./ui/use-toast";
+import { useNavigate } from "@remix-run/react";
 
 export const AddSubjectAssignmentButton = ({
   baseUrl,
@@ -17,7 +18,7 @@ export const AddSubjectAssignmentButton = ({
   const [description, setDescription] = useState<string>();
   const [link, setLink] = useState<string>();
   const [content, setContent] = useState<string>();
-
+  const navigate = useNavigate();
   const { toast } = useToast();
 
   const addAssignment = async () => {
@@ -33,7 +34,7 @@ export const AddSubjectAssignmentButton = ({
       title: "Assignment Added!",
       description: `${title} has been added to the assignments`,
     });
-    location.reload();
+    navigate(`/assignment/${resp.data.assignment.assignment_uuid}`);
   };
 
   return (
