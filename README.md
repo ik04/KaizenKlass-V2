@@ -4,7 +4,7 @@ As development continues, i will integrate other featured to make life easier fo
 
 ![image](https://github.com/ik04/KaizenKlass-V2/assets/63468587/73fd6124-4fe0-475d-becb-bd9afee06ac7)
 
-![image](https://github.com/ik04/KaizenKlass-V2/assets/63468587/8abf1a42-0461-4582-ac0e-e83c1e447e51)
+![image](https://github.com/ik04/KaizenKlass-V2/assets/63468587/fa447f15-5fc7-4c3a-b9fd-2a67744f2b94)
 
 ![image](https://github.com/ik04/KaizenKlass-V2/assets/63468587/995ccf71-8209-4653-9098-22f858938c89)
 
