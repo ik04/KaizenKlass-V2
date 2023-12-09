@@ -35,4 +35,6 @@ interface GlobalContextValue {
   email: string;
   username: string;
   userUuid: string;
+  isSidebarExpanded: boolean;
+  setSidebarExpanded: React.Dispatch<React.SetStateAction<boolean>>;
 }

@@ -1,6 +1,6 @@
 import { Link } from "@remix-run/react";
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { GlobalContext } from "~/context/GlobalContext";
 
 // ! shift dashboard to global ( this is bad practice lmao)
@@ -11,9 +11,8 @@ export const Dashboard = ({
   children: React.ReactNode;
   baseUrl: string;
 }) => {
-  const { isAuthenticated, username } = useContext(GlobalContext);
-  const [isSidebarExpanded, setSidebarExpanded] = useState(false);
-  const [sidebarItemNames, setSidebarItemNames] = useState<string[]>([]);
+  const { isAuthenticated, username, isSidebarExpanded, setSidebarExpanded } =
+    useContext(GlobalContext);
   const sidebarIcons = [
     { href: "/home", img: "/assets/home.svg", name: "home" },
     {
@@ -34,12 +33,8 @@ export const Dashboard = ({
   };
 
   const toggleSidebar = () => {
-    setSidebarExpanded(!isSidebarExpanded);
-    // Add or remove sidebar item names based on the expanded state
-    if (!isSidebarExpanded) {
-      setSidebarItemNames(["home", "assignments", "deadlines", "resources"]);
-    } else {
-      setSidebarItemNames([]);
+    if (setSidebarExpanded) {
+      setSidebarExpanded(!isSidebarExpanded);
     }
   };
   // todo: add active state

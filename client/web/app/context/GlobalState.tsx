@@ -15,6 +15,7 @@ export const GlobalState = ({
   const [role, setRole] = useState(0);
   const [userUuid, setUserUuid] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isSidebarExpanded, setSidebarExpanded] = useState(false);
   // ? should i rename this to name or keep as username
 
   const callUserData = async () => {
@@ -37,7 +38,15 @@ export const GlobalState = ({
   //! fix the context for root
   return (
     <GlobalContext.Provider
-      value={{ isAuthenticated, role, username, userUuid, email }}
+      value={{
+        isAuthenticated,
+        role,
+        username,
+        userUuid,
+        email,
+        isSidebarExpanded,
+        setSidebarExpanded,
+      }}
     >
       {children}
     </GlobalContext.Provider>
