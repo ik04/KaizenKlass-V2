@@ -1,7 +1,5 @@
 import { Link } from "@remix-run/react";
-import React from "react";
-// ! switch back to camelcase
-export const AssignmentCard = ({
+export const SubjectAssignmentCard = ({
   title,
   assignment_uuid,
   subject,
@@ -19,22 +17,13 @@ export const AssignmentCard = ({
     >
       <Link
         to={`/assignment/${assignment_uuid}`}
-        className="flex justify-between w-full items-center"
+        className="flex items-center justify-between w-full"
       >
-        <h2 className="text-4xl font-base text-highlight">{title}</h2>
+        <div className="flex items-center space-x-2">
+          <h2 className="text-4xl font-base text-highlight">{title}</h2>
+        </div>
         <img src="/assets/assignment.svg" className="w-12" alt="" />
       </Link>
-      {subject && subject_uuid && (
-        <Link
-          to={`/subject/${subject_uuid}`}
-          className="text-highlightSecondary font-base"
-        >
-          <div className="flex space-x-1">
-            <p>{subject}</p>
-            <img src="/assets/book.svg" alt="" />
-          </div>
-        </Link>
-      )}
     </Link>
   );
 };

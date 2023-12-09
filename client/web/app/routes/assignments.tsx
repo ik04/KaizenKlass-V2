@@ -53,7 +53,7 @@ export default function assignments() {
     <div className="bg-main h-screen">
       <Dashboard baseUrl={baseUrl}>
         <div className="header w-full h-20 mb-10 flex justify-between items-center text-5xl">
-          <BackButton />
+          {/* <BackButton /> */}
           <div className="font-display text-highlightSecondary mb-7 text-5xl">
             Assignments
           </div>
@@ -80,7 +80,7 @@ export default function assignments() {
           {!isLastPage && (
             <div className="load-more flex mb-20 justify-center items-center cursor-pointer">
               <div
-                className="uppercase font-base text-highlightSecondary border-highlightSecondary border-2 w-[40%] flex justify-center items-center text-2xl p-2"
+                className="uppercase hover:text-dashboard hover:bg-highlightSecondary duration-150 font-base text-highlightSecondary border-highlightSecondary border-2 w-[40%] flex justify-center items-center text-2xl p-2"
                 onClick={callNextPage}
               >
                 load more

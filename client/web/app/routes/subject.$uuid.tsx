@@ -6,6 +6,7 @@ import { AssignmentCard } from "~/components/assignmentCard";
 import { BackButton } from "~/components/backButton";
 import { Dashboard } from "~/components/dashboard";
 import { EmptyState } from "~/components/emptyState";
+import { SubjectAssignmentCard } from "~/components/subjectAssignmentCard";
 import { GlobalContext } from "~/context/GlobalContext";
 
 export default function subject() {
@@ -45,7 +46,7 @@ export default function subject() {
         {!isEmpty ? (
           <div className="flex-col space-y-7 flex mb-20">
             {assignments.map((assignment) => (
-              <AssignmentCard
+              <SubjectAssignmentCard
                 key={assignment.subject_uuid}
                 subject={assignment.subject}
                 title={assignment.title}

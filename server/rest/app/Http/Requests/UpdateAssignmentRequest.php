@@ -23,7 +23,7 @@ class UpdateAssignmentRequest extends FormRequest
             "title" => "string|nullable",
             "description" => "string|nullable",
             "link" => "string|nullable",
-            "content" => "string|regex:https:\/\/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]{33})\/view\?usp=sharing|nullable",
+            "content" => "regex:~https:\/\/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]{33})\/view\?usp=sharing~|string|nullable",
             "subject_uuid" =>"string|nullable"
         ];
     }

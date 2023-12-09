@@ -21,6 +21,9 @@ export const Dashboard = ({
     },
     { href: "/deadlines", img: "/assets/skull.svg", name: "deadlines" },
   ];
+  const extraSidebarIcons = [
+    { href: "/resources", img: "/assets/treasure.svg", name: "resources" },
+  ];
   const navlinks = [{ name: "login", href: "/login" }];
   const authLinks = [{ name: username, href: "/profile" }];
   const logout = async () => {
@@ -74,8 +77,14 @@ export const Dashboard = ({
         )}
       </div>
       <div className="sidebar-and-content flex h-full w-full">
-        <div className="sidebar h-full bg-dashboard items-center space-y-20 w-[150px] py-10 flex flex-col">
+        <div className="sidebar h-full bg-dashboard items-center space-y-12 w-[150px] py-10 flex flex-col">
           {sidebarIcons.map((icon) => (
+            <Link key={icon.name} to={icon.href}>
+              <img src={icon.img} alt={icon.name} />
+            </Link>
+          ))}
+          <div className="border-2 border-highlightSecondary w-[80%]"></div>
+          {extraSidebarIcons.map((icon) => (
             <Link key={icon.name} to={icon.href}>
               <img src={icon.img} alt={icon.name} />
             </Link>
