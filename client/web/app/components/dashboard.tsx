@@ -1,6 +1,6 @@
 import { Link } from "@remix-run/react";
 import axios from "axios";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { GlobalContext } from "~/context/GlobalContext";
 
 // ! shift dashboard to global ( this is bad practice lmao)
@@ -13,6 +13,7 @@ export const Dashboard = ({
 }) => {
   const { isAuthenticated, username, isSidebarExpanded, setSidebarExpanded } =
     useContext(GlobalContext);
+  const [isMobileNavExpanded, setIsMobileNavExpanded] = useState(false);
   const sidebarIcons = [
     { href: "/home", img: "/assets/home.svg", name: "home" },
     {
@@ -33,7 +34,10 @@ export const Dashboard = ({
   };
 
   const toggleSidebar = () => {
-    if (setSidebarExpanded) {
+    const isMobileViewport = window.innerWidth < 768;
+    if (isMobileViewport) {
+      setIsMobileNavExpanded(!isMobileNavExpanded);
+    } else if (setSidebarExpanded) {
       setSidebarExpanded(!isSidebarExpanded);
     }
   };
@@ -45,7 +49,7 @@ export const Dashboard = ({
       }`}
     >
       <div
-        className={`w-screen bg-dashboard flex justify-between items-center h-28 ${
+        className={`w-screen bg-dashboard flex md:justify-between md:items-center md:h-28 h-24 ${
           isSidebarExpanded ? "expanded" : ""
         }`}
       >
@@ -55,14 +59,17 @@ export const Dashboard = ({
             onClick={toggleSidebar}
             src="/assets/hamburger.svg"
             alt="hamburger"
-            className="w-16"
+            className="md:w-16 w-10"
           />
-          <Link to={"/"} className="text-highlight font-display text-[55px]">
+          <Link
+            to={"/home"}
+            className="text-highlight font-display text-[55px]"
+          >
             KaizenKlass
           </Link>
         </div>
         {!isAuthenticated ? (
-          <div className="nav-links flex items-center justify-between px-10">
+          <div className="nav-links hidden md:flex items-center justify-between px-10">
             {navlinks.map((navlink) => (
               <Link
                 key={navlink.name}
@@ -75,14 +82,14 @@ export const Dashboard = ({
           </div>
         ) : (
           <div
-            className="nav-links px-10 flex space-x-5
+            className="nav-links hidden px-10 md:flex space-x-5
            items-center"
           >
             {authLinks.map((navlink) => (
               <Link
                 key={navlink.name}
                 to={navlink.href}
-                className="text-highlight text-2xl uppercase font-base"
+                className="text-highlight py-3 text-2xl uppercase font-base"
               >
                 {navlink.name}
               </Link>
@@ -98,7 +105,7 @@ export const Dashboard = ({
       </div>
       <div className="sidebar-and-content flex h-full w-full">
         <div
-          className={`sidebar h-full bg-dashboard items-center space-y-12 py-10 flex flex-col ${
+          className={`sidebar hidden h-full bg-dashboard items-center space-y-12 py-10 md:flex flex-col ${
             isSidebarExpanded
               ? "w-[30%] transition-all duration-300"
               : "transition-all duration-300 w-[150px]"
@@ -141,6 +148,85 @@ export const Dashboard = ({
               )}
             </Link>
           ))}
+        </div>
+        <div
+          className={
+            isMobileNavExpanded
+              ? "fixed left-0 top-0 w-[80%] border-r border-r-gray-900 h-full bg-main ease-in-out duration-500"
+              : "ease-in-out fixed left-[-70%] w-[60%] duration-500"
+          }
+          style={{ height: isMobileNavExpanded ? "100%" : "0" }}
+        >
+          <div className="flex space-x-5 w-full p-4 items-center">
+            <img
+              onClick={toggleSidebar}
+              src="/assets/hamburger.svg"
+              alt="hamburger"
+              className="md:w-16 w-10"
+            />
+            <Link
+              to={"/home"}
+              className="text-highlight font-display text-[45px]"
+            >
+              KaizenKlass
+            </Link>
+          </div>
+          <ul className="capitalize p-4 font-labnames text-offwhite">
+            {sidebarIcons.map((icon) => (
+              <Link
+                className="flex py-3 items-center border-b border-highlightSecondary"
+                to={icon.href}
+              >
+                <img src={icon.img} className="w-8" alt="" />
+                <li className="p-4 text-highlightSecondary uppercase font-semibold font-base">
+                  {icon.name}
+                </li>
+              </Link>
+            ))}
+            {extraSidebarIcons.map((icon) => (
+              <Link
+                className="flex py-3 items-center border-b border-highlightSecondary"
+                to={icon.href}
+              >
+                <img src={icon.img} className="w-8" alt="" />
+                <li className="p-4 text-highlightSecondary uppercase font-semibold font-base">
+                  {icon.name}
+                </li>
+              </Link>
+            ))}
+            {!isAuthenticated ? (
+              <>
+                {navlinks.map((navLink) => (
+                  <Link
+                    className="border-b border-highlightSecondary"
+                    to={navLink.href}
+                  >
+                    <li className="p-4 uppercase text-highlightSecondary font-base">
+                      {navLink.name}
+                    </li>
+                  </Link>
+                ))}
+              </>
+            ) : (
+              <>
+                {authLinks.map((navLink) => (
+                  <div className="border-highlightSecondary border-b">
+                    <Link to={navLink.href}>
+                      <li className="p-4 capitalize text-highlightSecondary font-base ">
+                        {navLink.name}
+                      </li>
+                    </Link>
+                  </div>
+                ))}
+                <div
+                  onClick={logout}
+                  className="p-4 border-b text-red-500 uppercase font-base border-highlightSecondary"
+                >
+                  Logout
+                </div>
+              </>
+            )}
+          </ul>
         </div>
         <div className="content overflow-auto w-full px-16 py-10 mb-16">
           {children}
