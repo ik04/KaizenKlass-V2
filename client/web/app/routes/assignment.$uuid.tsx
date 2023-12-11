@@ -31,6 +31,30 @@ export default function assignment() {
   // ? limit to 1 answer per assignment
   // todo: add dates
   // todo: ideate on figma design for divisions
+
+  function parseDateTimeForIndia(dateTimeString: string): string {
+    const parsedDate = new Date(dateTimeString);
+
+    if (isNaN(parsedDate.getTime())) {
+      return "Invalid date";
+    }
+
+    const options: Intl.DateTimeFormatOptions = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false,
+      timeZone: "Asia/Kolkata",
+    };
+
+    const formattedDateTime = parsedDate.toLocaleString("en-IN", options);
+
+    return formattedDateTime;
+  }
+
   return (
     <div className="bg-main h-screen">
       <Dashboard baseUrl={baseUrl}>
@@ -94,6 +118,14 @@ export default function assignment() {
                   Download Content
                 </div>
               </a>
+            )}
+            {assignment.deadline !== null && (
+              <div className="">
+                <p className="text-highlight font-base font-bold transition-all duration-150 hover:text-red-500">
+                  {assignment.deadline &&
+                    parseDateTimeForIndia(assignment.deadline)}
+                </p>
+              </div>
             )}
             {solutions.length > 0 && (
               <>

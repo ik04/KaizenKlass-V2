@@ -11,8 +11,12 @@ class UpdateSolutionRequest extends FormRequest
     {
         return [
             "description" => "string",
-            "content" => "string|regex:https:\/\/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]{33})\/view\?usp=sharing"
-        ];
+            "content" => [
+                "string",
+                "nullable",
+                "regex:#https://(?:docs\.google\.com/(?:document|presentation)/d/|drive\.google\.com/file/d/)([a-zA-Z0-9_-]+)/(?:edit|view)?\S*#"
+            ],           
+         ];
     }
     public function messages(): array
     {

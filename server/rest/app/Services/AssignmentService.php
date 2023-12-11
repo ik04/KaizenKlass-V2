@@ -103,7 +103,7 @@ class AssignmentService{
         }
             
         if (isset($data['content'])) {
-            $assignment->content = $data['content'];
+            $assignment->content =$this->convertDriveLinkToDownloadLink($data['content']);
         }
         if (isset($data['deadline'])) {
             $assignment->deadline = Carbon::parse($data['deadline']);
@@ -112,7 +112,6 @@ class AssignmentService{
         $assignment->save();
             
         return $assignment;
-  
         }
 
     public function deleteAssignment(string $assignmentUuid){
@@ -153,7 +152,7 @@ class AssignmentService{
                     "solution_uuid" => $solution->solution_uuid,
                     "username" => $username,
                     "user_uuid" => $userUuid,
-                    "content" => $solution->content
+                    "content" => $solution->content,
                 ];
             }
             // Return the assignment details without file content
@@ -164,6 +163,7 @@ class AssignmentService{
                     "link" => $assignment->link,
                     "assignment_uuid" => $assignment->assignment_uuid,
                     "content" => $assignment->content,
+                    "deadline" => $assignment->deadline,
                     "subject" => $subjectDetails->subject,
                     "subject_uuid" => $subjectDetails->subject_uuid
 

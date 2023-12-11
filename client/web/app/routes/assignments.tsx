@@ -7,6 +7,7 @@ import { BackButton } from "~/components/backButton";
 import { Dashboard } from "~/components/dashboard";
 import { EmptyState } from "~/components/emptyState";
 import { GlobalContext } from "~/context/GlobalContext";
+import Calendar from "react-calendar";
 
 export default function assignments() {
   // const { assignments }: { assignments: Assignment[] } = useLoaderData();

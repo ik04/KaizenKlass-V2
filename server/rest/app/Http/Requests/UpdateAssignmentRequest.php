@@ -23,8 +23,13 @@ class UpdateAssignmentRequest extends FormRequest
             "title" => "string|nullable",
             "description" => "string|nullable",
             "link" => "string|nullable",
-            "content" => "regex:~https:\/\/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]{33})\/view\?usp=sharing~|string|nullable",
-            "subject_uuid" =>"string|nullable"
+            "subject_uuid" =>"string|nullable",
+            "deadline" =>"nullable|date_format:Y-m-d",
+            "content" => [
+                "string",
+                "nullable",
+                "regex:#https://(?:docs\.google\.com/(?:document|presentation)/d/|drive\.google\.com/file/d/)([a-zA-Z0-9_-]+)/(?:edit|view)?\S*#"
+            ],    
         ];
     }
     

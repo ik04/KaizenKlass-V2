@@ -8,6 +8,13 @@ import axios from "axios";
 import { SelectItem } from "@radix-ui/react-select";
 import { useToast } from "./ui/use-toast";
 import { useNavigate } from "@remix-run/react";
+import Calendar from "react-calendar";
+import { formatDate } from "node_modules/react-calendar/dist/esm/shared/dateFormatter";
+import { format } from "date-fns";
+
+type ValuePiece = Date | null;
+
+type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 export const AddAssignmentButton = ({ baseUrl }: { baseUrl: string }) => {
   const { toast } = useToast();
@@ -17,6 +24,7 @@ export const AddAssignmentButton = ({ baseUrl }: { baseUrl: string }) => {
   const [description, setDescription] = useState<string>();
   const [link, setLink] = useState<string>();
   const [content, setContent] = useState<string>();
+  const [date, setDate] = useState<Date | null>(null);
 
   const getSubjects = async () => {
     const url = `${baseUrl}/api/v1/get-subjects`;
@@ -28,6 +36,7 @@ export const AddAssignmentButton = ({ baseUrl }: { baseUrl: string }) => {
   useEffect(() => {
     getSubjects();
   }, []);
+
   const addAssignment = async () => {
     const resp = await axios.post(`${baseUrl}/api/v1/add-assignment`, {
       title,
@@ -35,12 +44,21 @@ export const AddAssignmentButton = ({ baseUrl }: { baseUrl: string }) => {
       link,
       description,
       subject_uuid: subject,
+      deadline: date && format(date, "yyyy-MM-dd"),
     });
     toast({
       title: "Assignment Added!",
       description: `${title} has been added to the assignments`,
     });
     navigate(`/assignment/${resp.data.assignment.assignment_uuid}`);
+  };
+
+  const handleDateChange = (value: Value) => {
+    if (value instanceof Date) {
+      setDate(value);
+    } else if (Array.isArray(value) && value[0] instanceof Date) {
+      setDate(value[0]);
+    }
   };
 
   // todo: add datetime picker
@@ -82,7 +100,11 @@ export const AddAssignmentButton = ({ baseUrl }: { baseUrl: string }) => {
             placeholder="description (optional)"
             onChange={(e) => setDescription(e.target.value)}
           />
-          {/* <Label>Deadline</Label> */}
+          <Label>Deadline</Label>
+          <div className="bg-highlightSecondary rounded-md p-5 flex space-y-7 flex-col">
+            <Calendar onChange={handleDateChange} value={date} />
+            {date && <p>Selected date: {format(date, "yyyy-MM-dd")}</p>}
+          </div>
           {/* get the right component */}
           <Label>Link</Label>
           <Input
