@@ -59,7 +59,7 @@ export default function assignment() {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
 
     return text.replace(urlRegex, function (url) {
-      return `<a href="${url}" className="text-blue-500" target="_blank">${url}</a>`;
+      return `<a href="${url}" style="color: #3A84CE;" target="_blank">${url}</a>`;
     });
   }
 
@@ -150,11 +150,13 @@ export default function assignment() {
                       Download Answer Content
                     </a>
                     {solution.description && (
-                      <div
-                        dangerouslySetInnerHTML={{
-                          __html: convertLinksToAnchors(solution.description),
-                        }}
-                      />
+                      <div className="text-highlight">
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: convertLinksToAnchors(solution.description),
+                          }}
+                        />
+                      </div>
                     )}
                     {/* todo:sanitize html */}
                     {/* <div className="w-full border border-highlightSecondary border-dashed"></div> */}
