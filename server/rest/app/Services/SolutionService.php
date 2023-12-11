@@ -26,16 +26,21 @@ class SolutionService{
         throw new InvalidArgumentException("Invalid Google Drive link format");
     }
 
-    public function addSolution(string $description,string $assignmentUuid,string $content,int $userId){
+    public function addSolution(?string $description,string $assignmentUuid,?string $content,int $userId){
         $assignmentId = $this->assignmentService->getAssignmentId($assignmentUuid);
-        $content = $this->convertDriveLinkToDownloadLink($content);
-            $solution = Solution::create([
-             "description" => $description,
-             "user_id" => $userId,
-             "assignment_id" => $assignmentId,
-             "solution_uuid" => Uuid::uuid4(),
-             "content" => $content 
-            ]);
+        $data = [
+            "user_id" => $userId,
+            "assignment_id" => $assignmentId,
+            "solution_uuid" => Uuid::uuid4(),
+        ];
+        if($content){
+            $content = $this->convertDriveLinkToDownloadLink($content);
+            $data["content"] = $content;
+        }
+        if($description){
+            $data["description"] = $description;
+        }
+            $solution = Solution::create($data);
             return $solution;
     }
 
@@ -94,7 +99,7 @@ class SolutionService{
     public function deleteOwnSolution(string $solutionUuid,int $userId){
         $solution = Solution::where('solution_uuid', $solutionUuid)
         ->where('user_id', $userId)
-        ->first();    
+        ->first();
         if (!$solution) {
         throw new SolutionNotFoundException(message:"Solution not found",code:404);
     }

@@ -50,7 +50,8 @@ export const AddAssignmentButton = ({ baseUrl }: { baseUrl: string }) => {
       title: "Assignment Added!",
       description: `${title} has been added to the assignments`,
     });
-    navigate(`/assignment/${resp.data.assignment.assignment_uuid}`);
+    // navigate(`/assignment/${resp.data.assignment.assignment_uuid}`);
+    location.reload();
   };
 
   const handleDateChange = (value: Value) => {

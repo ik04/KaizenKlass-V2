@@ -28,7 +28,7 @@ class SolutionController extends Controller
     }
     public function addSolution(AddSolutionRequest $request){
             $validated = $request->validated();
-            $solution = $this->service->addSolution($validated["description"],$validated["assignment_uuid"],$validated["content"],$request->user()->id);
+            $solution = $this->service->addSolution($validated["description"] ?? null,$validated["assignment_uuid"],$validated["content"] ?? null,$request->user()->id);
             return response(["solution" => $solution],201);
     }
     public function getSolutions(Request $request){

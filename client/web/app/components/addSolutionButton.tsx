@@ -73,7 +73,7 @@ export const AddSolutionButton = ({
           />
           <Label>Description</Label>
           <Textarea
-            placeholder="description (optional)"
+            placeholder="description/answer"
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>

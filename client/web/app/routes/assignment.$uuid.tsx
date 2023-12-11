@@ -55,6 +55,14 @@ export default function assignment() {
     return formattedDateTime;
   }
 
+  function convertLinksToAnchors(text: string) {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+
+    return text.replace(urlRegex, function (url) {
+      return `<a href="${url}" className="text-blue-500" target="_blank">${url}</a>`;
+    });
+  }
+
   return (
     <div className="bg-main h-screen">
       <Dashboard baseUrl={baseUrl}>
@@ -141,9 +149,14 @@ export default function assignment() {
                     >
                       Download Answer Content
                     </a>
-                    <div className="description font-base text-highlightSecondary mb-[2px]">
-                      {solution.description}
-                    </div>
+                    {solution.description && (
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html: convertLinksToAnchors(solution.description),
+                        }}
+                      />
+                    )}
+                    {/* todo:sanitize html */}
                     {/* <div className="w-full border border-highlightSecondary border-dashed"></div> */}
                   </div>
                 ))}
