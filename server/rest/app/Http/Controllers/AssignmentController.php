@@ -244,13 +244,9 @@ public function deleteAssignment($assignmentUuid)
 //     return response()->json(["assignment" => $assignmentDetails],200);
 // }
 
-
-
-
 public function getSolutionsByAssignment($assignmentUuid)
 {
     $result = $this->service->getSolutionsByAssignment($assignmentUuid);
-
         return response()->json($result, 200);
 }
 

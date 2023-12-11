@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\ContentController;
+use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\SolutionController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserController;
@@ -39,6 +40,9 @@ Route::prefix("v1")->group(function(){
     Route::get("get-assignments/{assignmentUuid}",[AssignmentController::class,"getAssignment"]); // for each assignment
     Route::get("get-assignments",[AssignmentController::class,"getAssignments"]);
     Route::get("get-deadlines",[AssignmentController::class,"getAssignmentsWithDeadline"]);
+    Route::get("get-resources",[ResourceController::class,"getResources"]);
+
+    Route::get("test/{uuid}",[ResourceController::class,"test"]);
 
 
     // * contributor routes
@@ -49,18 +53,24 @@ Route::prefix("v1")->group(function(){
         Route::delete("delete-own-solution/{solutionUuid}", [SolutionController::class, "deleteOwnSolution"]);
         Route::put("update-own-solution/{solutionUuid}", [SolutionController::class, "updateOwnSolution"]);
     });
-
+    
     // * crosschecker routes
     Route::middleware(["auth:sanctum","checkCrosschecker"])->group(function(){
+
+        Route::post("add-assignment",[AssignmentController::class,"addAssignment"]);
         Route::put("edit-assignment/{assignmentUuid}", [AssignmentController::class, "editAssignment"]);
         Route::put("update-solution/{solutionUuid}", [SolutionController::class, "updateSolution"]);
-        Route::delete("delete-solution/{solutionUuid}", [SolutionController::class, "deleteSolution"]);
-    });
+        Route::delete("delete-assignment/{assignmentUuid}", [AssignmentController::class, "deleteAssignment"]);
 
+    });
+    
     // * admin routes
     Route::middleware(["auth:sanctum","checkAdmin"])->group(function(){
-        Route::delete("delete-assignment/{assignmentUuid}", [AssignmentController::class, "deleteAssignment"]);
-        Route::post("add-assignment",[AssignmentController::class,"addAssignment"]);
+
+        Route::delete("delete-resource/{resourceUuid}", [ResourceController::class, "deleteResource"]);
+        Route::post("add-resource",[ResourceController::class,"addResource"]);
+        Route::put("edit-resource/{resourceUuid}",[ResourceController::class,"editResource"]);
+
         Route::post("add-subject",[SubjectController::class,"addSubject"]);
         Route::delete("delete-subject/{subjectUuid}", [SubjectController::class, "deleteSubject"]);
         Route::get("/_dbinit",function(){
@@ -76,6 +86,8 @@ Route::prefix("v1")->group(function(){
             }
             return response()->json("initialized subjects db",201);
         });
+
+        Route::delete("delete-solution/{solutionUuid}", [SolutionController::class, "deleteSolution"]);
     });
 
 });

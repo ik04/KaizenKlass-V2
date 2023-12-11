@@ -61,6 +61,15 @@ export const AddAssignmentButton = ({ baseUrl }: { baseUrl: string }) => {
     }
   };
 
+  const resetFields = () => {
+    setSubject("");
+    setTitle("");
+    setDescription("");
+    setLink("");
+    setContent("");
+    setDate(null);
+  };
+
   // todo: add datetime picker
   return (
     <Dialog>
@@ -73,8 +82,27 @@ export const AddAssignmentButton = ({ baseUrl }: { baseUrl: string }) => {
       </DialogTrigger>
       <DialogContent>
         <div className="font-base">
-          <Label>Subject</Label>
-          <Select required onValueChange={(value) => setSubject(value)}>
+          <div className="flex flex-col">
+            <Label>Subject</Label>
+            <select
+              value={subject}
+              onChange={(e) => setSubject(e.target.value)}
+              name=""
+              placeholder="select subject"
+              className="py-2 my-2 bg-white text-sm rounded-sm"
+              id=""
+            >
+              <option value="" className="text-[#737373]" disabled selected>
+                Select Subject
+              </option>
+              {subjects.map((subject) => (
+                <option className="p-4" value={subject.subject_uuid}>
+                  {subject.subject}
+                </option>
+              ))}
+            </select>
+          </div>
+          {/* <Select required onValueChange={(value) => setSubject(value)}>
             <SelectTrigger className="">
               <SelectValue placeholder="Select Subject" />
             </SelectTrigger>
@@ -88,15 +116,17 @@ export const AddAssignmentButton = ({ baseUrl }: { baseUrl: string }) => {
                 </SelectItem>
               ))}
             </SelectContent>
-          </Select>
+          </Select> */}
           <Label>Title</Label>
           <Input
+            value={title}
             placeholder="Title"
             onChange={(e) => setTitle(e.target.value)}
             required
           />
           <Label>Description</Label>
           <Textarea
+            value={description}
             placeholder="description (optional)"
             onChange={(e) => setDescription(e.target.value)}
           />
@@ -109,19 +139,29 @@ export const AddAssignmentButton = ({ baseUrl }: { baseUrl: string }) => {
           <Label>Link</Label>
           <Input
             placeholder="Link to classroom"
+            value={link}
             onChange={(e) => setLink(e.target.value)}
           />
           <Label>Content</Label>
           <Input
+            value={content}
             placeholder="Drive link of assignment (a share link of the pdf)"
             onChange={(e) => setContent(e.target.value)}
           />
         </div>
-        <div
-          onClick={addAssignment}
-          className="hover:text-dashboard text-highlightSecondary border border-highlightSecondary duration-150 cursor-pointer hover:bg-highlightSecondary w-[15%] justify-center items-center flex p-1 font-base"
-        >
-          Submit
+        <div className="flex space-x-4 items-center">
+          <div
+            onClick={resetFields}
+            className="hover:text-dashboard text-highlightSecondary border border-highlightSecondary duration-150 cursor-pointer hover:bg-highlightSecondary w-[15%] justify-center items-center flex p-1 font-base"
+          >
+            Reset
+          </div>
+          <div
+            onClick={addAssignment}
+            className="hover:text-dashboard text-highlightSecondary border border-highlightSecondary duration-150 cursor-pointer hover:bg-highlightSecondary w-[15%] justify-center items-center flex p-1 font-base"
+          >
+            Submit
+          </div>
         </div>
       </DialogContent>
     </Dialog>

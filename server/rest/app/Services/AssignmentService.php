@@ -73,10 +73,9 @@ class AssignmentService{
         }
     
         $assignment = Assignment::create($assignmentData);
-        return $assignment;
+        return response(["assignment"]);
 
     }
-
     public function editAssignment(string $assignmentUuid, array $data){
 
         $assigmentId = $this->getAssignmentId($assignmentUuid);
@@ -173,10 +172,6 @@ class AssignmentService{
         }
         public function getAssignmentsWithSubjects(){
             $assignments = Assignment::join("subjects","subjects.id","=","assignments.subject_id")->select("assignments.title","assignments.assignment_uuid","subjects.subject","subjects.subject_uuid")->orderBy("assignments.id","DESC")->paginate(5);
-            return $assignments;
-        }
-        public function test(){
-            $assignments = Assignment::join("subjects","subjects.id","=","assignments.subject_id")->select("assignments.title","assignments.assignment_uuid","subjects.subject","subjects.subject_uuid")->paginate(5);
             return $assignments;
         }
         public function getAssignmentsWithDeadline() {
