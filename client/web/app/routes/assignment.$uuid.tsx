@@ -179,7 +179,7 @@ export default function assignment() {
                 </p>
                 <p
                   className={`${
-                    !isDanger ? "text-highlight " : "text-[#B13232]"
+                    !isDanger ? "text-highlight " : "text-gray-500"
                   } font-base font-bold text-3xl`}
                 >
                   {readableDeadline}

@@ -7,6 +7,12 @@ import { Select, SelectContent, SelectTrigger, SelectValue } from "./ui/select";
 import axios from "axios";
 import { SelectItem } from "@radix-ui/react-select";
 import { useToast } from "./ui/use-toast";
+import Calendar from "react-calendar";
+import { format } from "date-fns";
+
+type ValuePiece = Date | null;
+
+type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 export const EditAssignmentButton = ({
   baseUrl,
@@ -32,6 +38,7 @@ export const EditAssignmentButton = ({
   );
   const [link, setLink] = useState<string>(originalLink);
   const [content, setContent] = useState<string>();
+  const [date, setDate] = useState<Date | null>(null);
 
   const getSubjects = async () => {
     const url = `${baseUrl}/api/v1/get-subjects`;
@@ -51,6 +58,7 @@ export const EditAssignmentButton = ({
         link,
         description,
         subject_uuid: subject,
+        deadline: date && format(date, "yyyy-MM-dd"),
       }
     );
     console.log(resp);
@@ -58,6 +66,13 @@ export const EditAssignmentButton = ({
       title: "Assignment Updated!",
     });
     location.reload();
+  };
+  const handleDateChange = (value: Value) => {
+    if (value instanceof Date) {
+      setDate(value);
+    } else if (Array.isArray(value) && value[0] instanceof Date) {
+      setDate(value[0]);
+    }
   };
 
   // todo: add datetime picker
@@ -101,7 +116,11 @@ export const EditAssignmentButton = ({
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
-          {/* <Label>Deadline</Label> */}
+          <Label>Deadline</Label>
+          <div className="bg-highlightSecondary rounded-md p-5 flex space-y-7 flex-col">
+            <Calendar onChange={handleDateChange} value={date} />
+            {date && <p>Selected date: {format(date, "yyyy-MM-dd")}</p>}
+          </div>{" "}
           {/* get the right component */}
           <Label>Link</Label>
           <Input

@@ -72,7 +72,9 @@ Route::prefix("v1")->group(function(){
         Route::put("demote/{userUuid}",[UserController::class,"demote"]);
 
         Route::delete("delete-resource/{resourceUuid}", [ResourceController::class, "deleteResource"]);
+        // ? make separate table for types?
         Route::post("add-resource",[ResourceController::class,"addResource"]);
+        Route::post("add-tracker-resource",[ResourceController::class,"addTrackerResource"]);
         Route::put("edit-resource/{resourceUuid}",[ResourceController::class,"editResource"]);
 
         Route::post("add-subject",[SubjectController::class,"addSubject"]);

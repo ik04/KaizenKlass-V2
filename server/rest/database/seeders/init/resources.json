@@ -1,0 +1,26 @@
+{
+    "resource": [
+        {
+            "title": "Shiryoku",
+            "link": "https://resources.kunalkeshan.dev",
+            "description": "Shiryoku (Resources) is an initiative to reduce the resistance between students and the resources that they require to up-skill themselves."
+        },
+        {
+            "title": "Srm Notes Adda",
+            "link": "https://srmnotesadda.in/",
+            "description": "A data store of Important Notes and Interview Questions"
+        }
+    ],
+    "tracker": [
+        {
+            "title": "SRM✔️",
+            "link": "https://a.srmcheck.me/",
+            "description": "A site to track Attendance and Marks"
+        },
+        {
+            "title": "What's in Mess",
+            "link": "https://whatsinmess.vercel.app/",
+            "description": "A site to track the current mess menu"
+        }
+    ]
+}

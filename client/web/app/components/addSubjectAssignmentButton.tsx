@@ -6,6 +6,12 @@ import { Textarea } from "./ui/textarea";
 import axios from "axios";
 import { useToast } from "./ui/use-toast";
 import { useNavigate } from "@remix-run/react";
+import Calendar from "react-calendar";
+import { format } from "date-fns";
+
+type ValuePiece = Date | null;
+
+type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 export const AddSubjectAssignmentButton = ({
   baseUrl,
@@ -18,6 +24,8 @@ export const AddSubjectAssignmentButton = ({
   const [description, setDescription] = useState<string>();
   const [link, setLink] = useState<string>();
   const [content, setContent] = useState<string>();
+  const [date, setDate] = useState<Date | null>(null);
+
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -28,13 +36,23 @@ export const AddSubjectAssignmentButton = ({
       link,
       description,
       subject_uuid: subjectUuid,
+      deadline: date && format(date, "yyyy-MM-dd"),
     });
     console.log(resp);
     toast({
       title: "Assignment Added!",
       description: `${title} has been added to the assignments`,
     });
-    navigate(`/assignment/${resp.data.assignment.assignment_uuid}`);
+    // navigate(`/assignment/${resp.data.assignment.assignment_uuid}`);
+    location.reload();
+  };
+
+  const handleDateChange = (value: Value) => {
+    if (value instanceof Date) {
+      setDate(value);
+    } else if (Array.isArray(value) && value[0] instanceof Date) {
+      setDate(value[0]);
+    }
   };
 
   return (
@@ -59,6 +77,11 @@ export const AddSubjectAssignmentButton = ({
             placeholder="description (optional)"
             onChange={(e) => setDescription(e.target.value)}
           />
+          <Label>Deadline</Label>
+          <div className="bg-highlightSecondary rounded-md p-5 flex space-y-7 flex-col">
+            <Calendar onChange={handleDateChange} value={date} />
+            {date && <p>Selected date: {format(date, "yyyy-MM-dd")}</p>}
+          </div>{" "}
           <Label>Link</Label>
           <Input
             placeholder="Link to classroom"

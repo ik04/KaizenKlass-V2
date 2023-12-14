@@ -35,6 +35,18 @@ class ResourceController extends Controller
             abort(code:400,message:$e->getMessage());
         }
     }
+    public function addTrackerResource(AddResourceRequest $request){
+        try{
+            $validated = $request->validated();
+            $resource = $this->service->createTrackerResource($validated["title"],$validated["link"],$validated["description"]??null);
+            return response()->json(["resource"=>$resource],201);
+        }catch(Exception $e){
+            abort(400,message:$e->getMessage());
+        }
+        catch(EmptyContentException $e){
+            abort(code:400,message:$e->getMessage());
+        }
+    }
     public function editResource(UpdateResourceRequest $request,string $resourceUuid){
         try{
             $validated = $request->validated();

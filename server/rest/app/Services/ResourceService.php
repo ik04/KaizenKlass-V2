@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 
+use App\Enums\Resource as EnumsResource;
 use App\Exceptions\EmptyContentException;
 use App\Models\Resource;
 use Ramsey\Uuid\Uuid;
@@ -14,7 +15,21 @@ class ResourceService{
         $data = [
             "title"=>$title,
             "link"=>$link,
-            "resource_uuid"=>Uuid::uuid4()
+            "resource_uuid"=>Uuid::uuid4(),
+            "type" => EnumsResource::RESOURCE->value
+        ];
+        if($description){
+            $data["description"] = $description;
+        }
+        $resource = Resource::create($data);
+        return $resource;
+    }
+    public function createTrackerResource(string $title,string $link,?string $description){
+        $data = [
+            "title"=>$title,
+            "link"=>$link,
+            "resource_uuid"=>Uuid::uuid4(),
+            "type" => EnumsResource::TRACKER->value
         ];
         if($description){
             $data["description"] = $description;

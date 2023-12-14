@@ -65,13 +65,10 @@ class UserService{
     }
 
     $role = $user->role;
-
-    // Assuming Role::CROSSCHECKER->value is an integer
     $newRole = $role + 1;
 
-    // Check if the new role is within the valid range
     if ($newRole > Role::ADMIN->value) {
-        throw new Exception("Invalid role", 403); // Adjust the error code accordingly
+        throw new Exception("Invalid role", 403); 
     }
 
     if ($role == Role::CROSSCHECKER->value) {
@@ -94,13 +91,10 @@ class UserService{
     }
 
     $role = $user->role;
-
-    // Assuming Role::CROSSCHECKER->value is an integer
     $newRole = $role - 1;
 
-    // Check if the new role is within the valid range
     if ($newRole < Role::CONTRIBUTOR->value) {
-        throw new Exception("Invalid role", 403); // Adjust the error code accordingly
+        throw new Exception("Invalid role", 403); 
     }
     if ($role == Role::CONTRIBUTOR->value) {
         throw new AlreadyDemotedException("User is already a contributor", 403);
