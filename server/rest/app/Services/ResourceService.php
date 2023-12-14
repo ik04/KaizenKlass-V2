@@ -53,7 +53,7 @@ class ResourceService{
         return $resource;
     }
     public function getResources(){
-        $resources = Resource::select("title","link","resource_uuid","description")->get();
+        $resources = Resource::select("title","link","resource_uuid","description","type")->get();
         return $resources;
     }
     public function deleteResource(string $uuid){

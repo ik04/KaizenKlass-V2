@@ -4,10 +4,12 @@ export const ResourceCard = ({
   title,
   description,
   link,
+  type,
 }: {
   title: string;
   description: string | undefined;
   link: string;
+  type: number;
 }) => {
   const [showFullDescription, setShowFullDescription] = useState(false);
 
@@ -20,10 +22,23 @@ export const ResourceCard = ({
     ? description
     : description?.substring(0, 80);
 
+  let icon = "/assets/diamond.svg";
+  switch (type) {
+    case 0:
+      icon = "/assets/diamond.svg";
+      break;
+    case 1:
+      icon = "/assets/treasureMap.png";
+      break;
+    default:
+      icon = "/assets/diamond.svg";
+      break;
+  }
+
   return (
     <div className="bg-mainLighter flex flex-col justify-between items-center p-10 rounded-2xl w-80 h-96 overflow-hidden">
       <div className="h-1/2 flex items-center justify-center">
-        <img src="/assets/treasureMap.png" className="w-32" alt="" />
+        <img src={`${icon}`} className="w-32" alt="" />
       </div>
       <div className="text-center flex flex-col">
         <h1 className="font-base text-highlightSecondary text-2xl font-bolds">

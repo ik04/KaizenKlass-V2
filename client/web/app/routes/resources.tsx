@@ -19,6 +19,7 @@ export default function resources() {
                 title={resource.title}
                 description={resource.description}
                 link={resource.link}
+                type={resource.type}
               />
             </div>
           ))}
