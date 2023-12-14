@@ -26,7 +26,7 @@ class ResourceController extends Controller
     public function addResource(AddResourceRequest $request){
         try{
             $validated = $request->validated();
-            $resource = $this->service->createResource($validated["title"],$validated["link"]);
+            $resource = $this->service->createResource($validated["title"],$validated["link"],$validated["description"]??null);
             return response()->json(["resource"=>$resource],201);
         }catch(Exception $e){
             abort(400,message:$e->getMessage());

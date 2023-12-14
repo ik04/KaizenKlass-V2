@@ -38,3 +38,9 @@ interface GlobalContextValue {
   isSidebarExpanded: boolean;
   setSidebarExpanded: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+interface Resource {
+  title: string;
+  description?: string;
+  link: string;
+}

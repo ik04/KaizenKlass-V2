@@ -1,6 +1,6 @@
 import { Link, useLoaderData } from "@remix-run/react";
 import axios from "axios";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BackButton } from "~/components/backButton";
 import { Dashboard } from "~/components/dashboard";
 import { AddSolutionButton } from "~/components/addSolutionButton";
@@ -20,6 +20,50 @@ export default function assignment() {
     uuid: string;
   } = useLoaderData();
   console.log(assignment, solutions);
+
+  const [readableDeadline, setReadableDeadline] = useState<string>();
+  const [isDanger, setIsDanger] = useState<boolean>(false);
+
+  const calculateTimeUntilDeadline = (deadline: string) => {
+    const now = new Date();
+    const deadlineDate = new Date(deadline);
+    const timeDifference = deadlineDate.getTime() - now.getTime();
+
+    const daysUntilDeadline = Math.floor(
+      timeDifference / (1000 * 60 * 60 * 24)
+    );
+    const hoursUntilDeadline = Math.floor(
+      (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const minutesUntilDeadline = Math.floor(
+      (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+    );
+
+    if (daysUntilDeadline > 0) {
+      setReadableDeadline(
+        `${daysUntilDeadline} day${daysUntilDeadline === 1 ? "" : "s"}`
+      );
+    } else if (hoursUntilDeadline > 0) {
+      setIsDanger(true);
+      setReadableDeadline(
+        `${hoursUntilDeadline} hour${hoursUntilDeadline === 1 ? "" : "s"}`
+      );
+    } else if (minutesUntilDeadline < 0) {
+      setIsDanger(true);
+      setReadableDeadline("Passed");
+    } else {
+      setIsDanger(true);
+      setReadableDeadline(
+        `${minutesUntilDeadline} minute${minutesUntilDeadline === 1 ? "" : "s"}`
+      );
+    }
+  };
+
+  useEffect(() => {
+    if (assignment.deadline) {
+      calculateTimeUntilDeadline(assignment.deadline);
+    }
+  }, [assignment.deadline]);
   const deleteAssignment = async () => {
     const resp = await axios.delete(
       `${baseUrl}/api/v1/delete-assignment/${uuid}`
@@ -128,10 +172,17 @@ export default function assignment() {
               </a>
             )}
             {assignment.deadline !== null && (
-              <div className="">
+              <div className="flex items-center justify-between">
                 <p className="text-highlight font-base font-bold transition-all duration-150 hover:text-red-500">
                   {assignment.deadline &&
                     parseDateTimeForIndia(assignment.deadline)}
+                </p>
+                <p
+                  className={`${
+                    !isDanger ? "text-highlight " : "text-[#B13232]"
+                  } font-base font-bold text-3xl`}
+                >
+                  {readableDeadline}
                 </p>
               </div>
             )}

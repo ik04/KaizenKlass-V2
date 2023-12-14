@@ -10,12 +10,16 @@ class ResourceService{
         $resourceId = Resource::select("id")->where("resource_uuid",$resourceUuid)->first("id")->id;
         return $resourceId;
     }
-    public function createResource(string $title,string $link){
-        $resource = Resource::create([
+    public function createResource(string $title,string $link,?string $description){
+        $data = [
             "title"=>$title,
             "link"=>$link,
             "resource_uuid"=>Uuid::uuid4()
-        ]);
+        ];
+        if($description){
+            $data["description"] = $description;
+        }
+        $resource = Resource::create($data);
         return $resource;
     }
     public function editResource($data,string $resourceUuid){
@@ -34,7 +38,7 @@ class ResourceService{
         return $resource;
     }
     public function getResources(){
-        $resources = Resource::select("title","link","resource_uuid")->get();
+        $resources = Resource::select("title","link","resource_uuid","description")->get();
         return $resources;
     }
     public function deleteResource(string $uuid){

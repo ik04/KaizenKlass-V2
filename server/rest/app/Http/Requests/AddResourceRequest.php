@@ -15,7 +15,8 @@ class AddResourceRequest extends FormRequest
     {
         return [
             "title"=>"string|required",
-            "link" => ["required", "string", "regex:/^(?:(?:https?|ftp):\/\/|www\.)[a-z0-9-]+(\.[a-z0-9-]+)*(?:\/[^\s]*)?$/i"]        
+            "link" => ["required", "string", "regex:/^(?:(?:https?|ftp):\/\/|www\.)[a-z0-9-]+(\.[a-z0-9-]+)*(?:\/[^\s]*)?$/i"],        
+            "description" => "string|nullable"
         ];
     }
 }

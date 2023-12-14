@@ -29,8 +29,7 @@ Route::prefix("v1")->group(function(){
 
     // Route::get("/test",[AssignmentController::class,"test"]);
     Route::post("register-admin",[UserController::class,"registerAdmin"]);
-    Route::post("register-contributor",[UserController::class,"registerContributor"]);
-    Route::post("register-crosschecker",[UserController::class,"registerCrosschecker"]);
+
     Route::post("login",[UserController::class,"login"]);
     Route::get("user-data",[UserController::class,"userData"]); // No regular users
     Route::get("get-subjects",[SubjectController::class,"getSubjects"]);
@@ -67,25 +66,30 @@ Route::prefix("v1")->group(function(){
     // * admin routes
     Route::middleware(["auth:sanctum","checkAdmin"])->group(function(){
 
+        Route::post("register-contributor",[UserController::class,"registerContributor"]);
+        Route::post("register-crosschecker",[UserController::class,"registerCrosschecker"]);
+        Route::put("promote/{userUuid}",[UserController::class,"promote"]);
+        Route::put("demote/{userUuid}",[UserController::class,"demote"]);
+
         Route::delete("delete-resource/{resourceUuid}", [ResourceController::class, "deleteResource"]);
         Route::post("add-resource",[ResourceController::class,"addResource"]);
         Route::put("edit-resource/{resourceUuid}",[ResourceController::class,"editResource"]);
 
         Route::post("add-subject",[SubjectController::class,"addSubject"]);
         Route::delete("delete-subject/{subjectUuid}", [SubjectController::class, "deleteSubject"]);
-        Route::get("/_dbinit",function(){
-            $relativePath = __DIR__ . "/init/subjects.json";
-            $subjects = file_get_contents($relativePath);
-            $subjects = json_decode($subjects);
-            $subjects = $subjects->subjects;
-            foreach($subjects as $subject){
-                $subject = Subject::create([
-                    "subject" => $subject->subject,
-                    "subject_uuid" => Uuid::uuid4()
-                ]);
-            }
-            return response()->json("initialized subjects db",201);
-        });
+        // Route::get("/_dbinit",function(){
+        //     $relativePath = __DIR__ . "/init/subjects.json";
+        //     $subjects = file_get_contents($relativePath);
+        //     $subjects = json_decode($subjects);
+        //     $subjects = $subjects->subjects;
+        //     foreach($subjects as $subject){
+        //         $subject = Subject::create([
+        //             "subject" => $subject->subject,
+        //             "subject_uuid" => Uuid::uuid4()
+        //         ]);
+        //     }
+        //     return response()->json("initialized subjects db",201);
+        // });
 
         Route::delete("delete-solution/{solutionUuid}", [SolutionController::class, "deleteSolution"]);
     });

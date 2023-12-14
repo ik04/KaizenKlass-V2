@@ -38,6 +38,7 @@ export default function login() {
           <Input
             onChange={(e) => setPassword(e.target.value)}
             placeholder="........."
+            type="password"
           />
           <div
             onClick={login}
