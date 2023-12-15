@@ -84,25 +84,23 @@ export const EditAssignmentButton = ({
       <DialogContent>
         <div className="font-base">
           <Label>Subject</Label>
-          <Select
-            value={originalSubjectUuid}
-            required
-            onValueChange={(value) => setSubject(value)}
+          <select
+            value={subject}
+            onChange={(e) => setSubject(e.target.value)}
+            name=""
+            placeholder="select subject"
+            className="py-2 my-2 bg-white text-sm rounded-sm"
+            id=""
           >
-            <SelectTrigger className="">
-              <SelectValue placeholder="Select Subject" />
-            </SelectTrigger>
-            <SelectContent>
-              {subjects.map((subject) => (
-                <SelectItem
-                  className="cursor-pointer"
-                  value={subject.subject_uuid}
-                >
-                  <p className="text-black">{subject.subject.toString()}</p>
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+            <option value="" className="text-[#737373]" disabled selected>
+              Select Subject
+            </option>
+            {subjects.map((subject) => (
+              <option className="p-4" value={subject.subject_uuid}>
+                {subject.subject}
+              </option>
+            ))}
+          </select>
           <Label>Title</Label>
           <Input
             placeholder="New Title"
