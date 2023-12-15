@@ -26,9 +26,8 @@ Route::prefix("v1")->group(function(){
     Route::get("/healthcheck",function(){
       return response()->json(["message"=>"hello from kaizenklass"]);
     });
-
     // Route::get("/test",[AssignmentController::class,"test"]);
-    Route::post("register-admin",[UserController::class,"registerAdmin"]);
+    // Route::post("register-admin",[UserController::class,"registerAdmin"]);
 
     Route::post("login",[UserController::class,"login"]);
     Route::get("user-data",[UserController::class,"userData"]); // No regular users
@@ -41,7 +40,7 @@ Route::prefix("v1")->group(function(){
     Route::get("get-deadlines",[AssignmentController::class,"getAssignmentsWithDeadline"]);
     Route::get("get-resources",[ResourceController::class,"getResources"]);
 
-    Route::get("test/{uuid}",[ResourceController::class,"test"]);
+    // Route::get("test/{uuid}",[ResourceController::class,"test"]);
 
 
     // * contributor routes

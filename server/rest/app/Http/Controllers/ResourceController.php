@@ -16,9 +16,9 @@ class ResourceController extends Controller
     {
         
     }
-    public function test($uuid){
-        return Resource::select("title","link","resource_uuid")->where("resource_uuid",$uuid)->first();
-    }
+    // public function test($uuid){
+    //     return Resource::select("title","link","resource_uuid")->where("resource_uuid",$uuid)->first();
+    // }
     public function getResources(){
         $resources = $this->service->getResources();
         return response()->json(["resources"=>$resources],200);
