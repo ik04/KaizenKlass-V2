@@ -1,8 +1,8 @@
 import { useLoaderData } from "@remix-run/react";
 import axios from "axios";
 import { Dashboard } from "~/components/dashboard";
+import { SplashScreen } from "~/components/splashScreen";
 import { SubjectCard } from "~/components/subjectCard";
-
 export default function home() {
   //
   const { subjects, baseUrl }: { subjects: Subject[]; baseUrl: string } =
