@@ -17,7 +17,7 @@ export default function assignments() {
   const [assignments, setAssignments] = useState<Assignment[]>([]);
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState();
-  const [isLastPage, setIsLastPage] = useState(false);
+  const [isLastPage, setIsLastPage] = useState(true);
   const [isEmpty, setIsEmpty] = useState<boolean>(false);
 
   const callAssignmentsWithSubjects = async () => {
@@ -26,8 +26,8 @@ export default function assignments() {
     console.log(resp);
     setLastPage(resp.data.assignments.last_page);
     setAssignments(resp.data.assignments.data);
-    if (resp.data.assignments.next_page_url === null) {
-      setIsLastPage(true);
+    if (resp.data.assignments.next_page_url !== null) {
+      setIsLastPage(false);
     }
   };
   const callNextPage = async () => {

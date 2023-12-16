@@ -19,17 +19,18 @@ export const GlobalState = ({
   // ? should i rename this to name or keep as username
 
   const callUserData = async () => {
-    const resp = await axios.get(`${baseUrl}/api/v1/user-data`);
-    axios.defaults.headers.common[
-      "Authorization"
-    ] = `Bearer ${resp.data.access_token}`;
-    // console.log(resp.data);
-
-    setIsAuthenticated(true);
-    setUsername(resp.data.name);
-    setEmail(resp.data.email);
-    setRole(resp.data.role);
-    setUserUuid(resp.data.uuid);
+    try {
+      const resp = await axios.get(`${baseUrl}/api/v1/user-data`);
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${resp.data.access_token}`;
+      // console.log(resp.data);
+      setIsAuthenticated(true);
+      setUsername(resp.data.name);
+      setEmail(resp.data.email);
+      setRole(resp.data.role);
+      setUserUuid(resp.data.uuid);
+    } catch (error) {}
   };
 
   useEffect(() => {
