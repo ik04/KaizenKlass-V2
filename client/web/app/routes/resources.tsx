@@ -10,9 +10,9 @@ export default function resources() {
   console.log(resources);
 
   return (
-    <div className="bg-main h-screen grid grid-cols-4">
+    <div className="bg-main min-h-screen">
       <Dashboard baseUrl={baseUrl}>
-        <div className="flex">
+        <div className="md:grid flex flex-col md:grid-cols-4">
           {resources.map((resource) => (
             <div className="px-10">
               <ResourceCard
@@ -28,6 +28,10 @@ export default function resources() {
     </div>
   );
 }
+
+/*
+          
+*/
 export const loader = async () => {
   const baseUrl: string = process.env.PUBLIC_DOMAIN || "";
   const url = `${baseUrl}/api/v1/get-resources`;
