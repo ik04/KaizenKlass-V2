@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Enums\Role;
 use App\Exceptions\AlreadyDemotedException;
 use App\Exceptions\AlreadyPromotedException;
+use App\Exceptions\IncorrectPasswordException;
+use App\Exceptions\UserNotFoundException;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -29,10 +31,10 @@ class UserService{
     public function login(string $email, string $password){
         $user = User::where("email",$email)->first();
         if(!$user){
-            return response()->json(["error"=>"User not Found, Please Register"],401);
+            throw new UserNotFoundException(message:"User is not registered",code:400);
         }
         if(!Hash::check($password,$user->password)){
-            return response()->json(["error"=>"Incorrect Password"],401);
+            throw new IncorrectPasswordException(message:"Incorrect Password",code:400);
         }
         return $user;
     }

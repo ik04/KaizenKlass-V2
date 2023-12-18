@@ -14,8 +14,9 @@ class AddSolutionRequest extends FormRequest
                 "string",
                 "nullable",
                 "regex:#https://(?:docs\.google\.com/(?:document|presentation)/d/|drive\.google\.com/file/d/)([a-zA-Z0-9_-]+)/(?:edit|view)?\S*#"
-            ],                "assignment_uuid" => "uuid|required",
-            "description" => "string|nullable"
+            ],                    
+            "assignment_uuid" => "uuid|required",
+            "description" => "string|required"
         ];
         
     }

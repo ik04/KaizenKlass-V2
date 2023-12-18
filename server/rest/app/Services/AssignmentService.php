@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 
+use App\Exceptions\AssignmentNotFoundException;
 use App\Exceptions\SubjectNotFoundException;
 use App\Models\Assignment;
 use App\Models\Subject;
@@ -41,7 +42,7 @@ class AssignmentService{
     $subject = Subject::where('subject_uuid', $subjectUuid)->first();
 
     if (!$subject) {
-        return response()->json(["error" => "Subject not found"], 404);
+        throw new SubjectNotFoundException(message:"Subject not found",code:404);
     }
     $subjectId = $this->subjectService->getSubjectId($subjectUuid);
     $assignments = Assignment::select(["title","assignment_uuid"])->where("subject_id",$subjectId)->orderBy("created_at","DESC")->get();
@@ -136,7 +137,7 @@ class AssignmentService{
                 ->first();
     
             if (!$assignment) {
-                return response()->json(["message" => "Assignment not found"], 404);
+                throw new AssignmentNotFoundException(message:"Assignment not found",code:404);
             }
             $subjectDetails = $this->subjectService->getSubjectDetails($assignment->subject_id);
     

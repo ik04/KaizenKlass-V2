@@ -23,8 +23,8 @@ class SolutionController extends Controller
 
 
     public function getAssignmentId($uuid){
-        $actualCategoryId = Assignment::select("id")->where("assignment_uuid", $uuid)->first("id")->id;
-        return $actualCategoryId;
+        $assignmentId = Assignment::select("id")->where("assignment_uuid", $uuid)->first("id")->id;
+        return $assignmentId;
     }
     public function addSolution(AddSolutionRequest $request){
             $validated = $request->validated();

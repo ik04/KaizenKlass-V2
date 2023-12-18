@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Enums\Role;
 use App\Exceptions\AlreadyPromotedException;
+use App\Exceptions\IncorrectPasswordException;
+use App\Exceptions\UserNotFoundException;
 use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\RegisterUserRequest;
 use App\Models\User;
 use App\Services\UserService;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -28,22 +31,32 @@ class UserController extends Controller
         unset($user->id);
         return response()->json(["user"=>$user],201);
     }
+    
     public function registerContributor(RegisterUserRequest $request){
         $validated = $request->validated();
         $user = $this->service->register($validated["email"],$validated["name"],$validated["password"],Role::CONTRIBUTOR);
         return response()->json(["user"=>$user],201);
     }
+
     public function registerCrosschecker(RegisterUserRequest $request){
         $validated = $request->validated();
         $user = $this->service->register($validated["email"],$validated["name"],$validated["password"],Role::CROSSCHECKER);
         return response()->json(["user"=>$user],201);
     }
     public function login(LoginUserRequest $request){
-        $validated = $request->validated();
-        $user = $this->service->login($validated["email"],$validated["password"]);
-        $userToken = $user->createToken("myusertoken")->plainTextToken;
-        unset($user->id);
-        return response()->json(["user"=>$user,"user_token"=>$userToken],200)->withCookie(cookie()->forever('at',$userToken));
+        try{
+            $validated = $request->validated();
+            $user = $this->service->login($validated["email"],$validated["password"]);
+            $userToken = $user->createToken("myusertoken")->plainTextToken;
+            unset($user->id);
+            return response()->json(["user"=>$user,"user_token"=>$userToken],200)->withCookie(cookie()->forever('at',$userToken));
+        }catch(UserNotFoundException $e){
+            return response()->json(["message"=>$e->getMessage()],$e->getCode());
+        }catch(IncorrectPasswordException $e){
+            return response()->json(["message"=>$e->getMessage()],$e->getCode());
+        }catch(Exception $e){
+            return response()->json(["message"=>$e->getMessage()],$e->getCode());
+        }
     }
 
     public function logout(Request $request){
