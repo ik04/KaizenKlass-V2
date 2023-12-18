@@ -31,11 +31,13 @@ class UserController extends Controller
         unset($user->id);
         return response()->json(["user"=>$user],201);
     }
+    
     public function registerContributor(RegisterUserRequest $request){
         $validated = $request->validated();
         $user = $this->service->register($validated["email"],$validated["name"],$validated["password"],Role::CONTRIBUTOR);
         return response()->json(["user"=>$user],201);
     }
+
     public function registerCrosschecker(RegisterUserRequest $request){
         $validated = $request->validated();
         $user = $this->service->register($validated["email"],$validated["name"],$validated["password"],Role::CROSSCHECKER);
@@ -43,7 +45,6 @@ class UserController extends Controller
     }
     public function login(LoginUserRequest $request){
         try{
-
             $validated = $request->validated();
             $user = $this->service->login($validated["email"],$validated["password"]);
             $userToken = $user->createToken("myusertoken")->plainTextToken;

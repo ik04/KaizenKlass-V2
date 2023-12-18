@@ -28,7 +28,6 @@ Route::prefix("v1")->group(function(){
     Route::get("/healthcheck",function(){
       return response()->json(["message"=>"hello from kaizenklass"]);
     });
-    // Route::get("/test",[AssignmentController::class,"test"]);
     // Route::post("register-admin",[UserController::class,"registerAdmin"]);
 
     Route::post("login",[UserController::class,"login"]);
@@ -41,8 +40,7 @@ Route::prefix("v1")->group(function(){
     Route::get("get-deadlines",[AssignmentController::class,"getAssignmentsWithDeadline"]);
     Route::get("get-resources",[ResourceController::class,"getResources"]);
 
-    // Route::get("test/{uuid}",[ResourceController::class,"test"]);
-
+    Route::post("register-contributor",[UserController::class,"registerContributor"]);
 
     // * contributor routes
     Route::middleware(["auth:sanctum"])->group(function(){
@@ -65,8 +63,6 @@ Route::prefix("v1")->group(function(){
     
     // * admin routes
     Route::middleware(["auth:sanctum","checkAdmin"])->group(function(){
-
-        Route::post("register-contributor",[UserController::class,"registerContributor"]);
         Route::post("register-crosschecker",[UserController::class,"registerCrosschecker"]);
         Route::put("promote/{userUuid}",[UserController::class,"promote"]);
         Route::put("demote/{userUuid}",[UserController::class,"demote"]);
