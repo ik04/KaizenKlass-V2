@@ -65,17 +65,17 @@ export const AddSolutionButton = ({
       </DialogTrigger>
       <DialogContent>
         <div className="">
-          <Label>Content</Label>
-          <Input
-            placeholder="Drive link of Solution pdf (a share link that is public)"
-            onChange={(e) => setContent(e.target.value)}
-            required
-          />
           <Label>Description</Label>
           <Textarea
             placeholder="description/answer"
             required
             onChange={(e) => setDescription(e.target.value)}
+          />
+          <Label>Content</Label>
+          <Input
+            placeholder="Drive link of Solution pdf (a share link that is public)"
+            onChange={(e) => setContent(e.target.value)}
+            required
           />
         </div>
         <div
