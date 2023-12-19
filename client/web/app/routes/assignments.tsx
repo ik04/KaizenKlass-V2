@@ -23,7 +23,7 @@ export default function assignments() {
   const callAssignmentsWithSubjects = async () => {
     const url = `${baseUrl}/api/v1/get-assignment-subjects?page=1`;
     const resp = await axios.get(url);
-    console.log(resp);
+    // console.log(resp);
     setLastPage(resp.data.assignments.last_page);
     setAssignments(resp.data.assignments.data);
     if (resp.data.assignments.next_page_url !== null) {

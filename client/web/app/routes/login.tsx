@@ -8,7 +8,7 @@ import { Input } from "~/components/ui/input";
 
 export default function login() {
   const { baseUrl }: { baseUrl: string } = useLoaderData();
-  console.log(baseUrl);
+  // console.log(baseUrl);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -17,7 +17,7 @@ export default function login() {
       email,
       password,
     });
-    console.log(resp);
+    // console.log(resp);
     location.href = "/home";
   };
 

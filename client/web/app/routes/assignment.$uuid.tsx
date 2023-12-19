@@ -6,6 +6,7 @@ import { Dashboard } from "~/components/dashboard";
 import { AddSolutionButton } from "~/components/addSolutionButton";
 import { GlobalContext } from "~/context/GlobalContext";
 import { EditAssignmentButton } from "~/components/editAssignmentButton";
+import { toast } from "~/components/ui/use-toast";
 
 export default function assignment() {
   const {
@@ -19,10 +20,13 @@ export default function assignment() {
     baseUrl: string;
     uuid: string;
   } = useLoaderData();
-  console.log(assignment, solutions);
+  // console.log(assignment, solutions);
+  const { userUuid } = useContext(GlobalContext);
 
   const [readableDeadline, setReadableDeadline] = useState<string>();
   const [isDanger, setIsDanger] = useState<boolean>(false);
+  const [assignmentSolutions, setAssignmentSolutions] =
+    useState<Solution[]>(solutions);
 
   const calculateTimeUntilDeadline = (deadline: string) => {
     const now = new Date();
@@ -68,7 +72,7 @@ export default function assignment() {
     const resp = await axios.delete(
       `${baseUrl}/api/v1/delete-assignment/${uuid}`
     );
-    console.log("deleted assignment!");
+    // console.log("deleted assignment!");
     history.back();
   };
   const { isAuthenticated, role } = useContext(GlobalContext);
@@ -107,6 +111,24 @@ export default function assignment() {
     });
   }
 
+  const deleteOwnSolution = async (solutionUuid: string) => {
+    const resp = await axios.delete(
+      `${baseUrl}/api/v1/delete-own-solution/${solutionUuid}`
+    );
+    setAssignmentSolutions((prevSolutions: Solution[]) =>
+      prevSolutions.filter(
+        (solution) => solution.solution_uuid !== solutionUuid
+      )
+    );
+    toast({
+      title: "Solution deleted!",
+      description: `the solution has been deleted`,
+    });
+    console.log("deleted solution!");
+    // console.log(solutions);
+  };
+
+  // todo: finish solution components
   return (
     <div className="bg-main h-screen">
       <Dashboard baseUrl={baseUrl}>
@@ -146,9 +168,15 @@ export default function assignment() {
                 />
               )}
             </div>
-            <div className="description font-base font-semibold text-highlight">
-              {assignment.description}
-            </div>
+            {assignment.description && (
+              <div className="description font-base font-semibold text-highlight">
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: convertLinksToAnchors(assignment.description),
+                  }}
+                />{" "}
+              </div>
+            )}
             {assignment.link !== null && (
               <a
                 href={`${assignment.link}`}
@@ -186,22 +214,66 @@ export default function assignment() {
                 </p>
               </div>
             )}
-            {solutions.length > 0 && (
+            {assignmentSolutions.length > 0 && (
               <>
                 <div className="w-full border border-highlightSecondary border-dashed"></div>
-                {solutions.map((solution) => (
+                {assignmentSolutions.map((solution) => (
                   <div className="flex flex-col justify-between items-start">
-                    <div className="font-base text-2xl text-highlightSecondary mb-2 capitalize font-bold">
-                      Posted by: {solution.username}
+                    <div className="Title font-base mb-2 flex items-center space-x-3 text-highlightSecondary text-3xl ">
+                      <h1> Posted by: {solution.username}</h1>
+                      {userUuid != solution.user_uuid ? (
+                        <>
+                          {isAuthenticated && role == 2 && (
+                            // todo: replace edit with solution edits
+                            <EditAssignmentButton
+                              assignmentUuid={uuid}
+                              baseUrl={baseUrl}
+                              originalDescription={assignment.description}
+                              originalLink={assignment.link}
+                              originalSubjectUuid={assignment.subject_uuid}
+                              originalTitle={assignment.title}
+                            />
+                          )}
+                          {isAuthenticated && role == 2 && (
+                            <img
+                              src="/assets/trash.png"
+                              onClick={deleteAssignment}
+                              className="w-7 mb-2"
+                              alt=""
+                            />
+                          )}
+                        </>
+                      ) : (
+                        <>
+                          <EditAssignmentButton
+                            assignmentUuid={uuid}
+                            baseUrl={baseUrl}
+                            originalDescription={assignment.description}
+                            originalLink={assignment.link}
+                            originalSubjectUuid={assignment.subject_uuid}
+                            originalTitle={assignment.title}
+                          />
+                          <img
+                            src="/assets/trash.png"
+                            onClick={() =>
+                              deleteOwnSolution(solution.solution_uuid)
+                            }
+                            className="w-7 mb-2"
+                            alt=""
+                          />
+                        </>
+                      )}
                     </div>
-                    <a
-                      href={`${solution.content}`}
-                      className="text-highlightSecondary font-base font-semibold hover:p-1 hover:bg-highlightSecondary transition-all duration-150 hover:text-mainLighter"
-                    >
-                      Download Answer Content
-                    </a>
+                    {solution.content && (
+                      <a
+                        href={`${solution.content}`}
+                        className="text-highlightSecondary font-base font-semibold hover:p-1 hover:bg-highlightSecondary transition-all duration-150 hover:text-mainLighter"
+                      >
+                        Download Answer Content
+                      </a>
+                    )}
                     {solution.description && (
-                      <div className="text-highlight">
+                      <div className="description font-base font-semibold text-highlight">
                         <div
                           dangerouslySetInnerHTML={{
                             __html: convertLinksToAnchors(solution.description),
@@ -232,7 +304,7 @@ export const loader = async ({ params }: any) => {
   try {
     const url = `${process.env.PUBLIC_DOMAIN}/api/v1/get-assignment-solutions/${uuid}`;
     const resp = await axios.get(url);
-    console.log(resp.data);
+    // console.log(resp.data);
     const data = {
       solutions: resp.data.solutions,
       assignment: resp.data.assignment,
