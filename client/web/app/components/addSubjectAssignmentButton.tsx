@@ -38,7 +38,7 @@ export const AddSubjectAssignmentButton = ({
       subject_uuid: subjectUuid,
       deadline: date && format(date, "yyyy-MM-dd"),
     });
-    console.log(resp);
+    // console.log(resp);
     toast({
       title: "Assignment Added!",
       description: `${title} has been added to the assignments`,
