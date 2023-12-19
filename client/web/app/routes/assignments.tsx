@@ -95,7 +95,10 @@ export default function assignments() {
           </>
         ) : (
           <>
-            <div className="">
+            <div className="flex flex-col space-y-7">
+              <Skeleton className="h-32 px-5 rounded-2xl bg-mainLighter" />
+              <Skeleton className="h-32 px-5 rounded-2xl bg-mainLighter" />
+              <Skeleton className="h-32 px-5 rounded-2xl bg-mainLighter" />
               <Skeleton className="h-32 px-5 rounded-2xl bg-mainLighter" />
             </div>
           </>
