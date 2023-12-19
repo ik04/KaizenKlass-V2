@@ -69,11 +69,21 @@ export default function assignment() {
     }
   }, [assignment.deadline]);
   const deleteAssignment = async () => {
-    const resp = await axios.delete(
-      `${baseUrl}/api/v1/delete-assignment/${uuid}`
-    );
-    // console.log("deleted assignment!");
-    history.back();
+    try {
+      const resp = await axios.delete(
+        `${baseUrl}/api/v1/delete-assignment/${uuid}`
+      );
+
+      // console.log("deleted assignment!");
+      history.back();
+    } catch (error) {
+      toast({
+        title: "Error Deleting Assignment",
+        description: `An error occurred while deleting the solution`,
+        variant: "destructive",
+      });
+      console.error(error);
+    }
   };
   const { isAuthenticated, role } = useContext(GlobalContext);
   // ? limit to 1 answer per assignment
@@ -112,19 +122,28 @@ export default function assignment() {
   }
 
   const deleteOwnSolution = async (solutionUuid: string) => {
-    const resp = await axios.delete(
-      `${baseUrl}/api/v1/delete-own-solution/${solutionUuid}`
-    );
-    setAssignmentSolutions((prevSolutions: Solution[]) =>
-      prevSolutions.filter(
-        (solution) => solution.solution_uuid !== solutionUuid
-      )
-    );
-    toast({
-      title: "Solution deleted!",
-      description: `the solution has been deleted`,
-    });
-    console.log("deleted solution!");
+    try {
+      const resp = await axios.delete(
+        `${baseUrl}/api/v1/delete-own-solution/${solutionUuid}`
+      );
+      setAssignmentSolutions((prevSolutions: Solution[]) =>
+        prevSolutions.filter(
+          (solution) => solution.solution_uuid !== solutionUuid
+        )
+      );
+      toast({
+        title: "Solution deleted!",
+        description: `the solution has been deleted`,
+      });
+      console.log("deleted solution!");
+    } catch (error) {
+      toast({
+        title: "Error Request Failed",
+        description: "An error occurred while deleting the solution",
+        variant: "destructive",
+      });
+      console.error("Error deleting solution:", error);
+    }
     // console.log(solutions);
   };
 

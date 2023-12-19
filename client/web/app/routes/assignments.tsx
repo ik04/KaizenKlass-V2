@@ -9,6 +9,7 @@ import { EmptyState } from "~/components/emptyState";
 import { GlobalContext } from "~/context/GlobalContext";
 import Calendar from "react-calendar";
 import { Skeleton } from "~/components/ui/skeleton";
+import { toast } from "~/components/ui/use-toast";
 
 export default function assignments() {
   // const { assignments }: { assignments: Assignment[] } = useLoaderData();
@@ -23,34 +24,51 @@ export default function assignments() {
   const [isLoading, setIsLoading] = useState(true);
 
   const callAssignmentsWithSubjects = async () => {
-    const url = `${baseUrl}/api/v1/get-assignment-subjects?page=1`;
-    const resp = await axios.get(url);
-    // console.log(resp);
-    setIsLoading(false);
-    setLastPage(resp.data.assignments.last_page);
-    if (resp.data.assignments.data.length === 0) {
-      setIsEmpty(true);
-    } else {
-      setAssignments(resp.data.assignments.data);
-    }
-    if (resp.data.assignments.next_page_url !== null) {
-      setIsLastPage(false);
+    try {
+      const url = `${baseUrl}/api/v1/get-assignment-subjects?page=1`;
+      const resp = await axios.get(url);
+      // console.log(resp);
+      setIsLoading(false);
+      setLastPage(resp.data.assignments.last_page);
+      if (resp.data.assignments.data.length === 0) {
+        setIsEmpty(true);
+      } else {
+        setAssignments(resp.data.assignments.data);
+      }
+      if (resp.data.assignments.next_page_url !== null) {
+        setIsLastPage(false);
+      }
+    } catch (error) {
+      toast({
+        title: "Error Loading Assignments",
+        description: `An error occurred while loading the assignments`,
+        variant: "destructive",
+      });
     }
   };
   const callNextPage = async () => {
-    const nextPage = page + 1;
-    const url = `${baseUrl}/api/v1/get-assignment-subjects?page=${nextPage}`;
-    const resp = await axios.get(url);
-    const newAssignments = resp.data.assignments.data;
-    setAssignments((prevAssignments) => [
-      ...prevAssignments,
-      ...newAssignments,
-    ]);
-    setPage(nextPage);
-    if (resp.data.assignments.next_page_url === null) {
-      setIsLastPage(true);
+    try {
+      const nextPage = page + 1;
+      const url = `${baseUrl}/api/v1/get-assignment-subjects?page=${nextPage}`;
+      const resp = await axios.get(url);
+      const newAssignments = resp.data.assignments.data;
+      setAssignments((prevAssignments) => [
+        ...prevAssignments,
+        ...newAssignments,
+      ]);
+      setPage(nextPage);
+      if (resp.data.assignments.next_page_url === null) {
+        setIsLastPage(true);
+      }
+    } catch (error) {
+      toast({
+        title: "Error Loading Assignments",
+        description: `An error occurred while loading the assignments`,
+        variant: "destructive",
+      });
     }
   };
+
   useEffect(() => {
     callAssignmentsWithSubjects();
   }, []);

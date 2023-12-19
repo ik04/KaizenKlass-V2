@@ -41,16 +41,33 @@ export const AddSolutionButton = ({
         });
         location.reload();
       }
-    } catch (error) {
-      const typedError = error as ErrorResponse;
-      console.log(typedError.response.data.errors);
-      typedError.response.data.errors.content.forEach((element) => {
-        toast({
-          variant: "destructive",
-          title: "Invalid Input Field!",
-          description: element,
-        });
-      });
+    } catch (error: any) {
+      console.log(error.response);
+
+      if (error.response && error.response.status === 422) {
+        const errors = error.response.data.errors;
+
+        if (errors) {
+          let errorMessages = "";
+
+          for (const [key, value] of Object.entries(errors)) {
+            // Iterate through each error message for a specific key
+            if (Array.isArray(value)) {
+              errorMessages += `${key}: ${value.join(", ")}\n`;
+            }
+          }
+
+          toast({
+            title: "Invalid Fields Inputs",
+            description: errorMessages.trim(),
+            variant: "destructive",
+          });
+        } else {
+          console.error("Unexpected error:", error);
+        }
+      } else {
+        console.error("Unexpected error:", error);
+      }
     }
   };
 

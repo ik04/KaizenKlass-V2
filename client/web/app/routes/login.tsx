@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { Form } from "react-hook-form";
 import { BackButton } from "~/components/backButton";
 import { Input } from "~/components/ui/input";
+import { toast } from "~/components/ui/use-toast";
 
 export default function login() {
   const { baseUrl }: { baseUrl: string } = useLoaderData();
@@ -13,15 +14,54 @@ export default function login() {
   const [password, setPassword] = useState("");
 
   const login = async () => {
-    const resp = await axios.post(`${baseUrl}/api/v1/login`, {
-      email,
-      password,
-    });
-    // console.log(resp);
-    location.href = "/home";
+    try {
+      if (!email || !password) {
+        toast({
+          title: "Invalid Inputs",
+          description: "Please provide both email and password.",
+          variant: "destructive",
+        });
+        return;
+      }
+      const resp = await axios.post(`${baseUrl}/api/v1/login`, {
+        email,
+        password,
+      });
+      location.href = "/home";
+    } catch (error: any) {
+      console.log(error.response);
+      if (error.response && error.response.status === 400) {
+        toast({
+          title: "Invalid Credentials",
+          description: `${error.response.data.message}`,
+          variant: "destructive",
+        });
+      } else if (error.response && error.response.status === 422) {
+        if (!error.response.data.errors.email) {
+          toast({
+            title: "Invalid Fields Inputs",
+            description: `${error.response.data.errors.password}`,
+            variant: "destructive",
+          });
+        } else if (!error.response.data.errors.password) {
+          toast({
+            title: "Invalid Fields Inputs",
+            description: `${error.response.data.errors.email}`,
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title: "Invalid Fields Inputs",
+            description: `${error.response.data.errors.email} and ${error.response.data.errors.password}`,
+            variant: "destructive",
+          });
+        }
+      } else {
+        console.error("Unexpected error:", error);
+      }
+    }
   };
 
-  // ! fix hackey vh, i suck at fe
   return (
     <div className="">
       <div className="w-full p-3 flex bg-main justify-start items-center">

@@ -5,16 +5,28 @@ import { BackButton } from "~/components/backButton";
 import { Dashboard } from "~/components/dashboard";
 import { DeadlineCard } from "~/components/deadlineCard";
 import { EmptyState } from "~/components/emptyState";
+import { toast } from "~/components/ui/use-toast";
 
 export default function deadlines() {
   const {
     assignments,
     baseUrl,
-  }: { assignments: AssignmentWithDeadline[]; baseUrl: string } =
-    useLoaderData();
+    error,
+  }: {
+    assignments: AssignmentWithDeadline[];
+    baseUrl: string;
+    error: { message: string };
+  } = useLoaderData();
   const [isEmpty, setIsEmpty] = useState<boolean>();
 
   useEffect(() => {
+    if (error) {
+      toast({
+        title: "Error Fetching Deadlines",
+        description: `${error.message}`,
+        variant: "destructive",
+      });
+    }
     if (assignments.length === 0) {
       setIsEmpty(true);
     }
@@ -46,11 +58,20 @@ export default function deadlines() {
 }
 
 export const loader = async () => {
-  const url = `${process.env.PUBLIC_DOMAIN}/api/v1/get-deadlines`;
-  const resp = await axios.get(url);
-  const data = {
-    assignments: resp.data.assignments,
-    baseUrl: process.env.PUBLIC_DOMAIN,
-  };
-  return data;
+  try {
+    const url = `${process.env.PUBLIC_DOMAIN}/api/v1/get-deadlines`;
+    const resp = await axios.get(url);
+    const data = {
+      assignments: resp.data.assignments,
+      baseUrl: process.env.PUBLIC_DOMAIN,
+    };
+    return data;
+  } catch (error) {
+    console.error("Loader error:", error);
+    return {
+      error: {
+        message: "Failed to fetch deadlines. Please try again later.",
+      },
+    };
+  }
 };
