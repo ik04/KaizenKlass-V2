@@ -28,7 +28,11 @@ export default function assignments() {
     // console.log(resp);
     setIsLoading(false);
     setLastPage(resp.data.assignments.last_page);
-    setAssignments(resp.data.assignments.data);
+    if (resp.data.assignments.data.length === 0) {
+      setIsEmpty(true);
+    } else {
+      setAssignments(resp.data.assignments.data);
+    }
     if (resp.data.assignments.next_page_url !== null) {
       setIsLastPage(false);
     }
@@ -49,10 +53,8 @@ export default function assignments() {
   };
   useEffect(() => {
     callAssignmentsWithSubjects();
-    if (assignments.length === 0) {
-      setIsEmpty(true);
-    }
   }, []);
+
   return (
     <div className="bg-main h-screen">
       <Dashboard baseUrl={baseUrl}>
@@ -69,28 +71,36 @@ export default function assignments() {
                 <AddAssignmentButton baseUrl={baseUrl} />
               )}
             </div>
-            <div className="flex flex-col space-y-7 mb-10">
-              {assignments &&
-                assignments.map((assignment) => (
-                  <AssignmentCard
-                    key={assignment.assignment_uuid}
-                    subject={assignment.subject}
-                    title={assignment.title}
-                    assignment_uuid={assignment.assignment_uuid}
-                    subject_uuid={assignment.subject_uuid}
-                  />
-                ))}
-            </div>
+            {!isEmpty ? (
+              <>
+                <>
+                  <div className="flex flex-col space-y-7 mb-10">
+                    {assignments &&
+                      assignments.map((assignment) => (
+                        <AssignmentCard
+                          key={assignment.assignment_uuid}
+                          subject={assignment.subject}
+                          title={assignment.title}
+                          assignment_uuid={assignment.assignment_uuid}
+                          subject_uuid={assignment.subject_uuid}
+                        />
+                      ))}
+                  </div>
 
-            {!isLastPage && (
-              <div className="load-more flex mb-20 justify-center items-center cursor-pointer">
-                <div
-                  className="uppercase hover:text-dashboard hover:bg-highlightSecondary duration-150 font-base text-highlightSecondary border-highlightSecondary border-2 w-[40%] flex justify-center items-center text-2xl p-2"
-                  onClick={callNextPage}
-                >
-                  load more
-                </div>
-              </div>
+                  {!isLastPage && (
+                    <div className="load-more flex mb-20 justify-center items-center cursor-pointer">
+                      <div
+                        className="uppercase hover:text-dashboard hover:bg-highlightSecondary duration-150 font-base text-highlightSecondary border-highlightSecondary border-2 w-[40%] flex justify-center items-center text-2xl p-2"
+                        onClick={callNextPage}
+                      >
+                        load more
+                      </div>
+                    </div>
+                  )}
+                </>
+              </>
+            ) : (
+              <EmptyState />
             )}
           </>
         ) : (

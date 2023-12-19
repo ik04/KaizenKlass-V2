@@ -1,13 +1,12 @@
 import { useLoaderData } from "@remix-run/react";
 import axios from "axios";
 import { Dashboard } from "~/components/dashboard";
+import { SplashScreen } from "~/components/splashScreen";
 import { SubjectCard } from "~/components/subjectCard";
-
 export default function home() {
   //
   const { subjects, baseUrl }: { subjects: Subject[]; baseUrl: string } =
     useLoaderData();
-  // console.log(subjects);
   return (
     <div className="bg-main min-h-screen">
       <Dashboard baseUrl={baseUrl}>
@@ -33,5 +32,6 @@ export async function loader() {
     subjects: resp.data.subjects,
     baseUrl: process.env.PUBLIC_DOMAIN,
   };
+  console.log(process.env.PUBLIC_DOMAIN);
   return data;
 }
