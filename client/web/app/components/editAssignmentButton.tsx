@@ -61,7 +61,7 @@ export const EditAssignmentButton = ({
         deadline: date && format(date, "yyyy-MM-dd"),
       }
     );
-    console.log(resp);
+    // console.log(resp);
     toast({
       title: "Assignment Updated!",
     });

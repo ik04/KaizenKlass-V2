@@ -8,6 +8,7 @@ import { Dashboard } from "~/components/dashboard";
 import { EmptyState } from "~/components/emptyState";
 import { GlobalContext } from "~/context/GlobalContext";
 import Calendar from "react-calendar";
+import { Skeleton } from "~/components/ui/skeleton";
 
 export default function assignments() {
   // const { assignments }: { assignments: Assignment[] } = useLoaderData();
@@ -19,11 +20,13 @@ export default function assignments() {
   const [lastPage, setLastPage] = useState();
   const [isLastPage, setIsLastPage] = useState(true);
   const [isEmpty, setIsEmpty] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const callAssignmentsWithSubjects = async () => {
     const url = `${baseUrl}/api/v1/get-assignment-subjects?page=1`;
     const resp = await axios.get(url);
-    console.log(resp);
+    // console.log(resp);
+    setIsLoading(false);
     setLastPage(resp.data.assignments.last_page);
     if (resp.data.assignments.data.length === 0) {
       setIsEmpty(true);
@@ -61,41 +64,54 @@ export default function assignments() {
             Assignments
           </div>
         </div>
-        <div className="justify-center items-center my-4">
-          {isAuthenticated && role === 2 && (
-            <AddAssignmentButton baseUrl={baseUrl} />
-          )}
-        </div>
-        {!isEmpty ? (
+        {!isLoading ? (
           <>
-            <>
-              <div className="flex flex-col space-y-7 mb-10">
-                {assignments &&
-                  assignments.map((assignment) => (
-                    <AssignmentCard
-                      key={assignment.assignment_uuid}
-                      subject={assignment.subject}
-                      title={assignment.title}
-                      assignment_uuid={assignment.assignment_uuid}
-                      subject_uuid={assignment.subject_uuid}
-                    />
-                  ))}
-              </div>
-
-              {!isLastPage && (
-                <div className="load-more flex mb-20 justify-center items-center cursor-pointer">
-                  <div
-                    className="uppercase hover:text-dashboard hover:bg-highlightSecondary duration-150 font-base text-highlightSecondary border-highlightSecondary border-2 w-[40%] flex justify-center items-center text-2xl p-2"
-                    onClick={callNextPage}
-                  >
-                    load more
-                  </div>
-                </div>
+            <div className="justify-center items-center my-4">
+              {isAuthenticated && role === 2 && (
+                <AddAssignmentButton baseUrl={baseUrl} />
               )}
-            </>
+            </div>
+            {!isEmpty ? (
+              <>
+                <>
+                  <div className="flex flex-col space-y-7 mb-10">
+                    {assignments &&
+                      assignments.map((assignment) => (
+                        <AssignmentCard
+                          key={assignment.assignment_uuid}
+                          subject={assignment.subject}
+                          title={assignment.title}
+                          assignment_uuid={assignment.assignment_uuid}
+                          subject_uuid={assignment.subject_uuid}
+                        />
+                      ))}
+                  </div>
+
+                  {!isLastPage && (
+                    <div className="load-more flex mb-20 justify-center items-center cursor-pointer">
+                      <div
+                        className="uppercase hover:text-dashboard hover:bg-highlightSecondary duration-150 font-base text-highlightSecondary border-highlightSecondary border-2 w-[40%] flex justify-center items-center text-2xl p-2"
+                        onClick={callNextPage}
+                      >
+                        load more
+                      </div>
+                    </div>
+                  )}
+                </>
+              </>
+            ) : (
+              <EmptyState />
+            )}
           </>
         ) : (
-          <EmptyState />
+          <>
+            <div className="flex flex-col space-y-7">
+              <Skeleton className="h-32 px-5 rounded-2xl bg-mainLighter" />
+              <Skeleton className="h-32 px-5 rounded-2xl bg-mainLighter" />
+              <Skeleton className="h-32 px-5 rounded-2xl bg-mainLighter" />
+              <Skeleton className="h-32 px-5 rounded-2xl bg-mainLighter" />
+            </div>
+          </>
         )}
       </Dashboard>
     </div>

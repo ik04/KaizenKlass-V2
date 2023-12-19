@@ -7,7 +7,7 @@ import { ResourceCard } from "~/components/resourceCard";
 export default function resources() {
   const { baseUrl, resources }: { baseUrl: string; resources: Resource[] } =
     useLoaderData();
-  console.log(resources);
+  // console.log(resources);
 
   return (
     <div className="bg-main min-h-screen">

@@ -25,22 +25,22 @@ export const AddSolutionButton = ({
   assignmentUuid: string;
 }) => {
   const { toast } = useToast();
-  const [title, setTitle] = useState<string>();
   const [description, setDescription] = useState<string>();
   const [content, setContent] = useState<string>();
   const addSolution = async () => {
     try {
-      const resp = await axios.post(`${baseUrl}/api/v1/add-solution`, {
-        content,
-        description,
-        assignment_uuid: assignmentUuid,
-      });
-      console.log(resp);
-      toast({
-        title: "Solution Added!",
-      });
-      location.reload();
-      // ! type it correctly
+      if (description) {
+        const resp = await axios.post(`${baseUrl}/api/v1/add-solution`, {
+          content,
+          description,
+          assignment_uuid: assignmentUuid,
+        });
+        // console.log(resp);
+        toast({
+          title: "Solution Added!",
+        });
+        location.reload();
+      }
     } catch (error) {
       const typedError = error as ErrorResponse;
       console.log(typedError.response.data.errors);

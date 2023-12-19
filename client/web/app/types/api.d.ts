@@ -22,6 +22,7 @@ interface Solution {
   solution_uuid: string;
   description: string;
   username: string;
+  user_uuid: string;
 }
 
 interface Subject {
