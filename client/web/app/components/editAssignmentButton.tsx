@@ -82,7 +82,7 @@ export const EditAssignmentButton = ({
         <img src="/assets/pencil.png" className="w-7 mb-2" alt="" />
       </DialogTrigger>
       <DialogContent>
-        <div className="font-base">
+        <div className="font-base flex flex-col space-y-2">
           <Label>Subject</Label>
           <select
             value={subject}
