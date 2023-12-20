@@ -14,8 +14,11 @@ class AddAssignmentRequest extends FormRequest
             "title" => "required|string",
             "subject_uuid" => "required|uuid",
             "description" => "string",
-            "link"=>"string|nullable",
-            "deadline" =>"nullable|date_format:Y-m-d",
+            "link" => [
+                "string",
+                "nullable",
+                "regex:#^(https?|ftp)://[^\s/$.?#].[^\s]*$#",
+            ],            "deadline" =>"nullable|date_format:Y-m-d",
             "content" => [
                 "string",
                 "nullable",
