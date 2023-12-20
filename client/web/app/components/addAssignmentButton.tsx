@@ -38,20 +38,56 @@ export const AddAssignmentButton = ({ baseUrl }: { baseUrl: string }) => {
   }, []);
 
   const addAssignment = async () => {
-    const resp = await axios.post(`${baseUrl}/api/v1/add-assignment`, {
-      title,
-      content,
-      link,
-      description,
-      subject_uuid: subject,
-      deadline: date && format(date, "yyyy-MM-dd"),
-    });
-    toast({
-      title: "Assignment Added!",
-      description: `${title} has been added to the assignments`,
-    });
-    // navigate(`/assignment/${resp.data.assignment.assignment_uuid}`);
-    location.reload();
+    try {
+      if (subject != undefined || title != undefined) {
+        toast({
+          title: "Invalid Field Input",
+          description: `Input both title and subject`,
+          variant: "destructive",
+        });
+      }
+      const resp = await axios.post(`${baseUrl}/api/v1/add-assignment`, {
+        title,
+        content,
+        link,
+        description,
+        subject_uuid: subject,
+        deadline: date && format(date, "yyyy-MM-dd"),
+      });
+      toast({
+        title: "Assignment Added!",
+        description: `${title} has been added to the assignments`,
+      });
+      // navigate(`/assignment/${resp.data.assignment.assignment_uuid}`);
+      location.reload();
+    } catch (error: any) {
+      console.log(error.response);
+
+      if (error.response && error.response.status === 422) {
+        const errors = error.response.data.errors;
+
+        if (errors) {
+          let errorMessages = "";
+
+          for (const [key, value] of Object.entries(errors)) {
+            // Iterate through each error message for a specific key
+            if (Array.isArray(value)) {
+              errorMessages += `${key}: ${value.join(", ")}\n`;
+            }
+          }
+
+          toast({
+            title: "Invalid Fields Inputs",
+            description: errorMessages.trim(),
+            variant: "destructive",
+          });
+        } else {
+          console.error("Unexpected error:", error);
+        }
+      } else {
+        console.error("Unexpected error:", error);
+      }
+    }
   };
 
   const handleDateChange = (value: Value) => {

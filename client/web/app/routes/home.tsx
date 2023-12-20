@@ -25,6 +25,7 @@ export default function home() {
   );
 }
 // todo: make an actual dashboard with useful info to replace subjects page and make subjects page its own thing
+// todo: handle server errors (get help)
 export async function loader() {
   const url = `${process.env.PUBLIC_DOMAIN}/api/v1/get-subjects`;
   const resp = await axios.get(url);

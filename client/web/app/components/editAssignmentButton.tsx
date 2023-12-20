@@ -3,9 +3,7 @@ import { Dialog, DialogContent, DialogTrigger } from "~/components/ui/dialog";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
-import { Select, SelectContent, SelectTrigger, SelectValue } from "./ui/select";
 import axios from "axios";
-import { SelectItem } from "@radix-ui/react-select";
 import { useToast } from "./ui/use-toast";
 import Calendar from "react-calendar";
 import { format } from "date-fns";
@@ -50,22 +48,51 @@ export const EditAssignmentButton = ({
     getSubjects();
   }, []);
   const editAssignment = async () => {
-    const resp = await axios.put(
-      `${baseUrl}/api/v1/edit-assignment/${assignmentUuid}`,
-      {
-        title,
-        content,
-        link,
-        description,
-        subject_uuid: subject,
-        deadline: date && format(date, "yyyy-MM-dd"),
+    try {
+      const resp = await axios.put(
+        `${baseUrl}/api/v1/edit-assignment/${assignmentUuid}`,
+        {
+          title,
+          content,
+          link,
+          description,
+          subject_uuid: subject,
+          deadline: date && format(date, "yyyy-MM-dd"),
+        }
+      );
+      // console.log(resp);
+      toast({
+        title: "Assignment Updated!",
+      });
+      location.reload();
+    } catch (error: any) {
+      console.log(error.response);
+
+      if (error.response && error.response.status === 422) {
+        const errors = error.response.data.errors;
+
+        if (errors) {
+          let errorMessages = "";
+
+          for (const [key, value] of Object.entries(errors)) {
+            // Iterate through each error message for a specific key
+            if (Array.isArray(value)) {
+              errorMessages += `${key}: ${value.join(", ")}\n`;
+            }
+          }
+
+          toast({
+            title: "Invalid Fields Inputs",
+            description: errorMessages.trim(),
+            variant: "destructive",
+          });
+        } else {
+          console.error("Unexpected error:", error);
+        }
+      } else {
+        console.error("Unexpected error:", error);
       }
-    );
-    // console.log(resp);
-    toast({
-      title: "Assignment Updated!",
-    });
-    location.reload();
+    }
   };
   const handleDateChange = (value: Value) => {
     if (value instanceof Date) {
@@ -82,7 +109,7 @@ export const EditAssignmentButton = ({
         <img src="/assets/pencil.png" className="w-7 mb-2" alt="" />
       </DialogTrigger>
       <DialogContent>
-        <div className="font-base">
+        <div className="font-base flex flex-col space-y-2">
           <Label>Subject</Label>
           <select
             value={subject}
