@@ -7,6 +7,8 @@ import { AddSolutionButton } from "~/components/addSolutionButton";
 import { GlobalContext } from "~/context/GlobalContext";
 import { EditAssignmentButton } from "~/components/editAssignmentButton";
 import { toast } from "~/components/ui/use-toast";
+import { EditSolutionButton } from "~/components/editSolutionButton";
+import { EditOwnSolutionButton } from "~/components/editOwnSolutionButton";
 
 export default function assignment() {
   const {
@@ -146,6 +148,31 @@ export default function assignment() {
     }
     // console.log(solutions);
   };
+  const deleteSolution = async (solutionUuid: string) => {
+    try {
+      const resp = await axios.delete(
+        `${baseUrl}/api/v1/delete-solution/${solutionUuid}`
+      );
+      setAssignmentSolutions((prevSolutions: Solution[]) =>
+        prevSolutions.filter(
+          (solution) => solution.solution_uuid !== solutionUuid
+        )
+      );
+      toast({
+        title: "Solution deleted!",
+        description: `the solution has been deleted`,
+      });
+      console.log("deleted solution!");
+    } catch (error) {
+      toast({
+        title: "Error Request Failed",
+        description: "An error occurred while deleting the solution",
+        variant: "destructive",
+      });
+      console.error("Error deleting solution:", error);
+    }
+    // console.log(solutions);
+  };
 
   // todo: finish solution components
   return (
@@ -244,19 +271,18 @@ export default function assignment() {
                         <>
                           {isAuthenticated && role == 2 && (
                             // todo: replace edit with solution edits
-                            <EditAssignmentButton
-                              assignmentUuid={uuid}
+                            <EditSolutionButton
                               baseUrl={baseUrl}
-                              originalDescription={assignment.description}
-                              originalLink={assignment.link}
-                              originalSubjectUuid={assignment.subject_uuid}
-                              originalTitle={assignment.title}
+                              solutionUuid={solution.solution_uuid}
+                              originalDescription={solution.description}
                             />
                           )}
                           {isAuthenticated && role == 2 && (
                             <img
                               src="/assets/trash.png"
-                              onClick={deleteAssignment}
+                              onClick={() =>
+                                deleteSolution(solution.solution_uuid)
+                              }
                               className="w-7 mb-2"
                               alt=""
                             />
@@ -264,13 +290,10 @@ export default function assignment() {
                         </>
                       ) : (
                         <>
-                          <EditAssignmentButton
-                            assignmentUuid={uuid}
+                          <EditOwnSolutionButton
                             baseUrl={baseUrl}
-                            originalDescription={assignment.description}
-                            originalLink={assignment.link}
-                            originalSubjectUuid={assignment.subject_uuid}
-                            originalTitle={assignment.title}
+                            solutionUuid={solution.solution_uuid}
+                            originalDescription={solution.description}
                           />
                           <img
                             src="/assets/trash.png"

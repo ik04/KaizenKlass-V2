@@ -48,7 +48,7 @@ Route::prefix("v1")->group(function(){
         Route::post("add-solution",[SolutionController::class,"addSolution"]);
         Route::delete("delete-own-account/{userUuid}", [UserController::class, "deleteOwnAccount"]);
         Route::delete("delete-own-solution/{solutionUuid}", [SolutionController::class, "deleteOwnSolution"]);
-        Route::put("update-own-solution/{solutionUuid}", [SolutionController::class, "updateOwnSolution"]);
+        Route::put("edit-own-solution/{solutionUuid}", [SolutionController::class, "updateOwnSolution"]);
     });
     
     // * crosschecker routes
@@ -56,7 +56,7 @@ Route::prefix("v1")->group(function(){
 
         Route::post("add-assignment",[AssignmentController::class,"addAssignment"]);
         Route::put("edit-assignment/{assignmentUuid}", [AssignmentController::class, "editAssignment"]);
-        Route::put("update-solution/{solutionUuid}", [SolutionController::class, "updateSolution"]);
+        Route::put("edit-solution/{solutionUuid}", [SolutionController::class, "updateSolution"]);
         Route::delete("delete-assignment/{assignmentUuid}", [AssignmentController::class, "deleteAssignment"]);
 
     });

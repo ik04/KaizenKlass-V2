@@ -6,30 +6,33 @@ import { Textarea } from "./ui/textarea";
 import axios from "axios";
 import { useToast } from "./ui/use-toast";
 
-export const AddSolutionButton = ({
+export const EditOwnSolutionButton = ({
   baseUrl,
-  assignmentUuid,
+  originalDescription,
+  solutionUuid,
 }: {
   baseUrl: string;
-  assignmentUuid: string;
+  originalDescription: string;
+  solutionUuid: string;
 }) => {
   const { toast } = useToast();
-  const [description, setDescription] = useState<string>();
+  const [description, setDescription] = useState<string>(originalDescription);
   const [content, setContent] = useState<string>();
-  const addSolution = async () => {
+  const editSolution = async () => {
     try {
-      if (description) {
-        const resp = await axios.post(`${baseUrl}/api/v1/add-solution`, {
+      const resp = await axios.put(
+        `${baseUrl}/api/v1/edit-own-solution/${solutionUuid}`,
+        {
           content,
           description,
-          assignment_uuid: assignmentUuid,
-        });
-        // console.log(resp);
-        toast({
-          title: "Solution Added!",
-        });
-        location.reload();
-      }
+        }
+      );
+      // console.log(resp);
+      toast({
+        title: "solution Updated!",
+        description: "solution has been updated",
+      });
+      location.reload();
     } catch (error: any) {
       console.log(error.response);
 
@@ -59,15 +62,10 @@ export const AddSolutionButton = ({
       }
     }
   };
-
   return (
     <Dialog>
-      <DialogTrigger className="w-full">
-        <div className="h-32 flex rounded-2xl flex-col items-start justify-center border-dashed border-2 hover:border-highlight border-mainLighter duration-200 transition-all space-y-3 px-5">
-          <p className="font-base text-highlightSecondary text-3xl">
-            Add Solution
-          </p>
-        </div>
+      <DialogTrigger className="">
+        <img src="/assets/pencil.png" className="w-7 mb-2" alt="" />
       </DialogTrigger>
       <DialogContent>
         <div className="">
@@ -75,6 +73,7 @@ export const AddSolutionButton = ({
           <Textarea
             placeholder="description/answer"
             required
+            value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
           <Label>Content</Label>
@@ -85,7 +84,7 @@ export const AddSolutionButton = ({
           />
         </div>
         <div
-          onClick={addSolution}
+          onClick={editSolution}
           className="hover:text-dashboard text-highlightSecondary border border-highlightSecondary duration-150 cursor-pointer hover:bg-highlightSecondary w-[15%] justify-center items-center flex p-1 font-base"
         >
           Submit
