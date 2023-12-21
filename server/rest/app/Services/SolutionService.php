@@ -82,9 +82,7 @@ class SolutionService{
         $solution->content = $content;
     }
     $solution->save();
-
     return $solution;
-
     }
 
     public function deleteSolution(string $solutionUuid){
