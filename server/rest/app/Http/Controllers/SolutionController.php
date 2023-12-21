@@ -104,10 +104,10 @@ public function deleteSolution($solutionUuid)
 //     return response()->json(["message" => "Solution deleted successfully"], 200);
 // }
 
-public function updateOwnSolution(Request $request, $solutionUuid)
+public function updateOwnSolution(UpdateSolutionRequest $request, $solutionUuid)
 {
     $validated = $request->validated();
-    $solution = $this->service->updateOwnSolution($validated["description"],$validated["content"],$solutionUuid,$request->user()->id);
+    $solution = $this->service->updateOwnSolution($validated["description"] ?? null,$validated["content"] ?? null,$solutionUuid,$request->user()->id);
     $solution->save();
     return response()->json(["message" => "Solution updated successfully"], 200);
 }
