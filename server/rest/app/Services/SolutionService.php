@@ -58,12 +58,11 @@ class SolutionService{
         $solution->description = $description;
     }
     if ($content != null) {
-        $solution->content = $content;
+        $solution->content = $this->convertDriveLinkToDownloadLink($content);
     }
     $solution->save();
 
     return $solution;
-
     }
 
     public function updateOwnSolution(?string $description,?string $content,string $solutionUuid,int $userId){

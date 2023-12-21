@@ -10,7 +10,7 @@ class UpdateSolutionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "description" => "string|",
+            "description" => "string",
             "content" => [
                 "string",
                 "nullable",
