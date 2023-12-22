@@ -175,6 +175,7 @@ export default function assignment() {
   };
 
   // todo: finish solution components
+  // todo: redo assignments page with new design
   return (
     <div className="bg-main h-screen">
       <Dashboard baseUrl={baseUrl}>
@@ -267,28 +268,7 @@ export default function assignment() {
                   <div className="flex flex-col justify-between items-start">
                     <div className="Title font-base mb-2 flex items-center space-x-3 text-highlightSecondary text-3xl ">
                       <h1> Posted by: {solution.username}</h1>
-                      {userUuid != solution.user_uuid ? (
-                        <>
-                          {isAuthenticated && role == 2 && (
-                            // todo: replace edit with solution edits
-                            <EditSolutionButton
-                              baseUrl={baseUrl}
-                              solutionUuid={solution.solution_uuid}
-                              originalDescription={solution.description}
-                            />
-                          )}
-                          {isAuthenticated && role == 2 && (
-                            <img
-                              src="/assets/trash.png"
-                              onClick={() =>
-                                deleteSolution(solution.solution_uuid)
-                              }
-                              className="w-7 mb-2"
-                              alt=""
-                            />
-                          )}
-                        </>
-                      ) : (
+                      {userUuid == solution.user_uuid && (
                         <>
                           <EditOwnSolutionButton
                             baseUrl={baseUrl}

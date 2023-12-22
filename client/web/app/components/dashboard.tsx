@@ -27,7 +27,7 @@ export const Dashboard = ({
     { href: "/resources", img: "/assets/treasure.svg", name: "resources" },
   ];
   const navlinks = [{ name: "login", href: "/login" }];
-  const authLinks = [{ name: username, href: "/profile" }];
+  const authLinks = [{ name: username, href: "/home" }];
   const logout = async () => {
     const resp = await axios.post(`${baseUrl}/api/v1/logout`);
     location.reload();
