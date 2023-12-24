@@ -54,17 +54,14 @@ export const Dashboard = ({
         }`}
       >
         {" "}
-        <div className="flex justify-start items-center px-10 space-x-10">
+        <div className="flex justify-start items-center px-10 space-x-5">
           <img
             onClick={toggleSidebar}
             src="/assets/hamburger.svg"
             alt="hamburger"
             className="md:w-16 w-10"
           />
-          <Link
-            to={"/home"}
-            className="text-highlight font-display text-[55px]"
-          >
+          <Link to={"/home"} className="text-highlight font-display text-4xl">
             KaizenKlass
           </Link>
         </div>
@@ -158,18 +155,22 @@ export const Dashboard = ({
           style={{ height: isMobileNavExpanded ? "100%" : "0" }}
         >
           <div className="flex space-x-5 w-full p-4 items-center">
-            <img
-              onClick={toggleSidebar}
-              src="/assets/hamburger.svg"
-              alt="hamburger"
-              className="md:w-16 w-10"
-            />
-            <Link
-              to={"/home"}
-              className="text-highlight font-display text-[45px]"
-            >
-              KaizenKlass
-            </Link>
+            {isMobileNavExpanded && (
+              <>
+                <img
+                  onClick={toggleSidebar}
+                  src="/assets/hamburger.svg"
+                  alt="hamburger"
+                  className="md:w-16 w-10"
+                />
+                <Link
+                  to={"/home"}
+                  className={`text-highlight font-display text-4xl`}
+                >
+                  KaizenKlass
+                </Link>
+              </>
+            )}
           </div>
           <ul className="capitalize p-4 font-labnames text-offwhite">
             {sidebarIcons.map((icon) => (

@@ -19,7 +19,7 @@ class AdminSeeder extends Seeder
         User::create([
             "email" => "ik5292@srmist.edu.in",
             "name" => "Ishaan",
-            "password" => Hash::make("Ok2aJEhtcqcH3MO"),
+            "password" => Hash::make(env('SEEDER_PASSWORD')),
             "user_uuid" => Uuid::uuid4(),
             "role" => Role::ADMIN->value
         ]);
