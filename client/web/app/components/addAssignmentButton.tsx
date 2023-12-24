@@ -57,8 +57,8 @@ export const AddAssignmentButton = ({ baseUrl }: { baseUrl: string }) => {
       } else {
         toast({
           title: "Required fields",
-          description: `Add both title and subject`,
           variant: "destructive",
+          description: `Add both title and subject`,
         });
       }
     } catch (error: any) {
