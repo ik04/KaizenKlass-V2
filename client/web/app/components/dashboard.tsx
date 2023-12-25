@@ -61,7 +61,10 @@ export const Dashboard = ({
             alt="hamburger"
             className="md:w-16 w-10"
           />
-          <Link to={"/home"} className="text-highlight font-display text-4xl">
+          <Link
+            to={"/home"}
+            className="text-highlight font-display text-4xl md:text-5xl"
+          >
             KaizenKlass
           </Link>
         </div>
@@ -229,7 +232,7 @@ export const Dashboard = ({
             )}
           </ul>
         </div>
-        <div className="content overflow-auto w-full px-16 py-10 mb-16">
+        <div className="content overflow-auto w-full md:px-16 px-10 py-10 mb-16">
           {children}
         </div>
       </div>
