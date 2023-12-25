@@ -1,6 +1,6 @@
 import { Link } from "@remix-run/react";
 import React from "react";
-// ! switch back to camelcase
+
 export const AssignmentCard = ({
   title,
   assignment_uuid,
@@ -12,6 +12,9 @@ export const AssignmentCard = ({
   subject?: string;
   subject_uuid?: string;
 }) => {
+  const isMobileViewport = window.innerWidth < 768;
+  const truncatedTitle = title.length > 10 ? title.slice(0, 10) + "..." : title;
+
   return (
     <Link
       to={`/assignment/${assignment_uuid}`}
@@ -21,7 +24,9 @@ export const AssignmentCard = ({
         to={`/assignment/${assignment_uuid}`}
         className="flex justify-between w-full items-center"
       >
-        <h2 className="text-4xl font-base text-highlight">{title}</h2>
+        <h2 className="text-4xl font-base text-highlight">
+          {!isMobileViewport ? title : truncatedTitle}
+        </h2>
         <img src="/assets/assignment.svg" className="w-12" alt="" />
       </Link>
       {subject && subject_uuid && (

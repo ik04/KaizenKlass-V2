@@ -36,12 +36,12 @@ export const ResourceCard = ({
   }
 
   return (
-    <div className="bg-mainLighter md:flex w-full flex md:flex-col md:justify-between md:items-center md:p-10 md:rounded-2xl md:w-80 md:h-96 md:overflow-hidden">
-      <div className="md:h-1/2 md:flex md:items-center md:justify-center">
-        <img src={`${icon}`} className="md:w-32" alt="" />
+    <div className="bg-mainLighter flex flex-col justify-between items-center p-10 rounded-2xl w-80 h-96 overflow-hidden">
+      <div className="h-1/2 flex items-center justify-center">
+        <img src={`${icon}`} className="w-32" alt="" />
       </div>
-      <div className="md:text-center md:flex md:flex-col">
-        <h1 className="font-base text-highlightSecondary md:text-2xl md:font-bold">
+      <div className="text-center flex flex-col">
+        <h1 className="font-base text-highlightSecondary text-2xl font-bold">
           {title}
         </h1>
         {description != undefined && (
@@ -58,7 +58,7 @@ export const ResourceCard = ({
           </p>
         )}
       </div>
-      <div className="md:flex md:justify-center md:items-center">
+      <div className="flex justify-center items-center">
         <a
           target="_blank"
           href={link}

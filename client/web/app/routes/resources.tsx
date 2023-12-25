@@ -12,9 +12,9 @@ export default function resources() {
   return (
     <div className="bg-main min-h-screen">
       <Dashboard baseUrl={baseUrl}>
-        <div className="md:grid flex flex-col md:grid-cols-4">
+        <div className="flex flex-col items-center md:grid-cols-4">
           {resources.map((resource) => (
-            <div className="px-10">
+            <div className="md:px-10 py-10">
               <ResourceCard
                 title={resource.title}
                 description={resource.description}
