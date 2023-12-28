@@ -17,6 +17,25 @@ export const GlobalState = ({
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isSidebarExpanded, setSidebarExpanded] = useState(false);
   // ? should i rename this to name or keep as username
+  const AdminRole = 0;
+  const ContributorRole = 1;
+
+  const isAdmin = () => {
+    if (role == AdminRole) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  // just couldn't think of a better name at the time
+  const hasEditPrivileges = () => {
+    if (role == AdminRole || role) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   const callUserData = async () => {
     try {
@@ -47,6 +66,8 @@ export const GlobalState = ({
         email,
         isSidebarExpanded,
         setSidebarExpanded,
+        isAdmin,
+        hasEditPrivileges,
       }}
     >
       {children}

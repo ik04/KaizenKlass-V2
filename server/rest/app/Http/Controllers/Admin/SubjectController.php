@@ -20,6 +20,9 @@ class SubjectController{
         $deleteSubject->handle($id);
         return redirect()->route('subjects.view')->with('success', 'Subject deleted successfully');
     }
+    public function addSubject(){
+        
+    }
  
 
 }

@@ -26,3 +26,4 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/view/add', [SubjectController::class, "addSubjectView"])->name('subjects.add');
     Route::get('/delete/subject/{id}', [SubjectController::class, "deleteSubject"])->name('subject.destroy');
 });
+// todo: promote and demote route

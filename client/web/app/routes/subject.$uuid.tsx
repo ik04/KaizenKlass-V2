@@ -22,7 +22,8 @@ export default function subject() {
     uuid: string;
   } = useLoaderData();
   // console.log(assignments);
-  const { isAuthenticated, role } = useContext(GlobalContext);
+  const { isAuthenticated, role, hasEditPrivileges } =
+    useContext(GlobalContext);
   const [isEmpty, setIsEmpty] = useState<boolean>(false);
 
   useEffect(() => {
@@ -38,7 +39,7 @@ export default function subject() {
           <BackButton />
           <div className="font-display text-highlightSecondary">{subject}</div>
         </div>
-        {isAuthenticated && role === 2 && (
+        {isAuthenticated && hasEditPrivileges && (
           <div className="mb-7">
             <AddSubjectAssignmentButton baseUrl={baseUrl} subjectUuid={uuid} />
           </div>
