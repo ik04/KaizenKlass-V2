@@ -38,6 +38,8 @@ interface GlobalContextValue {
   userUuid: string;
   isSidebarExpanded: boolean;
   setSidebarExpanded: React.Dispatch<React.SetStateAction<boolean>>;
+  isAdmin: boolean;
+  hasEditPrivileges: boolean;
 }
 
 interface Resource {

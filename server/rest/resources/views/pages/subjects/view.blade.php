@@ -3,11 +3,7 @@
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
-                @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
+                @include('includes/success-message')
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Subjects</h5>

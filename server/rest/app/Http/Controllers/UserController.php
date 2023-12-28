@@ -118,34 +118,6 @@ public function deleteOwnAccount(Request $request, $userUuid)
     $this->service->deleteOwnAccount($request,$userUuid);
     return response()->json(["message" => "Account deleted successfully"], 200);
 }
-public function promote(Request $request,string $userUuid){
-    try{
 
-        if($userUuid === $request->user()->user_uuid){
-            return response()->json(["message"=>"can't promote yourself"],403);
-        }
-        $user = $this->service->promote($userUuid);
-        return response()->json(["user"=>$user,"message"=>"User Promoted"]);
-    }catch(\Exception $e){
-        return response()->json(["error"=>$e->getMessage()],$e->getCode());
-    }catch(AlreadyPromotedException $e){
-        return response()->json(["error"=>$e->getMessage()],$e->getCode());
-
-    }
-}
-public function demote(Request $request,string $userUuid){
-    try{
-        if($userUuid === $request->user()->user_uuid){
-            return response()->json(["message"=>"can't promote yourself"],403);
-        }
-        $user = $this->service->demote($userUuid);
-        return response()->json(["user"=>$user,"message"=>"User Demoted"]);
-    }catch(\Exception $e){
-        return response()->json(["error"=>$e->getMessage()],$e->getCode());
-    }catch(AlreadyPromotedException $e){
-        return response()->json(["error"=>$e->getMessage()],$e->getCode());
-
-    }
-}
 
 }

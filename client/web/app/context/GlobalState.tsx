@@ -17,6 +17,8 @@ export const GlobalState = ({
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isSidebarExpanded, setSidebarExpanded] = useState(false);
   // ? should i rename this to name or keep as username
+  const AdminRole = 0;
+  const ContributorRole = 1;
 
   const callUserData = async () => {
     try {
@@ -33,8 +35,13 @@ export const GlobalState = ({
     } catch (error) {}
   };
 
+  // just couldn't think of a better name at the time
+  let isAdmin, hasEditPrivileges;
+
   useEffect(() => {
     callUserData();
+    isAdmin = role == AdminRole ? true : false;
+    hasEditPrivileges = role == AdminRole || role ? true : false;
   }, []);
   //! fix the context for root
   return (
@@ -47,6 +54,8 @@ export const GlobalState = ({
         email,
         isSidebarExpanded,
         setSidebarExpanded,
+        isAdmin,
+        hasEditPrivileges,
       }}
     >
       {children}

@@ -15,7 +15,8 @@ export default function assignments() {
   // const { assignments }: { assignments: Assignment[] } = useLoaderData();
   // ? directly set nextpage url?
   const { baseUrl }: { baseUrl: string } = useLoaderData();
-  const { isAuthenticated, role } = useContext(GlobalContext);
+  const { isAuthenticated, role, hasEditPrivileges } =
+    useContext(GlobalContext);
   const [assignments, setAssignments] = useState<Assignment[]>([]);
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState();
@@ -71,6 +72,7 @@ export default function assignments() {
 
   useEffect(() => {
     callAssignmentsWithSubjects();
+    console.log(hasEditPrivileges);
   }, []);
 
   return (
@@ -85,9 +87,7 @@ export default function assignments() {
         {!isLoading ? (
           <>
             <div className="justify-center items-center my-4">
-              {isAuthenticated && role === 2 && (
-                <AddAssignmentButton baseUrl={baseUrl} />
-              )}
+              {hasEditPrivileges && <AddAssignmentButton baseUrl={baseUrl} />}
             </div>
             {!isEmpty ? (
               <>

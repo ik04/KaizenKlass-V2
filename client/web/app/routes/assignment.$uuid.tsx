@@ -23,7 +23,7 @@ export default function assignment() {
     uuid: string;
   } = useLoaderData();
   // console.log(assignment, solutions);
-  const { userUuid } = useContext(GlobalContext);
+  const { userUuid, hasEditPrivileges } = useContext(GlobalContext);
 
   const [readableDeadline, setReadableDeadline] = useState<string>();
   const [isDanger, setIsDanger] = useState<boolean>(false);
@@ -196,7 +196,7 @@ export default function assignment() {
           <div className="bg-mainLighter h-min-[50%] rounded-s-2xl p-4 flex flex-col space-y-3">
             <div className="Title font-base flex items-center space-x-3 text-highlight text-4xl ">
               <h1>{assignment.title}</h1>
-              {isAuthenticated && role == 2 && (
+              {isAuthenticated && hasEditPrivileges && (
                 <EditAssignmentButton
                   assignmentUuid={uuid}
                   baseUrl={baseUrl}
@@ -206,7 +206,7 @@ export default function assignment() {
                   originalTitle={assignment.title}
                 />
               )}
-              {isAuthenticated && role == 2 && (
+              {isAuthenticated && hasEditPrivileges && (
                 <img
                   src="/assets/trash.png"
                   onClick={deleteAssignment}
