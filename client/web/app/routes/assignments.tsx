@@ -72,7 +72,6 @@ export default function assignments() {
 
   useEffect(() => {
     callAssignmentsWithSubjects();
-    console.log(hasEditPrivileges);
   }, []);
 
   return (

@@ -23,7 +23,8 @@ export default function assignment() {
     uuid: string;
   } = useLoaderData();
   // console.log(assignment, solutions);
-  const { userUuid, hasEditPrivileges } = useContext(GlobalContext);
+  const { userUuid, hasEditPrivileges, isAuthenticated, role } =
+    useContext(GlobalContext);
 
   const [readableDeadline, setReadableDeadline] = useState<string>();
   const [isDanger, setIsDanger] = useState<boolean>(false);
@@ -87,7 +88,6 @@ export default function assignment() {
       console.error(error);
     }
   };
-  const { isAuthenticated, role } = useContext(GlobalContext);
   // ? limit to 1 answer per assignment
   // todo: add dates
   // todo: ideate on figma design for divisions
@@ -137,7 +137,6 @@ export default function assignment() {
         title: "Solution deleted!",
         description: `the solution has been deleted`,
       });
-      console.log("deleted solution!");
     } catch (error) {
       toast({
         title: "Error Request Failed",
@@ -146,7 +145,6 @@ export default function assignment() {
       });
       console.error("Error deleting solution:", error);
     }
-    // console.log(solutions);
   };
   const deleteSolution = async (solutionUuid: string) => {
     try {
@@ -171,7 +169,6 @@ export default function assignment() {
       });
       console.error("Error deleting solution:", error);
     }
-    // console.log(solutions);
   };
 
   // todo: finish solution components

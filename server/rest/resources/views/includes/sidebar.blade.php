@@ -20,7 +20,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/view/add">
+                    <a href="/add/subjects">
                         <i class="bi bi-circle"></i><span>Add Subjects</span>
                     </a>
                 </li>
