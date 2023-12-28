@@ -20,23 +20,6 @@ export const GlobalState = ({
   const AdminRole = 0;
   const ContributorRole = 1;
 
-  const isAdmin = () => {
-    if (role == AdminRole) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
-  // just couldn't think of a better name at the time
-  const hasEditPrivileges = () => {
-    if (role == AdminRole || role) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
   const callUserData = async () => {
     try {
       const resp = await axios.get(`${baseUrl}/api/v1/user-data`);
@@ -52,8 +35,13 @@ export const GlobalState = ({
     } catch (error) {}
   };
 
+  // just couldn't think of a better name at the time
+  let isAdmin, hasEditPrivileges;
+
   useEffect(() => {
     callUserData();
+    isAdmin = role == AdminRole ? true : false;
+    hasEditPrivileges = role == AdminRole || role ? true : false;
   }, []);
   //! fix the context for root
   return (
