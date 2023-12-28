@@ -34,14 +34,9 @@
 
 <body>
 
+    @include('includes/error-message')
     <main>
         <div class="container">
-            @if (session('error'))
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Error:</strong> {{ session('error') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
 
             <section
                 class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
@@ -71,7 +66,6 @@
                                         class="row g-3 needs-validation" novalidate>
                                         @csrf
                                         @method('post')
-
                                         <div class="col-12">
                                             <label for="yourUsername" class="form-label">Email</label>
                                             <div class="input-group has-validation">

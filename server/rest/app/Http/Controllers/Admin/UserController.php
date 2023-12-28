@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Actions\Admin\Login;
 use App\Actions\Admin\Logout;
+use App\Exceptions\UserNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginUserRequest;
 use App\Services\UserService;
@@ -35,8 +36,11 @@ class UserController extends Controller{
         } 
         catch (Exception) {
             throw ValidationException::withMessages([
-                'general' => 'Incorrect credentials.',
+                'general' => 'Invalid credentials.',
             ]);
+        }catch(UserNotFoundException $e){
+            return redirect()->route('home')->with("error","user not found");
+
         }
         $request->session()->regenerate();
 

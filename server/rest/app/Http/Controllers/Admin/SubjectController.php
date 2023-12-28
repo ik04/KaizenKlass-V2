@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Actions\Admin\Subject\AddSubject;
 use App\Actions\Admin\Subject\DeleteSubject;
 use App\Actions\Admin\Subject\GetSubjects;
+use App\Http\Requests\AddSubjectRequest;
 use App\Models\Subject;
+use Exception;
 
 class SubjectController{
     public function viewSubjects(GetSubjects $getSubjects){
@@ -20,8 +23,16 @@ class SubjectController{
         $deleteSubject->handle($id);
         return redirect()->route('subjects.view')->with('success', 'Subject deleted successfully');
     }
-    public function addSubject(){
-        
+    public function addSubject(AddSubjectRequest $request,AddSubject $addSubject){
+        [
+            "subject" => $subject
+        ] = $request->validated();
+        try{
+            $subject = $addSubject->handle($subject);
+            return redirect()->route('subjects.add')->with('success','Subject Added Successfully');
+        }catch(Exception $e){
+            // no real scope for errors
+        }
     }
  
 
