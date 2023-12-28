@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\SubjectController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+Route::get('/',[UserController::class,"index"])->name('login');
+Route::post('/login',[UserController::class,"authenticate"])->name('login.authenticate');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/home', [UserController::class, "home"])->name('home');
+    Route::post('/logout', [UserController::class, "logout"])->name('logout');
+    Route::get('/view/subjects', [SubjectController::class, "viewSubjects"])->name('subjects.view');
+    Route::get('/view/add', [SubjectController::class, "addSubjectView"])->name('subjects.add');
+    Route::get('/delete/subject/{id}', [SubjectController::class, "deleteSubject"])->name('subject.destroy');
 });

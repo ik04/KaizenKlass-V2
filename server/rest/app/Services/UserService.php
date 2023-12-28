@@ -38,9 +38,30 @@ class UserService{
         }
         return $user;
     }
+
+    public function loginWeb($validatedData){
+        return auth()->attempt($validatedData);
+    }
+
+    public static function isAdmin(int $role): bool
+    {
+        return $role === Role::ADMIN->value;
+    }
+    public static function isCrosschecker(int $role): bool
+    {
+        return $role === Role::CROSSCHECKER->value;
+    }
+    public static function isContributor(int $role): bool
+    {
+        return $role === Role::CONTRIBUTOR->value;
+    }
+
+
     public function logout(Request $request){
         $request->user()->tokens()->delete();
     }
+
+
     public function deleteUser(Uuid $userUuid){
         $user = User::where('user_uuid', $userUuid)->first();
 
