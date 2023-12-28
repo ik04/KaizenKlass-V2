@@ -16,9 +16,11 @@ export const GlobalState = ({
   const [userUuid, setUserUuid] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isSidebarExpanded, setSidebarExpanded] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [hasEditPrivileges, setHasEditPrivileges] = useState(false);
   // ? should i rename this to name or keep as username
   const AdminRole = 0;
-  const ContributorRole = 1;
+  const CrossCheckerRole = 1;
 
   const callUserData = async () => {
     try {
@@ -32,16 +34,17 @@ export const GlobalState = ({
       setEmail(resp.data.email);
       setRole(resp.data.role);
       setUserUuid(resp.data.uuid);
+      setIsAdmin(resp.data.role === AdminRole);
+      setHasEditPrivileges(
+        resp.data.role === AdminRole || resp.data.role === CrossCheckerRole
+      );
     } catch (error) {}
   };
 
   // just couldn't think of a better name at the time
-  let isAdmin, hasEditPrivileges;
 
   useEffect(() => {
     callUserData();
-    isAdmin = role == AdminRole ? true : false;
-    hasEditPrivileges = role == AdminRole || role ? true : false;
   }, []);
   //! fix the context for root
   return (

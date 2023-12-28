@@ -27,6 +27,7 @@ export default function subject() {
   const [isEmpty, setIsEmpty] = useState<boolean>(false);
 
   useEffect(() => {
+    console.log(hasEditPrivileges);
     if (assignments.length === 0) {
       setIsEmpty(true);
     }

@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Actions\Admin\Subject\AddSubject;
+use App\Actions\Admin\Subject\AddSubjects;
 use App\Actions\Admin\Subject\DeleteSubject;
 use App\Actions\Admin\Subject\GetSubjects;
 use App\Http\Requests\AddSubjectRequest;
+use App\Http\Requests\AddSubjectsRequest;
 use App\Models\Subject;
 use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SubjectController{
     public function viewSubjects(GetSubjects $getSubjects){
@@ -34,6 +38,17 @@ class SubjectController{
             // no real scope for errors
         }
     }
+    public function addSubjects(AddSubjectsRequest $request, AddSubjects $addSubject){
+        $validated = $request->validated();
+        try{
+            $addSubject->handle(json_decode($validated["subjects"]));
+            return redirect()->route('subjects.add')->with('success','Subjects Added Successfully!');
+        }catch(Exception $e){
+        }
+    }
+    
+    
+    
  
 
 }
