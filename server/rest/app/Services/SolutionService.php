@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Exceptions\EmptyDescriptionException;
 use App\Exceptions\SolutionNotFoundException;
 use App\Models\Solution;
 use Exception;
@@ -26,7 +27,7 @@ class SolutionService{
         throw new InvalidArgumentException("Invalid Google Drive link format");
     }
 
-    public function addSolution(?string $description,string $assignmentUuid,?string $content,int $userId){
+    public function addSolution(string $description,string $assignmentUuid,?string $content,int $userId){
         $assignmentId = $this->assignmentService->getAssignmentId($assignmentUuid);
         $data = [
             "user_id" => $userId,
@@ -38,7 +39,10 @@ class SolutionService{
             $data["content"] = $content;
         }
         if($description){
-            $data["description"] = $description;
+            if(strip_tags($description) == ""){
+                throw new EmptyDescriptionException(message:"Empty Description, please don't use tags.",code:400);
+            }
+            $data["description"] = strip_tags($description);
         }
             $solution = Solution::create($data);
             return $solution;
@@ -55,7 +59,10 @@ class SolutionService{
     }
 
     if ($description != null) {
-        $solution->description = $description;
+        if(strip_tags($description) == ""){
+            throw new EmptyDescriptionException(message:"Empty Description, please don't use tags.",code:400);
+        }
+        $solution->description = strip_tags($description);
     }
     if ($content != null) {
         $solution->content = $this->convertDriveLinkToDownloadLink($content);
@@ -76,7 +83,10 @@ class SolutionService{
         throw new Exception(message:"Nothing to update", code:400);
     }
     if ($description != null) {
-        $solution->description = $description;
+        if(strip_tags($description) == ""){
+            throw new EmptyDescriptionException(message:"Empty Description, please don't use tags.",code:400);
+        }
+        $solution->description = strip_tags($description);
     }
     if ($content != null) {
         $solution->content = $content;

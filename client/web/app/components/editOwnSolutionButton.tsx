@@ -65,7 +65,7 @@ export const EditOwnSolutionButton = ({
   return (
     <Dialog>
       <DialogTrigger className="">
-        <img src="/assets/pencil.png" className="w-7 mb-2" alt="" />
+        <img src="/assets/pencil.png" className="md:w-7 w-5 mb-2" alt="" />
       </DialogTrigger>
       <DialogContent>
         <div className="">
