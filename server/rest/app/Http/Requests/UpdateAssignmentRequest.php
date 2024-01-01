@@ -25,7 +25,7 @@ class UpdateAssignmentRequest extends FormRequest
             "link" => [
                 "string",
                 "nullable",
-                "regex:#^(https?|ftp)://[^\s/$.?#].[^\s]*$#",
+                "regex:/^(https?|ftp):\/\/[^\s\/$?#].[^\s]*$/",
             ],
             "subject_uuid" =>"string|nullable",
             "deadline" =>"nullable|date_format:Y-m-d",

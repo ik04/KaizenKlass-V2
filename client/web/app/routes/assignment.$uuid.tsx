@@ -137,6 +137,7 @@ export default function assignment() {
         title: "Solution deleted!",
         description: `the solution has been deleted`,
       });
+      location.reload();
     } catch (error) {
       toast({
         title: "Error Request Failed",
@@ -179,114 +180,181 @@ export default function assignment() {
       <Dashboard baseUrl={baseUrl}>
         <div className="flex flex-col space-y-4">
           <BackButton />
-          <div className="md:flex md:space-x-4 md:items-start">
-            <div className="icon md:flex w-16 hidden justify-center p-2 items-center bg-dashboard rounded-full">
-              <img
-                src="/assets/assignment.svg"
-                className="md:w-16"
-                alt="lightbulb"
-              />
-            </div>
-            <div className="assignment flex flex-col space-y-1">
-              <div className="flex items-center justify-between">
-                <h1 className="text-highlight font-base text-3xl">
-                  {assignment.title}
-                </h1>
-                <div className="flex space-x-2">
-                  {hasEditPrivileges && (
-                    <EditAssignmentButton
-                      assignmentUuid={uuid}
-                      baseUrl={baseUrl}
-                      originalLink={assignment.link}
-                      originalTitle={assignment.title}
-                      originalSubjectUuid={assignment.subject_uuid}
-                      originalDescription={assignment.description}
-                    />
-                  )}
-
-                  {hasEditPrivileges && (
-                    <img
-                      src="/assets/trash.png"
-                      onClick={deleteAssignment}
-                      className="w-7"
-                      alt=""
-                    />
-                  )}
-                </div>
-              </div>
-              <a
-                href={`/subject/${assignment.subject_uuid}`}
-                className="text-highlightSecondary text-start text-xl font-base"
-              >
-                {assignment.subject}
-              </a>
-              {assignment.description && (
-                <div
-                  className="text-highlight text-sm font-base"
-                  dangerouslySetInnerHTML={{
-                    __html: convertLinksToAnchors(assignment.description),
-                  }}
-                />
-              )}
-              <div className="flex space-x-2 items-center">
-                {assignment.content && (
-                  <a
-                    href={`${assignment.content}`}
-                    className="flex items-center space-x-2"
-                  >
-                    <img src="/assets/download.svg" alt="" />
-                    <p className="text-highlight font-base text-xs">
-                      Download Content
-                    </p>
-                  </a>
-                )}
-                {assignment.link && (
-                  <a
-                    href={`${assignment.link}`}
-                    className="flex items-center space-x-2"
-                  >
-                    <img src="/assets/link.svg" alt="" />
-                    <p className="text-highlight font-base text-xs">
-                      Visit Classroom
-                    </p>
-                  </a>
-                )}
-              </div>
-            </div>
-          </div>
-          <p className="md:hidden text-highlightSecondary font-base">
-            Solutions:
-          </p>
-          <div className="solutions">
-            {solutions.map((solution) => (
+          <div className="md:flex md:justify-center md:items-center md:w-full">
+            <div className="md:flex md:flex-col md:space-y-9 md:w-4/5">
               <div className="md:flex md:space-x-4 md:items-start">
-                <div className="icon md:flex w-16 hidden justify-center p-2 items-center bg-dashboard rounded-full">
+                <div className="icon md:flex w-16 hidden justify-center p-2 items-center bg-mainLighter rounded-full">
                   <img
-                    src="/assets/lightBulb.svg"
+                    src="/assets/assignment.svg"
                     className="md:w-16"
-                    alt="lightbulb"
+                    alt="assignment"
                   />
                 </div>
-                <div className="solution">
-                  <h1 className="text-highlightSecondary font-base text-xl">
-                    Posted by: {solution.username}
-                  </h1>
-                  <div
-                    className="text-highlight text-sm font-base"
-                    dangerouslySetInnerHTML={{
-                      __html: convertLinksToAnchors(solution.description),
-                    }}
-                  />
+                <div className="assignment flex flex-col md:w-full space-y-1 md:space-y-0">
+                  <div className="flex items-center justify-between">
+                    <h1 className="text-highlight font-base text-2xl md:text-4xl">
+                      {assignment.title}
+                    </h1>
+                    <div className="flex space-x-2">
+                      {hasEditPrivileges && (
+                        <EditAssignmentButton
+                          assignmentUuid={uuid}
+                          baseUrl={baseUrl}
+                          originalLink={assignment.link}
+                          originalTitle={assignment.title}
+                          originalSubjectUuid={assignment.subject_uuid}
+                          originalDescription={assignment.description}
+                        />
+                      )}
+
+                      {hasEditPrivileges && (
+                        <img
+                          src="/assets/trash.png"
+                          onClick={deleteAssignment}
+                          className="w-7"
+                          alt=""
+                        />
+                      )}
+                    </div>
+                  </div>
+                  <a
+                    href={`/subject/${assignment.subject_uuid}`}
+                    className="text-highlightSecondary text-start text-sm md:text-2xl font-base"
+                  >
+                    {assignment.subject}
+                  </a>
+                  {assignment.description && (
+                    <div
+                      className="text-highlight text-sm md:text-xl font-base"
+                      dangerouslySetInnerHTML={{
+                        __html: convertLinksToAnchors(assignment.description),
+                      }}
+                    />
+                  )}
+                  {assignment.deadline !== null && (
+                    <div className="flex items-center justify-between">
+                      <p className="text-highlightSecondary cursor-default font-base text-sm md:text-base transition-all duration-150 hover:text-red-500">
+                        {assignment.deadline &&
+                          parseDateTimeForIndia(assignment.deadline)}
+                      </p>
+                      <p
+                        className={`${
+                          !isDanger
+                            ? "text-highlightSecondary font-light"
+                            : "text-red-500 font-light"
+                        } font-base font-bold md:text-3xl`}
+                      >
+                        {readableDeadline}
+                      </p>
+                    </div>
+                  )}{" "}
+                  <div className="flex space-x-2 md:space-x-5 items-center md:-ml-2 md:mt-6">
+                    {assignment.content && (
+                      <a
+                        href={`${assignment.content}`}
+                        className="flex items-center space-x-2"
+                      >
+                        <img
+                          src="/assets/download.svg"
+                          className="md:w-10"
+                          alt=""
+                        />
+                        <p className="text-highlight font-base font-bold text-xs md:text-lg">
+                          Download Content
+                        </p>
+                      </a>
+                    )}
+                    {assignment.link && (
+                      <a
+                        href={`${assignment.link}`}
+                        className="flex items-center space-x-2"
+                      >
+                        <img
+                          src="/assets/link.svg"
+                          className="md:w-10"
+                          alt=""
+                        />
+                        <p className="text-highlight font-base font-bold text-xs md:text-lg">
+                          Visit Classroom
+                        </p>
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
-            ))}
-          </div>
+              <p className="md:hidden text-highlightSecondary font-base my-5">
+                Solutions:
+              </p>
+              <div className="solutions flex flex-col space-y-5 md:space-y-7">
+                {solutions.map((solution) => (
+                  <div className="md:flex md:space-x-4 md:items-start">
+                    <div className="icon md:flex w-16 hidden justify-center p-3 items-center bg-mainLighter rounded-full">
+                      <img
+                        src="/assets/lightBulb.svg"
+                        className="md:w-16"
+                        alt="lightbulb"
+                      />
+                    </div>
+                    <div className="solution flex flex-col space-y-1 md:space-x-0 md:w-full">
+                      <div className="flex justify-between">
+                        <h1 className="text-highlightSecondary font-base text-xl md:text-2xl">
+                          Posted by: {solution.username}
+                        </h1>
+                        <div className="flex space-x-3 items-start">
+                          {isAuthenticated &&
+                            userUuid == solution.user_uuid && (
+                              <EditOwnSolutionButton
+                                baseUrl={baseUrl}
+                                originalDescription={solution.description}
+                                solutionUuid={solution.solution_uuid}
+                              />
+                            )}
+                          {isAuthenticated &&
+                            userUuid == solution.user_uuid && (
+                              <img
+                                src="/assets/trash.png"
+                                onClick={() =>
+                                  deleteOwnSolution(solution.solution_uuid)
+                                }
+                                className="w-5 md:w-7"
+                                alt=""
+                              />
+                            )}
+                        </div>
+                      </div>
+                      <div
+                        className="text-highlight text-sm md:text-lg font-base"
+                        dangerouslySetInnerHTML={{
+                          __html: convertLinksToAnchors(solution.description),
+                        }}
+                      />
+                      {solution.content && (
+                        <a
+                          href={`${solution.content}`}
+                          className="flex items-center space-x-2"
+                        >
+                          <img
+                            src="/assets/download.svg"
+                            className="md:w-10"
+                            alt=""
+                          />
+                          <p className="text-highlight font-base text-xs md:text-lg font-bold">
+                            Download Content
+                          </p>
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
 
-          {isAuthenticated && (
-            <div className="mt-10">
-              <AddSolutionButton assignmentUuid={uuid} baseUrl={baseUrl} />
+              {isAuthenticated && (
+                <div className="mt-10">
+                  <AddSolutionButton assignmentUuid={uuid} baseUrl={baseUrl} />
+                </div>
+              )}
             </div>
-          )}
+          </div>
         </div>
       </Dashboard>
     </div>
