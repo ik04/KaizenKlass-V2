@@ -10,8 +10,8 @@ export const BackButton = () => {
       onClick={goBack}
       className="cursor-pointer flex justify-start items-center"
     >
-      <img src="/assets/back.svg" className="w-9" alt="" />
-      <p className="font-base text-3xl text-highlightSecondary uppercase">
+      <img src="/assets/back.svg" className="md:w-9 w-6" alt="" />
+      <p className="font-base md:text-3xl text-highlightSecondary uppercase">
         Back
       </p>
     </div>

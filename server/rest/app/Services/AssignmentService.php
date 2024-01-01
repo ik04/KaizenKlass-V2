@@ -58,7 +58,7 @@ class AssignmentService{
     
         $assignmentData = [
             "title" => $title,
-            "description" => $description,
+            "description" => strip_tags($description),
             "subject_id" => $subjectId,
             "assignment_uuid" => Uuid::uuid4(),
         ];
@@ -91,7 +91,7 @@ class AssignmentService{
         }
             
         if (isset($data['description'])) {
-            $assignment->description = $data['description'];
+            $assignment->description = strip_tags($data['description']);
         }
         if (isset($data['subject_uuid'])) {
             $subjectId = $this->subjectService->getSubjectId($data['subject_uuid']);

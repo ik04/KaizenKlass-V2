@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\EmptyDescriptionException;
 use App\Exceptions\SolutionNotFoundException;
 use App\Http\Requests\AddSolutionRequest;
 use App\Http\Requests\UpdateSolutionRequest;
@@ -27,9 +28,16 @@ class SolutionController extends Controller
         return $assignmentId;
     }
     public function addSolution(AddSolutionRequest $request){
+        try{
+
             $validated = $request->validated();
             $solution = $this->service->addSolution($validated["description"] ?? null,$validated["assignment_uuid"],$validated["content"] ?? null,$request->user()->id);
             return response(["solution" => $solution],201);
+        }catch(EmptyDescriptionException $e ){
+            return response()->json(["error"=>$e->getMessage()],$e->getCode());
+        }catch(Exception $e){
+            return response()->json(["error"=>$e->getMessage()],$e->getCode());
+        }
     }
     public function getSolutions(Request $request){
         return response()->json(["solutions"=>Solution::all()],200);

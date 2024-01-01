@@ -106,7 +106,7 @@ export const EditAssignmentButton = ({
   return (
     <Dialog>
       <DialogTrigger className="">
-        <img src="/assets/pencil.png" className="w-7 mb-2" alt="" />
+        <img src="/assets/pencil.png" className="w-7" alt="" />
       </DialogTrigger>
       <DialogContent>
         <div className="font-base flex flex-col space-y-2">

@@ -170,143 +170,118 @@ export default function assignment() {
       console.error("Error deleting solution:", error);
     }
   };
+  console.log(solutions);
 
   // todo: finish solution components
   // todo: redo assignments page with new design
   return (
     <div className="bg-main h-screen">
       <Dashboard baseUrl={baseUrl}>
-        <div className="folder flex flex-col">
-          <div className="p-1">
-            <BackButton />
-          </div>
-          <div className="flex justify-end">
-            <div className="subject-file-name border-b-mainLighter h-0 px-4 max-w-[20%] border-r-[25px] border-r-transparent border-l-[25px] border-l-transparent flex justify-start border-b-[50px]">
-              <Link
-                to={`/subject/${assignment.subject_uuid}`}
-                className="text-highlightSecondary translate-y-3 font-base font-semibold"
+        <div className="flex flex-col space-y-4">
+          <BackButton />
+          <div className="md:flex md:space-x-4 md:items-start">
+            <div className="icon md:flex w-16 hidden justify-center p-2 items-center bg-dashboard rounded-full">
+              <img
+                src="/assets/assignment.svg"
+                className="md:w-16"
+                alt="lightbulb"
+              />
+            </div>
+            <div className="assignment flex flex-col space-y-1">
+              <div className="flex items-center justify-between">
+                <h1 className="text-highlight font-base text-3xl">
+                  {assignment.title}
+                </h1>
+                <div className="flex space-x-2">
+                  {hasEditPrivileges && (
+                    <EditAssignmentButton
+                      assignmentUuid={uuid}
+                      baseUrl={baseUrl}
+                      originalLink={assignment.link}
+                      originalTitle={assignment.title}
+                      originalSubjectUuid={assignment.subject_uuid}
+                      originalDescription={assignment.description}
+                    />
+                  )}
+
+                  {hasEditPrivileges && (
+                    <img
+                      src="/assets/trash.png"
+                      onClick={deleteAssignment}
+                      className="w-7"
+                      alt=""
+                    />
+                  )}
+                </div>
+              </div>
+              <a
+                href={`/subject/${assignment.subject_uuid}`}
+                className="text-highlightSecondary text-start text-xl font-base"
               >
                 {assignment.subject}
-              </Link>
-            </div>
-          </div>
-          <div className="bg-mainLighter h-min-[50%] rounded-s-2xl p-4 flex flex-col space-y-3">
-            <div className="Title font-base flex items-center space-x-3 text-highlight text-4xl ">
-              <h1>{assignment.title}</h1>
-              {isAuthenticated && hasEditPrivileges && (
-                <EditAssignmentButton
-                  assignmentUuid={uuid}
-                  baseUrl={baseUrl}
-                  originalDescription={assignment.description}
-                  originalLink={assignment.link}
-                  originalSubjectUuid={assignment.subject_uuid}
-                  originalTitle={assignment.title}
-                />
-              )}
-              {isAuthenticated && hasEditPrivileges && (
-                <img
-                  src="/assets/trash.png"
-                  onClick={deleteAssignment}
-                  className="w-7 mb-2"
-                  alt=""
-                />
-              )}
-            </div>
-            {assignment.description && (
-              <div className="description font-base font-semibold text-highlight">
+              </a>
+              {assignment.description && (
                 <div
+                  className="text-highlight text-sm font-base"
                   dangerouslySetInnerHTML={{
                     __html: convertLinksToAnchors(assignment.description),
                   }}
-                />{" "}
+                />
+              )}
+              <div className="flex space-x-2 items-center">
+                {assignment.content && (
+                  <a
+                    href={`${assignment.content}`}
+                    className="flex items-center space-x-2"
+                  >
+                    <img src="/assets/download.svg" alt="" />
+                    <p className="text-highlight font-base text-xs">
+                      Download Content
+                    </p>
+                  </a>
+                )}
+                {assignment.link && (
+                  <a
+                    href={`${assignment.link}`}
+                    className="flex items-center space-x-2"
+                  >
+                    <img src="/assets/link.svg" alt="" />
+                    <p className="text-highlight font-base text-xs">
+                      Visit Classroom
+                    </p>
+                  </a>
+                )}
               </div>
-            )}
-            {assignment.link !== null && (
-              <a
-                href={`${assignment.link}`}
-                target="_blank"
-                className="flex justify-start"
-              >
-                <div className="text-highlight font-base hover:p-1 font-bold hover:bg-highlight transition-all duration-150 hover:text-mainLighter">
-                  Visit Classroom
-                </div>
-              </a>
-            )}
-            {assignment.content !== null && (
-              <a
-                href={`${assignment.content}`}
-                target="_blank"
-                className="flex justify-start"
-              >
-                <div className="text-highlight font-base hover:p-1 font-bold hover:bg-highlight transition-all duration-150 hover:text-mainLighter">
-                  Download Content
-                </div>
-              </a>
-            )}
-            {assignment.deadline !== null && (
-              <div className="flex items-center justify-between">
-                <p className="text-highlight font-base font-bold transition-all duration-150 hover:text-red-500">
-                  {assignment.deadline &&
-                    parseDateTimeForIndia(assignment.deadline)}
-                </p>
-                <p
-                  className={`${
-                    !isDanger ? "text-highlight " : "text-gray-500"
-                  } font-base font-bold text-3xl`}
-                >
-                  {readableDeadline}
-                </p>
-              </div>
-            )}
-            {assignmentSolutions.length > 0 && (
-              <>
-                <div className="w-full border border-highlightSecondary border-dashed"></div>
-                {assignmentSolutions.map((solution) => (
-                  <div className="flex flex-col justify-between items-start">
-                    <div className="Title font-base mb-2 flex items-center space-x-3 text-highlightSecondary text-3xl ">
-                      <h1> Posted by: {solution.username}</h1>
-                      {userUuid == solution.user_uuid && (
-                        <>
-                          <EditOwnSolutionButton
-                            baseUrl={baseUrl}
-                            solutionUuid={solution.solution_uuid}
-                            originalDescription={solution.description}
-                          />
-                          <img
-                            src="/assets/trash.png"
-                            onClick={() =>
-                              deleteOwnSolution(solution.solution_uuid)
-                            }
-                            className="w-7 mb-2"
-                            alt=""
-                          />
-                        </>
-                      )}
-                    </div>
-                    {solution.content && (
-                      <a
-                        href={`${solution.content}`}
-                        className="text-highlightSecondary font-base font-semibold hover:p-1 hover:bg-highlightSecondary transition-all duration-150 hover:text-mainLighter"
-                      >
-                        Download Answer Content
-                      </a>
-                    )}
-                    {solution.description && (
-                      <div className="description font-base font-semibold text-highlight">
-                        <div
-                          dangerouslySetInnerHTML={{
-                            __html: convertLinksToAnchors(solution.description),
-                          }}
-                        />
-                      </div>
-                    )}
-                    {/* todo:sanitize html */}
-                    {/* <div className="w-full border border-highlightSecondary border-dashed"></div> */}
-                  </div>
-                ))}
-              </>
-            )}
+            </div>
           </div>
+          <p className="md:hidden text-highlightSecondary font-base">
+            Solutions:
+          </p>
+          <div className="solutions">
+            {solutions.map((solution) => (
+              <div className="md:flex md:space-x-4 md:items-start">
+                <div className="icon md:flex w-16 hidden justify-center p-2 items-center bg-dashboard rounded-full">
+                  <img
+                    src="/assets/lightBulb.svg"
+                    className="md:w-16"
+                    alt="lightbulb"
+                  />
+                </div>
+                <div className="solution">
+                  <h1 className="text-highlightSecondary font-base text-xl">
+                    Posted by: {solution.username}
+                  </h1>
+                  <div
+                    className="text-highlight text-sm font-base"
+                    dangerouslySetInnerHTML={{
+                      __html: convertLinksToAnchors(solution.description),
+                    }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+
           {isAuthenticated && (
             <div className="mt-10">
               <AddSolutionButton assignmentUuid={uuid} baseUrl={baseUrl} />
@@ -335,10 +310,3 @@ export const loader = async ({ params }: any) => {
     console.error(error);
   }
 };
-{
-  /* <div
-dangerouslySetInnerHTML={{
-  __html: convertLinksToAnchors(solution.description),
-}}
-/> */
-}
