@@ -18,7 +18,7 @@ class SubjectService{
         return $subject;
     }
     public function getSubjects(){
-        $subjects = Subject::select("subject","subject_uuid")->get();
+        $subjects = Subject::select("subject","subject_uuid")->orderBy('created_at',"DESC")->get();
         return $subjects;
     }
     public function deleteSubject(Uuid $subjectUuid){
