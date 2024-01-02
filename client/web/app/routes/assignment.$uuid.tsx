@@ -295,7 +295,7 @@ export default function assignment() {
                         alt="lightbulb"
                       />
                     </div>
-                    <div className="solution flex flex-col space-y-1 md:space-x-0 md:w-full">
+                    <div className="solution flex flex-col space-y-1 md:space-x-0 md:w-full w-[300px] break-words overflow-hidden whitespace-wrap overflow-ellipsis md:whitespace-normal md:overflow-visible md:text-overflow-clip">
                       <div className="flex justify-between">
                         <h1 className="text-highlightSecondary font-base text-xl md:text-2xl">
                           Posted by: {solution.username}
