@@ -349,7 +349,7 @@ export default function assignment() {
               </div>
 
               {isAuthenticated && (
-                <div className="mt-10">
+                <div className="my-10">
                   <AddSolutionButton assignmentUuid={uuid} baseUrl={baseUrl} />
                 </div>
               )}
