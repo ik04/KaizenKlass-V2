@@ -225,7 +225,7 @@ export default function assignment() {
                   </a>
                   {assignment.description && (
                     <div
-                      className="text-highlight text-sm md:text-xl font-base"
+                      className="text-highlight text-sm md:text-xl font-base whitespace-pre-line"
                       dangerouslySetInnerHTML={{
                         __html: convertLinksToAnchors(assignment.description),
                       }}
@@ -323,7 +323,7 @@ export default function assignment() {
                         </div>
                       </div>
                       <div
-                        className="text-highlight text-sm md:text-lg font-base"
+                        className="text-highlight text-sm md:text-lg font-base whitespace-pre-line"
                         dangerouslySetInnerHTML={{
                           __html: convertLinksToAnchors(solution.description),
                         }}
