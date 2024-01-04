@@ -76,23 +76,25 @@ class SolutionService{
         $solution = Solution::where('solution_uuid', $solutionUuid)
         ->where('user_id', $userId)
         ->first();
-    if (!$solution) {
-        throw new SolutionNotFoundException(message:"Solution not found",code:404);
-    }
-    if($description == null && $content == null){
-        throw new Exception(message:"Nothing to update", code:400);
-    }
-    if ($description != null) {
-        if(strip_tags($description) == ""){
-            throw new EmptyDescriptionException(message:"Empty Description, please don't use tags.",code:400);
+        if (!$solution) {
+            throw new SolutionNotFoundException(message:"Solution not found",code:404);
         }
-        $solution->description = strip_tags($description);
-    }
-    if ($content != null) {
-        $solution->content = $content;
-    }
-    $solution->save();
-    return $solution;
+        if($description == null && $content == null){
+            throw new Exception(message:"Nothing to update", code:400);
+        }
+    
+        if ($description != null) {
+            if(strip_tags($description) == ""){
+                throw new EmptyDescriptionException(message:"Empty Description, please don't use tags.",code:400);
+            }
+            $solution->description = strip_tags($description);
+        }
+        if ($content != null) {
+            $solution->content = $this->convertDriveLinkToDownloadLink($content);
+        }
+        $solution->save();
+    
+        return $solution;
     }
 
     public function deleteSolution(string $solutionUuid){
