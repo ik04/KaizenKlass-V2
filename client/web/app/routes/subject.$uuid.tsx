@@ -36,9 +36,11 @@ export default function subject() {
   return (
     <div className="bg-main h-screen">
       <Dashboard baseUrl={baseUrl}>
-        <div className="header w-full h-20 mb-10 flex justify-between items-center text-5xl">
+        <div className="header w-full md:space-x-0 space-x-20 md:h-20 mb-10 md:justify-between flex items-center md:text-5xl">
           <BackButton />
-          <div className="font-display text-highlightSecondary">{subject}</div>
+          <div className="font-display w-full text-xl text-highlightSecondary">
+            {subject}
+          </div>
         </div>
         {isAuthenticated && hasEditPrivileges && (
           <div className="mb-7">
