@@ -1,34 +1,28 @@
 {
     "subjects": [
         {
-            "subject": "Numerical Methods and Analysis"
+            "subject": "Probability and Queueing Theory"
         },
         {
-            "subject": "Data Structures and Algorithms"
+            "subject": "Design and Analysis of Algorithms"
         },
         {
-            "subject": "Computer Organization and Architecture"
+            "subject": "Database Management Systems"
         },
         {
-            "subject": "Advanced Programming Practice"
+            "subject": "Social Engineering"
         },
         {
-            "subject": "Operating Systems"
+            "subject": "Artificial Intelligence"
         },
         {
-            "subject": "Design Thinking and Methodology"
+            "subject": "UHV-II"
         },
         {
-            "subject": "Professional Ethics"
+            "subject": "Design and Analysis of Algorithms"
         },
         {
-            "subject": "Verbal Reasoning"
-        },
-        {
-            "subject": "Data Structures and Algorithms (Lab)"
-        },
-        {
-            "subject": "Operating Systems (Lab)"
+            "subject": "Critical and Creative Thinking Skills"
         }
     ]
 }
