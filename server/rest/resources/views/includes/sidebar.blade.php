@@ -3,7 +3,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link " href="index.html">
+            <a class="nav-link " href="{{ route('home') }}">
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
             </a>
@@ -33,23 +33,13 @@
             </a>
             <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="forms-elements.html">
-                        <i class="bi bi-circle"></i><span>Form Elements</span>
+                    <a href="/view/users">
+                        <i class="bi bi-circle"></i><span>View Users</span>
                     </a>
                 </li>
                 <li>
-                    <a href="forms-layouts.html">
-                        <i class="bi bi-circle"></i><span>Form Layouts</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="forms-editors.html">
-                        <i class="bi bi-circle"></i><span>Form Editors</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="forms-validation.html">
-                        <i class="bi bi-circle"></i><span>Form Validation</span>
+                    <a href="/add/users">
+                        <i class="bi bi-circle"></i><span>Add Users</span>
                     </a>
                 </li>
             </ul>
