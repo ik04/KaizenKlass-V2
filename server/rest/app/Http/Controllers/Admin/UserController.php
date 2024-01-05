@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Actions\Admin\Login;
 use App\Actions\Admin\Logout;
+use App\Actions\Admin\User\RegisterUser;
 use App\Exceptions\UserNotFoundException;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\LoginUserRequest;
+use App\Http\Requests\RegisterUserRequest;
 use App\Services\UserService;
 use Exception;
 use Illuminate\Http\Request;
@@ -54,7 +57,18 @@ class UserController extends Controller{
         }catch(Exception $e){
             // ? how do i handle this
         }
-
+    }
+    public function getAddUsersView(){
+        return view('pages.user.add');
+    }
+    public function create(RegisterUserRequest $request, RegisterUser $registerUser){
+        [
+            "email" => $email,
+            "password" => $password,
+            "name" => $name
+            ] = $request->validated();
+        $user = $registerUser->handle($name,$email,$password);
+        return redirect()->route('users.add')->with('success','User Registered Successfully');
     }
 
     

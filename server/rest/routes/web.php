@@ -27,5 +27,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/subject/add', [SubjectController::class, "addSubject"])->name('subject.create');
     Route::post('/subject/add-multiple', [SubjectController::class, "addSubjects"])->name('subject.create.multiple');
     Route::get('/delete/subject/{id}', [SubjectController::class, "deleteSubject"])->name('subject.destroy');
+
+    Route::get('/add/users',[UserController::class,"getAddUsersView"])->name('users.add');
+    Route::post('/user/add',[UserController::class,"create"])->name('user.create');
 });
 // todo: promote and demote route
