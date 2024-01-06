@@ -178,7 +178,7 @@ export default function assignment() {
   return (
     <div className="bg-main h-screen">
       <Dashboard baseUrl={baseUrl}>
-        <div className="flex flex-col space-y-4">
+        <div className="flex flex-col space-y-4 pb-5">
           <BackButton />
           <div className="md:flex md:justify-center md:items-center md:w-full">
             <div className="md:flex md:flex-col md:space-y-9 md:w-4/5">
