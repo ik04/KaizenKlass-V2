@@ -36,9 +36,9 @@ export default function subject() {
   return (
     <div className="bg-main h-screen">
       <Dashboard baseUrl={baseUrl}>
-        <div className="header w-full md:space-x-0 space-x-20 md:h-20 mb-10 md:justify-between flex items-center md:text-5xl">
+        <div className="header w-full md:space-x-0 space-x-20 md:h-20 mb-10 md:justify-between flex items-center">
           <BackButton />
-          <div className="font-display w-full text-xl text-highlightSecondary">
+          <div className="font-display text-xl md:text-5xl text-highlightSecondary">
             {subject}
           </div>
         </div>
