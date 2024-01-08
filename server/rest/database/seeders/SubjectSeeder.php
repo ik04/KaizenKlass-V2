@@ -22,7 +22,7 @@ class SubjectSeeder extends Seeder
             foreach($subjects as $subject){
                 $subject = Subject::create([
                     "subject" => $subject->subject,
-                    "subject_uuid" => Uuid::uuid4()
+                    "subject_uuid" => $subject->subject_code
                 ]);
             }
     }
