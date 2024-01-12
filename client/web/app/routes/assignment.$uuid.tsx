@@ -9,6 +9,7 @@ import { EditAssignmentButton } from "~/components/editAssignmentButton";
 import { toast } from "~/components/ui/use-toast";
 import { EditSolutionButton } from "~/components/editSolutionButton";
 import { EditOwnSolutionButton } from "~/components/editOwnSolutionButton";
+import { MetaFunction, redirect } from "@remix-run/node";
 
 export default function assignment() {
   const {
@@ -375,6 +376,6 @@ export const loader = async ({ params }: any) => {
     };
     return data;
   } catch (error) {
-    console.error(error);
+    return redirect("/not-found");
   }
 };
