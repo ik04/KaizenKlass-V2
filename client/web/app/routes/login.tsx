@@ -9,7 +9,6 @@ import { toast } from "~/components/ui/use-toast";
 
 export default function login() {
   const { baseUrl }: { baseUrl: string } = useLoaderData();
-  // console.log(baseUrl);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

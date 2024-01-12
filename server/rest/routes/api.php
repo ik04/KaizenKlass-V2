@@ -26,13 +26,14 @@ use Ramsey\Uuid\Uuid;
 
 Route::prefix("v1")->group(function(){
     Route::get("/healthcheck",function(){
-      return response()->json(["message"=>"hello from kaizenklass"]);
+        return response()->json(["message"=>"hello from kaizenklass"]);
     });
     // Route::post("register-admin",[UserController::class,"registerAdmin"]);
     // * dev routes
     Route::get("get-assignments",[AssignmentController::class,"getAssignments"]);
-   
-
+    
+    
+    Route::post("register-contributor",[UserController::class,"registerContributor"]);
     Route::post("login",[UserController::class,"login"]);
     Route::get("user-data",[UserController::class,"userData"]); // No regular users
     Route::get("get-subjects",[SubjectController::class,"getSubjects"]);
@@ -63,17 +64,15 @@ Route::prefix("v1")->group(function(){
     
     // * admin routes
     Route::middleware(["auth:sanctum","checkAdmin"])->group(function(){
-        Route::post("register-contributor",[UserController::class,"registerContributor"]);
         Route::post("register-crosschecker",[UserController::class,"registerCrosschecker"]);
         Route::put("promote/{userUuid}",[UserController::class,"promote"]);
         Route::put("demote/{userUuid}",[UserController::class,"demote"]);
 
         Route::delete("delete-resource/{resourceUuid}", [ResourceController::class, "deleteResource"]);
-        // ? make separate table for types?
         Route::post("add-resource",[ResourceController::class,"addResource"]);
         Route::post("add-tracker-resource",[ResourceController::class,"addTrackerResource"]);
         Route::put("edit-resource/{resourceUuid}",[ResourceController::class,"editResource"]);
-        
+        // todo: delete redundant routes
         Route::post("add-subject",[SubjectController::class,"addSubject"]);
         Route::delete("delete-subject/{subjectUuid}", [SubjectController::class, "deleteSubject"]);
     });

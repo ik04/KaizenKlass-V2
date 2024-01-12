@@ -18,13 +18,14 @@ class UserService{
         $userId = User::select("id")->where("user_uuid",$userUuid)->first("id")->id;
         return $userId;
     }
-    public function register(string $email,string $name, string $password, Role $role){
+    public function register(string $email,string $name, string $password, Role $role,string $ip){
         $user = User::create([
             "email" => $email,
             "name" => $name,
             "password" => Hash::make($password),
             "user_uuid" => Uuid::uuid4(),
-            "role" => $role->value
+            "role" => $role->value,
+            "ip" => $ip
         ]);
         return $user;
     }

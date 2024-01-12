@@ -26,7 +26,10 @@ export const Dashboard = ({
   const extraSidebarIcons = [
     { href: "/resources", img: "/assets/treasure.svg", name: "resources" },
   ];
-  const navlinks = [{ name: "login", href: "/login" }];
+  const navlinks = [
+    { name: "login", href: "/login" },
+    { name: "register", href: "/register" },
+  ];
   const authLinks = [{ name: username, href: "/home" }];
   const logout = async () => {
     const resp = await axios.post(`${baseUrl}/api/v1/logout`);
@@ -69,7 +72,7 @@ export const Dashboard = ({
           </Link>
         </div>
         {!isAuthenticated ? (
-          <div className="nav-links hidden md:flex items-center justify-between px-10">
+          <div className="nav-links hidden md:flex md:space-x-3 items-center justify-between px-10">
             {navlinks.map((navlink) => (
               <Link
                 key={navlink.name}
