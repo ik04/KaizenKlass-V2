@@ -76,8 +76,6 @@ Route::prefix("v1")->group(function(){
         
         Route::post("add-subject",[SubjectController::class,"addSubject"]);
         Route::delete("delete-subject/{subjectUuid}", [SubjectController::class, "deleteSubject"]);
-        // Route::put("edit-solution/{solutionUuid}", [SolutionController::class, "updateSolution"]);
-        // Route::delete("delete-solution/{solutionUuid}", [SolutionController::class, "deleteSolution"]);
     });
 
 });
