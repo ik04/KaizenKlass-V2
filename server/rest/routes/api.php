@@ -59,7 +59,6 @@ Route::prefix("v1")->group(function(){
         Route::post("add-assignment",[AssignmentController::class,"addAssignment"]);
         Route::put("edit-assignment/{assignmentUuid}", [AssignmentController::class, "editAssignment"]);
         Route::delete("delete-assignment/{assignmentUuid}", [AssignmentController::class, "deleteAssignment"]);
-        
     });
     
     // * admin routes
@@ -76,5 +75,4 @@ Route::prefix("v1")->group(function(){
         Route::post("add-subject",[SubjectController::class,"addSubject"]);
         Route::delete("delete-subject/{subjectUuid}", [SubjectController::class, "deleteSubject"]);
     });
-
 });

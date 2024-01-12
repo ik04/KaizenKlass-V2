@@ -10,8 +10,6 @@ use App\Http\Requests\AddSubjectRequest;
 use App\Http\Requests\AddSubjectsRequest;
 use App\Models\Subject;
 use Exception;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class SubjectController{
     public function viewSubjects(GetSubjects $getSubjects){

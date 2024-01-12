@@ -83,7 +83,7 @@ class UserController extends Controller
         if(is_null($user)){
             return response()->json([
                 'error' => "Unauthenticated"
-            ]);
+            ],401);
         }
         return response() -> json([
             'email' => $user->email,
