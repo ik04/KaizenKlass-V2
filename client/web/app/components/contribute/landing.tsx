@@ -11,7 +11,7 @@ export const Landing = () => {
         <div className="description text-center md:text-3xl font-base text-highlightSecondary">
           Join the Community and make life easier for everyone involved
         </div>
-        <div className="buttons md:mt-6 flex space-x-3 md:space-x-5">
+        <div className="buttons mt-3 md:mt-6 flex space-x-3 md:space-x-5">
           <Link
             to={"https://github.com/ik04/KaizenKlass-V2"}
             target="_blank"
