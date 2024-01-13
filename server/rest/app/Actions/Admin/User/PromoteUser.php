@@ -8,7 +8,7 @@ use Illuminate\Validation\UnauthorizedException;
 
 class PromoteUser{
     public function handle(User $id){
-        if($id->role>Role::CROSSCHECKER){
+        if($id->role>Role::CROSSCHECKER->value){
             $id->role = $id->role - 1;
             $id->save();
         }else{

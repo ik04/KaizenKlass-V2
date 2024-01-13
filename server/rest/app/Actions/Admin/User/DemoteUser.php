@@ -8,7 +8,7 @@ use Illuminate\Validation\UnauthorizedException;
 
 class DemoteUser{
     public function handle(User $id){
-        if($id->role<Role::CONTRIBUTOR){
+        if($id->role<Role::CONTRIBUTOR->value){
             $id->role = $id->role + 1;
             $id->save();
         }else{
