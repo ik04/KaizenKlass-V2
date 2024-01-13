@@ -27,20 +27,20 @@ class UserController extends Controller
     // todo: shift to service class logic
     public function registerAdmin(RegisterUserRequest $request){ 
         $validated = $request->validated();   
-        $user = $this->service->register($validated["email"],$validated["name"],$validated["password"],Role::ADMIN);
+        $user = $this->service->register($validated["email"],$validated["name"],$validated["password"],Role::ADMIN,$request->ip());
         unset($user->id);
         return response()->json(["user"=>$user],201);
     }
     
     public function registerContributor(RegisterUserRequest $request){
         $validated = $request->validated();
-        $user = $this->service->register($validated["email"],$validated["name"],$validated["password"],Role::CONTRIBUTOR);
+        $user = $this->service->register($validated["email"],$validated["name"],$validated["password"],Role::CONTRIBUTOR,$request->ip());
         return response()->json(["user"=>$user],201);
     }
 
     public function registerCrosschecker(RegisterUserRequest $request){
         $validated = $request->validated();
-        $user = $this->service->register($validated["email"],$validated["name"],$validated["password"],Role::CROSSCHECKER);
+        $user = $this->service->register($validated["email"],$validated["name"],$validated["password"],Role::CROSSCHECKER,$request->ip());
         return response()->json(["user"=>$user],201);
     }
     public function login(LoginUserRequest $request){
@@ -83,7 +83,7 @@ class UserController extends Controller
         if(is_null($user)){
             return response()->json([
                 'error' => "Unauthenticated"
-            ]);
+            ],401);
         }
         return response() -> json([
             'email' => $user->email,

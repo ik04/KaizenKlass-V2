@@ -26,9 +26,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/add/subjects', [SubjectController::class, "addSubjectView"])->name('subjects.add');
     Route::post('/subject/add', [SubjectController::class, "addSubject"])->name('subject.create');
     Route::post('/subject/add-multiple', [SubjectController::class, "addSubjects"])->name('subject.create.multiple');
-    Route::get('/delete/subject/{id}', [SubjectController::class, "deleteSubject"])->name('subject.destroy');
+    Route::delete('/delete/subject/{id}', [SubjectController::class, "deleteSubject"])->name('subject.destroy');
 
     Route::get('/add/users',[UserController::class,"getAddUsersView"])->name('users.add');
+    Route::get('/view/users',[UserController::class,"getUsersView"])->name('users.view');
     Route::post('/user/add',[UserController::class,"create"])->name('user.create');
+    Route::delete('/user/delete/{id}',[UserController::class,"destroy"])->name('user.destroy');
+
 });
 // todo: promote and demote route

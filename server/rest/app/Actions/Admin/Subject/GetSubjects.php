@@ -6,7 +6,7 @@ use App\Models\Subject;
 
 class GetSubjects{
     public function handle(){
-        $subjects = Subject::select("id","subject_uuid","subject","created_at")->get();
+        $subjects = Subject::select("id","subject_uuid","subject","created_at")->orderBy("created_at","DESC")->get();
         return $subjects;
     }
 }

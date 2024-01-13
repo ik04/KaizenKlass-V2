@@ -4,16 +4,15 @@
         <div class="row">
             <div class="col-lg-12">
                 @include('includes/success-message')
+                @include('includes/error-message')
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Subjects</h5>
+                        <h5 class="card-title">Users</h5>
                         <!-- Table with stripped rows -->
                         <table class="table datatable">
                             <thead>
                                 <tr>
-                                    <th>
-                                        <b>i</b>d
-                                    </th>
+                                    <th>id</th>
                                     <th>Subject</th>
                                     <th>Uuid</th>
                                     <th data-type="date" data-format="YYYY/DD/MM">Created At</th>

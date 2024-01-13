@@ -1,28 +1,72 @@
 {
     "subjects": [
         {
-            "subject": "Probability and Queueing Theory"
+            "subject": "Programming in Java",
+            "subject_uuid": "9991ca85-e8b7-4390-a42a-e7df9ade809b"
         },
         {
-            "subject": "Design and Analysis of Algorithms"
+            "subject": "AI and Industrial Iot",
+            "subject_uuid": "d6ce693d-25e6-419e-aef3-c5c4dba66e2b"
         },
         {
-            "subject": "Database Management Systems"
+            "subject": "Quantum Computation",
+            "subject_uuid": "2cb8eb7a-c5ff-4360-8bea-a63cb68f0469"
         },
         {
-            "subject": "Social Engineering"
+            "subject": "GPU Powered Computation",
+            "subject_uuid": "e78d893c-968f-49ae-be1b-4397b8438aae"
         },
         {
-            "subject": "Artificial Intelligence"
+            "subject": "Information Security",
+            "subject_uuid": "1fd4442f-85a1-4d99-89bc-aa595964f2cb"
         },
         {
-            "subject": "UHV-II"
+            "subject": "Artificial Intelligence of Things",
+            "subject_uuid": "06898c26-0d1f-4be4-8b40-392545935ab1"
         },
         {
-            "subject": "Design and Analysis of Algorithms"
+            "subject": "Cryptography and Network Security",
+            "subject_uuid": "d43f2ade-1cb3-4ece-a439-d26a475b1528"
         },
         {
-            "subject": "Critical and Creative Thinking Skills"
+            "subject": "Probability and Queueing Theory",
+            "subject_uuid": "7c8a33e4-b0db-49e8-b795-f6a722549fe8"
+        },
+        {
+            "subject": "Database Management Systems",
+            "subject_uuid": "415797e4-2d6a-4b15-83bd-3a78ff7f58ab"
+        },
+        {
+            "subject": "Social Engineering",
+            "subject_uuid": "b94ca763-46a4-47b9-a203-c7a200adcc87"
+        },
+        {
+            "subject": "Artificial Intelligence",
+            "subject_uuid": "d32c4460-ccb2-4657-ad16-fc74a473a955"
+        },
+        {
+            "subject": "UHV-II",
+            "subject_uuid": "2812bef7-1734-45be-a957-37281e734f05"
+        },
+        {
+            "subject": "Design and Analysis of Algorithms",
+            "subject_uuid": "0b44fd66-53dc-4cd1-9d8b-101333e1affc"
+        },
+        {
+            "subject": "Critical and Creative Thinking Skills",
+            "subject_uuid": "26174f2e-f14d-4be7-a124-2eb3d133c366"
+        },
+        {
+            "subject": "Data Structures and Algorithms",
+            "subject_uuid": "56e502af-727a-404e-965d-687f4c9d4062"
+        },
+        {
+            "subject": "Operating Systems",
+            "subject_uuid": "82286268-c699-4544-a386-26e5f1c3f7a1"
+        },
+        {
+            "subject": "General",
+            "subject_uuid": "82286268-c699-4544-a386-26e5f1c3f7a1"
         }
     ]
 }

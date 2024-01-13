@@ -9,7 +9,6 @@ import { toast } from "~/components/ui/use-toast";
 
 export default function login() {
   const { baseUrl }: { baseUrl: string } = useLoaderData();
-  // console.log(baseUrl);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -70,13 +69,15 @@ export default function login() {
       <div className="bg-main h-[93.6vh] flex flex-col justify-center items-center">
         <div className="">
           <h1 className="text-highlight text-4xl font-display">KaizenKlass</h1>
-          <Label>Email</Label>
+          <Label className="text-highlightSecondary font-base">Email</Label>
           <Input
+            name="email"
             onChange={(e) => setEmail(e.target.value)}
             placeholder="example@domain.com"
           />
-          <Label>Password</Label>
+          <Label className="font-base text-highlightSecondary">Password</Label>
           <Input
+            name="password"
             onChange={(e) => setPassword(e.target.value)}
             placeholder="........."
             type="password"

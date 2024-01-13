@@ -5,6 +5,7 @@ namespace App\Actions\Admin\Subject;
 use App\Exceptions\InvalidJsonException;
 use App\Models\Subject;
 use Ramsey\Uuid\Uuid;
+use Illuminate\Support\Str;
 
 class AddSubjects{
     public function handle($subjects){
@@ -15,7 +16,7 @@ class AddSubjects{
         foreach($subjects as $subject){
             $subject = Subject::create([
                 "subject" => $subject->subject,
-                "subject_uuid" => Uuid::uuid4()
+                "subject_uuid" => Str::slug($subject->subject),
             ]);
         }
       
