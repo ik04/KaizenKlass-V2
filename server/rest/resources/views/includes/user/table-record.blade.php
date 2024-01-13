@@ -6,8 +6,24 @@
     <td>{{ $user->role }}</td>
     <td>{{ $user->ip }}</td>
 
-    <td>place</td>
-    <td>holder</td>
+    <td>
+        <form action="{{ route('user.promote', $user->id) }}" method="POST">
+            @csrf
+            @method('put')
+            <button type="submit" class="btn btn-link">
+                <i class="fas fa-arrow-up"></i>
+            </button>
+        </form>
+    </td>
+    <td>
+        <form action="{{ route('user.demote', $user->id) }}" method="POST">
+            @csrf
+            @method('put')
+            <button type="submit" class="btn btn-link">
+                <i class="fas fa-arrow-down"></i>
+            </button>
+        </form>
+    </td>
     <td>
         <form action="{{ route('user.destroy', $user->id) }}" method="POST">
             @csrf

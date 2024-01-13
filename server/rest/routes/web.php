@@ -32,6 +32,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/view/users',[UserController::class,"getUsersView"])->name('users.view');
     Route::post('/user/add',[UserController::class,"create"])->name('user.create');
     Route::delete('/user/delete/{id}',[UserController::class,"destroy"])->name('user.destroy');
+    Route::put('/user/promote/{id}',[UserController::class,"promote"])->name('user.promote');
+    Route::put('/user/demote/{id}',[UserController::class,"demote"])->name('user.demote');
 
 });
 // todo: promote and demote route

@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Actions\Admin\Login;
 use App\Actions\Admin\Logout;
 use App\Actions\Admin\User\DeleteUser;
+use App\Actions\Admin\User\DemoteUser;
 use App\Actions\Admin\User\GetUsers;
+use App\Actions\Admin\User\PromoteUser;
 use App\Actions\Admin\User\RegisterUser;
 use App\Exceptions\UserNotFoundException;
 use App\Http\Controllers\Controller;
@@ -83,6 +85,22 @@ class UserController extends Controller{
             $deleteUser = $deleteUser->handle($id);
             return redirect()->route('users.view')->with('success', 'User deleted successfully');
         }catch(UnauthorizedException $e){
+            return redirect()->route('users.view')->with('error', $e->getMessage());
+        }
+    }
+    public function promote(User $id,PromoteUser $promoteUser){
+        try{
+            $promoteUser = $promoteUser->handle($id);
+            return redirect()->route('users.view')->with('success', 'User Promoted successfully');
+        }catch(Exception $e){
+            return redirect()->route('users.view')->with('error', $e->getMessage());
+        }
+    }
+    public function demote(User $id,DemoteUser $demoteUser){
+        try{
+            $demoteUser = $demoteUser->handle($id);
+            return redirect()->route('users.view')->with('success', 'User Demoted successfully');
+        }catch(Exception $e){
             return redirect()->route('users.view')->with('error', $e->getMessage());
         }
     }
