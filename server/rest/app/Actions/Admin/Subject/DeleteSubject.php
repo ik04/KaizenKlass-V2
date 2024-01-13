@@ -6,7 +6,7 @@ use App\Models\Subject;
 
 class DeleteSubject{
     public function handle(Subject $id){
-        $id->delete();
+         $id->delete();
     }
 
 }

@@ -12,7 +12,7 @@ class AddAssignmentRequest extends FormRequest
     {
         return [
             "title" => "required|string",
-            "subject_uuid" => "required|uuid",
+            "subject_uuid" => "required|string",
             "description" => "string",
             "link" => [
                 "string",

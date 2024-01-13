@@ -4,7 +4,7 @@
     <td>{{ $subject->subject_uuid }}</td>
     <td>{{ $subject->created_at }}</td>
     <td>
-        <form action="{{ route('subject.destroy', $subject->id) }}" action="POST">
+        <form action="{{ route('subject.destroy', $subject->id) }}" method="POST">
             @csrf
             @method('delete')
             <button type="submit" class="btn btn-link">

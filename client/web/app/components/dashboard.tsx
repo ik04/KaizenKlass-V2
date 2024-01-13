@@ -72,7 +72,7 @@ export const Dashboard = ({
           </Link>
         </div>
         {!isAuthenticated ? (
-          <div className="nav-links hidden md:flex md:space-x-3 items-center justify-between px-10">
+          <div className="nav-links hidden md:flex md:space-x-5 items-center justify-between px-10">
             {navlinks.map((navlink) => (
               <Link
                 key={navlink.name}

@@ -20,7 +20,6 @@ class User extends Authenticatable
         "user_uuid",
         "role",
         "ip"
-
     ];
 
 }

@@ -33,10 +33,6 @@
             "subject_uuid": "7c8a33e4-b0db-49e8-b795-f6a722549fe8"
         },
         {
-            "subject": "Design and Analysis of Algorithms",
-            "subject_uuid": "b9b4a876-be3b-4388-af18-78b9f3cf6e2a"
-        },
-        {
             "subject": "Database Management Systems",
             "subject_uuid": "415797e4-2d6a-4b15-83bd-3a78ff7f58ab"
         },
@@ -66,6 +62,10 @@
         },
         {
             "subject": "Operating Systems",
+            "subject_uuid": "82286268-c699-4544-a386-26e5f1c3f7a1"
+        },
+        {
+            "subject": "General",
             "subject_uuid": "82286268-c699-4544-a386-26e5f1c3f7a1"
         }
     ]

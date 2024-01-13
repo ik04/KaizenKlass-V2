@@ -3,7 +3,7 @@ import React from "react";
 
 export const Landing = () => {
   return (
-    <div className="bg-[url('/assets/bg-contribute.svg')] bg-cover bg-center bg-no-repeat h-screen flex justify-center items-center">
+    <div className="bg-[url('/assets/bg-contribute.png')] bg-cover bg-center bg-no-repeat h-screen flex justify-center items-center">
       <div className="hero flex flex-col items-center">
         <h1 className="title font-display text-5xl md:text-[140px] text-center text-highlight">
           Contribute

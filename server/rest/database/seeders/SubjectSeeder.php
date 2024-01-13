@@ -5,7 +5,8 @@ namespace Database\Seeders;
 use App\Models\Subject;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Ramsey\Uuid\Uuid;
+use Illuminate\Support\Str;
+
 
 class SubjectSeeder extends Seeder
 {
@@ -22,7 +23,7 @@ class SubjectSeeder extends Seeder
             foreach($subjects as $subject){
                 $subject = Subject::create([
                     "subject" => $subject->subject,
-                    "subject_uuid" => Uuid::uuid4()
+                    "subject_uuid" => Str::slug("$subject->subject")
                 ]);
             }
     }

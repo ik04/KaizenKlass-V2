@@ -4,15 +4,19 @@ namespace App\Http\Controllers\Admin;
 
 use App\Actions\Admin\Login;
 use App\Actions\Admin\Logout;
+use App\Actions\Admin\User\DeleteUser;
+use App\Actions\Admin\User\GetUsers;
 use App\Actions\Admin\User\RegisterUser;
 use App\Exceptions\UserNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\RegisterUserRequest;
+use App\Models\User;
 use App\Services\UserService;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Validation\UnauthorizedException;
 use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller{
@@ -61,6 +65,10 @@ class UserController extends Controller{
     public function getAddUsersView(){
         return view('pages.user.add');
     }
+    public function getUsersView(GetUsers $getUsers){
+        $users = $getUsers->handle();
+        return view('pages.user.view',["users"=>$users]);
+    }
     public function create(RegisterUserRequest $request, RegisterUser $registerUser){
         [
             "email" => $email,
@@ -70,7 +78,14 @@ class UserController extends Controller{
         $user = $registerUser->handle($name,$email,$password);
         return redirect()->route('users.add')->with('success','User Registered Successfully');
     }
-
+    public function destroy(User $id, DeleteUser $deleteUser){
+        try{
+            $deleteUser = $deleteUser->handle($id);
+            return redirect()->route('users.view')->with('success', 'User deleted successfully');
+        }catch(UnauthorizedException $e){
+            return redirect()->route('users.view')->with('error', $e->getMessage());
+        }
+    }
     
     
 }

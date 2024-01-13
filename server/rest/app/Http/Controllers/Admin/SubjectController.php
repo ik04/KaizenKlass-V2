@@ -45,8 +45,4 @@ class SubjectController{
         }
     }
     
-    
-    
- 
-
 }
