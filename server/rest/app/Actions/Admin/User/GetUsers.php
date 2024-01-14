@@ -7,7 +7,7 @@ use App\Models\User;
 class GetUsers{
 
     public function handle(){
-        $users = User::select("id","name","email","user_uuid","ip","role")->orderBy("created_at","DESC")->get();
+        $users = User::select("id","name","email","user_uuid","role")->orderBy("created_at","DESC")->get();
         return $users;
     }
 }

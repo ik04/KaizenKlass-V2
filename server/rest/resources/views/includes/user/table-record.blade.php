@@ -4,7 +4,6 @@
     <td>{{ $user->email }}</td>
     <td>{{ $user->user_uuid }}</td>
     <td>{{ $user->role }}</td>
-    <td>{{ $user->ip }}</td>
 
     <td>
         <form action="{{ route('user.promote', $user->id) }}" method="POST">

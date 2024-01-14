@@ -19,7 +19,6 @@
                                     <th>Email</th>
                                     <th>Uuid</th>
                                     <th>Role</th>
-                                    <th>Ip</th>
                                     <th>Promote</th>
                                     <th>Demote</th>
                                     <th>Delete</th>
