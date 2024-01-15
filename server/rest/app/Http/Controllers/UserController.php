@@ -22,25 +22,25 @@ class UserController extends Controller
     // todo: learn exception handling
     public function __construct(protected UserService $service)
     {
-        
+
     }
     // todo: shift to service class logic
-    public function registerAdmin(RegisterUserRequest $request){ 
-        $validated = $request->validated();   
-        $user = $this->service->register($validated["email"],$validated["name"],$validated["password"],Role::ADMIN,$request->ip());
+    public function registerAdmin(RegisterUserRequest $request){
+        $validated = $request->validated();
+        $user = $this->service->register($validated["email"],$validated["name"],$validated["password"],Role::ADMIN);
         unset($user->id);
         return response()->json(["user"=>$user],201);
     }
-    
+
     public function registerContributor(RegisterUserRequest $request){
         $validated = $request->validated();
-        $user = $this->service->register($validated["email"],$validated["name"],$validated["password"],Role::CONTRIBUTOR,$request->ip());
+        $user = $this->service->register($validated["email"],$validated["name"],$validated["password"],Role::CONTRIBUTOR);
         return response()->json(["user"=>$user],201);
     }
 
     public function registerCrosschecker(RegisterUserRequest $request){
         $validated = $request->validated();
-        $user = $this->service->register($validated["email"],$validated["name"],$validated["password"],Role::CROSSCHECKER,$request->ip());
+        $user = $this->service->register($validated["email"],$validated["name"],$validated["password"],Role::CROSSCHECKER);
         return response()->json(["user"=>$user],201);
     }
     public function login(LoginUserRequest $request){
