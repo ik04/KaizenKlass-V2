@@ -219,7 +219,7 @@ export default function assignments() {
                     </div>
                   </div>
                   <a
-                    href={`/subject/${assignment.subject_uuid}`}
+                    href={`/subjects/${assignment.subject_uuid}`}
                     className="text-highlightSecondary text-start text-sm md:text-2xl font-base"
                   >
                     {assignment.subject}
