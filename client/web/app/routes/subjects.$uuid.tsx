@@ -1,3 +1,4 @@
+import { redirect } from "@remix-run/node";
 import { useLoaderData, useParams } from "@remix-run/react";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
@@ -81,6 +82,6 @@ export const loader = async ({ params }: any) => {
     };
     return data;
   } catch (error) {
-    console.error(error);
+    return redirect("/not-found");
   }
 };

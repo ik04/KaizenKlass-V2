@@ -31,7 +31,7 @@ export const AssignmentCard = ({
       </Link>
       {subject && subject_uuid && (
         <Link
-          to={`/subject/${subject_uuid}`}
+          to={`/subjects/${subject_uuid}`}
           className="text-highlightSecondary font-base"
         >
           <div className="flex space-x-1">
