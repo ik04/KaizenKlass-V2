@@ -26,6 +26,11 @@ export default function login() {
         email,
         password,
       });
+      toast({
+        title: "Logged In successfully!",
+        description: "Welcome!",
+        variant: "default",
+      });
       location.href = "/home";
     } catch (error: any) {
       console.log(error.response);
