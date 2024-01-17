@@ -18,7 +18,7 @@ export const Landing = () => {
             Contribute
           </Link>
           <Link
-            to={"/home"}
+            to={"/subjects"}
             className="cursor-default border border-highlight bg-highlight text-primary md:w-[280px] text-base w-[120px] md:text-3xl h-[40px] md:h-[75px] justify-center items-center flex rounded-full font-base"
           >
             Check it out

@@ -17,11 +17,11 @@ export const AssignmentCard = ({
 
   return (
     <Link
-      to={`/assignment/${assignment_uuid}`}
+      to={`/assignments/${assignment_uuid}`}
       className="bg-mainLighter h-32 flex rounded-2xl flex-col items-start justify-center hover:border-highlight border border-mainLighter duration-200 transition-all space-y-3 px-5"
     >
       <Link
-        to={`/assignment/${assignment_uuid}`}
+        to={`/assignments/${assignment_uuid}`}
         className="flex justify-between w-full items-center"
       >
         <h2 className="text-4xl font-base text-highlight">

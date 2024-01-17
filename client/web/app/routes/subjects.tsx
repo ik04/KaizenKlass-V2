@@ -3,7 +3,7 @@ import axios from "axios";
 import { Dashboard } from "~/components/dashboard";
 import { SplashScreen } from "~/components/splashScreen";
 import { SubjectCard } from "~/components/subjectCard";
-export default function home() {
+export default function subjects() {
   //
   const { subjects, baseUrl }: { subjects: Subject[]; baseUrl: string } =
     useLoaderData();
