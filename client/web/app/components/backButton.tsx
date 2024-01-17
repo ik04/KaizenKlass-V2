@@ -5,8 +5,11 @@ export const BackButton = () => {
   const goBack = () => {
     const currentPath = location.pathname;
     const pathParts = currentPath.split("/");
-    console.log(pathParts);
-    if (pathParts[1] == "login" || "register") {
+    if (
+      pathParts[1] == "login" ||
+      pathParts[1] == "register" ||
+      pathParts[1] == "not-found"
+    ) {
       navigate(-1);
     } else {
       const newPath = pathParts.slice(0, -1).join("/");
