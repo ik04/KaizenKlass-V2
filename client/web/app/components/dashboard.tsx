@@ -15,7 +15,7 @@ export const Dashboard = ({
     useContext(GlobalContext);
   const [isMobileNavExpanded, setIsMobileNavExpanded] = useState(false);
   const sidebarIcons = [
-    { href: "/home", img: "/assets/home.svg", name: "home" },
+    { href: "/subjects", img: "/assets/home.svg", name: "home" },
     {
       href: "/assignments",
       img: "/assets/assignments.svg",

@@ -11,7 +11,7 @@ import { EditSolutionButton } from "~/components/editSolutionButton";
 import { EditOwnSolutionButton } from "~/components/editOwnSolutionButton";
 import { MetaFunction, redirect } from "@remix-run/node";
 
-export default function assignment() {
+export default function assignments() {
   const {
     assignment,
     solutions,
