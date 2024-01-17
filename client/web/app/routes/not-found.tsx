@@ -15,8 +15,8 @@ export default function notFound() {
           </div>
           <div className="flex justify-center items-center h-[70%] w-full">
             <div className="flex flex-col  items-center justify-center">
-              <img src="/assets/error.png" className="" alt="" />
-              <div className="font-base text-highlightSecondary text-2xl font-bold">
+              <img src="/assets/error.png" className="md:w-32" alt="" />
+              <div className="font-base text-highlightSecondary md:text-3xl text-2xl font-bold">
                 Not Found
               </div>
             </div>
