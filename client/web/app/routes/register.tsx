@@ -33,6 +33,11 @@ export default function register() {
         email,
         password,
       });
+      toast({
+        title: "Registered successfully!",
+        description: "Your Account has been created!",
+        variant: "default",
+      });
       location.href = "/login";
     } catch (error: any) {
       console.log(error.response);

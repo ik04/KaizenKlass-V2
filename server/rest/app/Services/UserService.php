@@ -18,14 +18,13 @@ class UserService{
         $userId = User::select("id")->where("user_uuid",$userUuid)->first("id")->id;
         return $userId;
     }
-    public function register(string $email,string $name, string $password, Role $role,string $ip){
+    public function register(string $email,string $name, string $password, Role $role){
         $user = User::create([
             "email" => $email,
             "name" => $name,
             "password" => Hash::make($password),
             "user_uuid" => Uuid::uuid4(),
             "role" => $role->value,
-            "ip" => $ip
         ]);
         return $user;
     }
@@ -92,7 +91,7 @@ class UserService{
     $newRole = $role + 1;
 
     if ($newRole > Role::ADMIN->value) {
-        throw new Exception("Invalid role", 403); 
+        throw new Exception("Invalid role", 403);
     }
 
     if ($role == Role::CROSSCHECKER->value) {
@@ -105,7 +104,7 @@ class UserService{
     return $user;
 }
 
-    
+
     public function demote(string $userUuid){
     $userId = $this->getUserId($userUuid);
     $user = User::where("id", $userId)->first();
@@ -118,7 +117,7 @@ class UserService{
     $newRole = $role - 1;
 
     if ($newRole < Role::CONTRIBUTOR->value) {
-        throw new Exception("Invalid role", 403); 
+        throw new Exception("Invalid role", 403);
     }
     if ($role == Role::CONTRIBUTOR->value) {
         throw new AlreadyDemotedException("User is already a contributor", 403);
@@ -127,7 +126,7 @@ class UserService{
     $user->save();
 
     return $user;
-    
+
     }
- 
+
 }
