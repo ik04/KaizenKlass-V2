@@ -31,7 +31,7 @@ export default function login() {
         description: "Welcome!",
         variant: "default",
       });
-      location.href = "/home";
+      location.href = "/subjects";
     } catch (error: any) {
       console.log(error.response);
       if (error.response && error.response.status === 400) {
