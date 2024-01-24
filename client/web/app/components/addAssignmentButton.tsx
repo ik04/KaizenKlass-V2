@@ -127,7 +127,7 @@ export const AddAssignmentButton = ({ baseUrl }: { baseUrl: string }) => {
               onChange={(e) => setSubject(e.target.value)}
               name=""
               placeholder="select subject"
-              className="py-2 my-2 bg-white text-sm rounded-sm"
+              className="py-2 my-2 bg-white text-sm w-full rounded-sm"
               id=""
             >
               <option value="" className="text-[#737373]" disabled selected>
