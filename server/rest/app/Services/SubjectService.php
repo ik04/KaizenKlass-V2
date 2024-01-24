@@ -1,12 +1,16 @@
 <?php
 
 namespace App\Services;
+
+use App\Exceptions\InvalidSlugException;
 use App\Models\Subject;
 use Ramsey\Uuid\Uuid;
 
 class SubjectService{
     public function getSubjectId($subjectUuid){
-        $actualSubjectId = Subject::select("id")->where("subject_uuid",$subjectUuid)->first("id")->id;
+        if(!$actualSubjectId = Subject::select("id")->where("subject_uuid",$subjectUuid)->first("id")->id){
+            throw new InvalidSlugException(message:"Invalid Subject Slug", code:400);
+        }
         return $actualSubjectId;
     }
 

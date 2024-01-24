@@ -76,3 +76,11 @@ Route::prefix("v1")->group(function(){
         Route::delete("delete-subject/{subjectUuid}", [SubjectController::class, "deleteSubject"]);
     });
 });
+
+// todo: add search for subjects
+Route::prefix("v2")->group(function(){
+    Route::middleware(["auth:sanctum"])->group(function(){
+        Route::post("add/selected-subjects");
+
+    });
+});
