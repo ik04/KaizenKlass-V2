@@ -36,7 +36,10 @@ class SelectedSubjectService{
         $selectedSubject->delete();
     }
     public function getSelectedSubject($userId){
-        // $selectedSubjects = 
-
-    }
+        $selectedSubjects = SelectedSubject::leftJoin('subjects', 'selected_subjects.id', '=', 'subjects.id')
+        ->select('selected_subjects.selection_uuid', 'subjects.subject','subjects.subject_uuid') // Select the columns you need
+        ->where('selected_subjects.user_id', '=', $userId) // Add any additional conditions if needed
+        ->get(); 
+        return $selectedSubjects;
+        }
 }
