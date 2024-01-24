@@ -3,6 +3,7 @@
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\ResourceController;
+use App\Http\Controllers\SelectedSubjectController;
 use App\Http\Controllers\SolutionController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserController;
@@ -80,7 +81,8 @@ Route::prefix("v1")->group(function(){
 // todo: add search for subjects
 Route::prefix("v2")->group(function(){
     Route::middleware(["auth:sanctum"])->group(function(){
-        Route::post("add/selected-subjects");
-
+        Route::post("add/selected-subjects",[SelectedSubjectController::class,"selectSubjects"]);
+        Route::post("add/selected-subject",[SelectedSubjectController::class,"selectSubject"]);
+        Route::get("get/selected-subjects",[SelectedSubjectController::class,"getSelectedSubjects"]);
     });
 });

@@ -18,7 +18,7 @@ class SelectedSubjectController extends Controller
     public function selectSubjects(AddSelectedSubjectsRequest $request){
         try{
             $validated = $request->validated();
-            $this->service->selectSubjects($validated["subject_uuid"],$request->user());
+            $this->service->selectSubjects($validated["subject_uuid"],$request->user()->id);
             return response()->json(["message"=>"Subjects added"]);
         }catch(Exception $e){
             return response()->json(["error"=>$e->getMessage()],$e->getCode());
@@ -28,14 +28,18 @@ class SelectedSubjectController extends Controller
     public function selectSubject(AddSelectedSubjectRequest $request){
         try{
             $validated = $request->validated();
-            $this->service->selectSubject($validated["subject_uuid"],$request->user());
-            return response()->json(["message"=>"Subjects added"]);
+            $this->service->selectSubject($validated["subject_uuid"],$request->user()->id);
+            return response()->json(["message"=>"Subject added"]);
         }catch(Exception $e){
             return response()->json(["error"=>$e->getMessage()],$e->getCode());
         }
     }
+    public function getSelectedSubject(Request $request){
+        $selectedSubjects = $this->service->getSelectedSubject($request->user()->id);
+        return response()->json(["selected_subjects"=>$selectedSubjects],200);
+    }
 
     public function removeSelectedSubject(){
-        
+
     }
 }

@@ -35,4 +35,8 @@ class SelectedSubjectService{
         }
         $selectedSubject->delete();
     }
+    public function getSelectedSubject($userId){
+        // $selectedSubjects = 
+
+    }
 }

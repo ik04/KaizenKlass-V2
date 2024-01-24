@@ -25,7 +25,7 @@ class SubjectService{
         $subjects = Subject::select("subject","subject_uuid")->orderBy('created_at',"DESC")->get();
         return $subjects;
     }
-    public function deleteSubject(Uuid $subjectUuid){
+    public function deleteSubject($subjectUuid){
         if (!Subject::where('subject_uuid', $subjectUuid)->exists()) {
             return response()->json(["error" => "Subject not found"], 404);
         }
