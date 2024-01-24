@@ -81,8 +81,16 @@ Route::prefix("v1")->group(function(){
 // todo: add search for subjects
 Route::prefix("v2")->group(function(){
     Route::middleware(["auth:sanctum"])->group(function(){
-        Route::post("add/selected-subjects",[SelectedSubjectController::class,"selectSubjects"]);
-        Route::post("add/selected-subject",[SelectedSubjectController::class,"selectSubject"]);
-        Route::get("get/selected-subjects",[SelectedSubjectController::class,"getSelectedSubjects"]);
+        Route::prefix("add")->group(function(){
+            Route::post("selected-subjects",[SelectedSubjectController::class,"selectSubjects"]);
+            Route::post("selected-subject",[SelectedSubjectController::class,"selectSubject"]);
+        });
+        Route::prefix("get")->group(function(){
+            Route::get("selected-subjects",[SelectedSubjectController::class,"getSelectedSubjects"]);
+        });
+        Route::prefix("remove")->group(function(){
+            Route::delete("selected-subject",[SelectedSubjectController::class,"removeSelectedSubject"]);
+        });
+
     });
 });
