@@ -6,6 +6,7 @@ use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\SelectedSubjectController;
 use App\Http\Controllers\SolutionController;
 use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserController;
 use App\Models\Subject;
 use Carbon\Carbon;
@@ -90,11 +91,14 @@ Route::prefix("v2")->group(function(){
         Route::prefix("get")->group(function(){
             // todo: make selected_subject fetches for the new fields as well
             // todo: make two fuzzy searches for selected subjects
-            Route::get("subjects/{query}",[SubjectController::class,"searchSubjects"]);
-            Route::get("selected-subjects/{query}",[SelectedSubjectController::class,"searchSelectedSubjects"]);
+            Route::get("subjects/search/{query}",[SubjectController::class,"searchSubjects"]);
+            Route::get("selected-subjects/search/{query}",[SelectedSubjectController::class,"searchSelectedSubjects"]);
 
             Route::get("selected-subjects",[SelectedSubjectController::class,"getSelectedSubjects"]);
             Route::get("selected-subjects/assignments",[AssignmentController::class,"getAssignmentsWithSelectedSubjects"]);
+
+            Route::get("selected-subjects/tests",[TestController::class,"getTestsWithSelectedSubjects"]);
+            Route::get("subjects/{uuid}/tests",[TestController::class,"getTestsBySubject"]);
         });
         Route::prefix("remove")->group(function(){
             Route::delete("selected-subject",[SelectedSubjectController::class,"removeSelectedSubject"]);
@@ -102,6 +106,13 @@ Route::prefix("v2")->group(function(){
     });
     // * Crosschecker Routes
     Route::middleware(["auth:sanctum","checkCrosschecker"])->group(function(){
+        Route::prefix("add")->group(function(){
+            Route::post("test",[TestController::class,"createTest"]);
+        });
+        Route::prefix("get")->group(function(){
+        });
+        Route::prefix("remove")->group(function(){
+        });
 
     });
 });

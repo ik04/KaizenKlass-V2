@@ -8,11 +8,15 @@ use Ramsey\Uuid\Uuid;
 
 class SubjectService{
     public function getSubjectId($subjectUuid){
-        if(!$actualSubjectId = Subject::select("id")->where("subject_uuid",$subjectUuid)->first("id")->id){
-            throw new InvalidSlugException(message:"Invalid Subject Slug", code:400);
+        $subject = Subject::select("id")->where("subject_uuid", $subjectUuid)->first();
+    
+        if (!$subject) {
+            throw new InvalidSlugException("Invalid Subject Slug", 400);
         }
-        return $actualSubjectId;
+    
+        return $subject->id;
     }
+    
 
     public function addSubject(string $subject){
         $subject = Subject::create([
