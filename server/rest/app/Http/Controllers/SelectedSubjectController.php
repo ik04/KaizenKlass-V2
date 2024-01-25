@@ -50,8 +50,6 @@ class SelectedSubjectController extends Controller
     public function searchSelectedSubjects(Request $request,$query){
         $results = $this->service->searchSelectedSubjects($query,$request->user()->id);
         return response()->json(["result" => $results,"search_term" => $query],200);
-
-
     }
 
     

@@ -91,6 +91,8 @@ Route::prefix("v2")->group(function(){
             // todo: make selected_subject fetches for the new fields as well
             // todo: make two fuzzy searches for selected subjects
             Route::get("subjects/{query}",[SubjectController::class,"searchSubjects"]);
+            Route::get("selected-subjects/{query}",[SelectedSubjectController::class,"searchSelectedSubjects"]);
+
             Route::get("selected-subjects",[SelectedSubjectController::class,"getSelectedSubjects"]);
             Route::get("selected-subjects/assignments",[AssignmentController::class,"getAssignmentsWithSelectedSubjects"]);
         });
