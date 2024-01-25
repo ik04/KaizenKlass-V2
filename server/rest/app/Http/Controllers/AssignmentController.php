@@ -107,6 +107,11 @@ public function deleteAssignment($assignmentUuid)
         $assignments = $this->service->getAssignmentsWithSubjects();
     return response()->json(["assignments"=>$assignments],200);
     }
+    public function getAssignmentsWithSelectedSubjects(Request $request){
+        $assignments = $this->service->getAssignmentsWithSelectedSubjects($request->user()->id);
+    return response()->json(["assignments"=>$assignments],200);
+    }
+
 
     public function getAssignmentsBySubject($subjectUuid){
         try{

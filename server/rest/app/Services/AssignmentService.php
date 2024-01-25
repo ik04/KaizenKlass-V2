@@ -182,5 +182,16 @@ class AssignmentService{
                 ->get();
             return $assignments;
         }
+        public function getAssignmentsWithSelectedSubjects($userId)
+        {
+            $assignments = Assignment::join("subjects", "subjects.id", "=", "assignments.subject_id")
+                ->leftJoin("selected_subjects", "selected_subjects.subject_id", "=", "assignments.subject_id")
+                ->select("assignments.title", "assignments.assignment_uuid", "subjects.subject", "subjects.subject_uuid")->where("selected_subjects.user_id",$userId)
+                ->orderBy("assignments.id", "DESC")
+                ->paginate(5);
+        
+            return $assignments;
+        }
+        
     }
     // todo: paginate api calls for assignments route

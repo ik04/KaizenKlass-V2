@@ -40,6 +40,10 @@ class SubjectController extends Controller
         $this->service->deleteSubject($subjectUuid);
         return response()->json(["message" => "Subject deleted successfully"], 200);
     }
+    public function searchSubjects($query){
+        $results = $this->service->searchSubjects($query);
+        return response()->json(["result" => $results,"search_term" => $query],200);
+    }
 
   
 }

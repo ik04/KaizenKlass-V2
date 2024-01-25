@@ -36,4 +36,10 @@ class SubjectService{
         $subjectDetails = Subject::select("subject","subject_uuid")->where("id",$subjectId)->first();
         return $subjectDetails;
     }
+    public function searchSubjects($query){
+        $results = Subject::select("subject","subject_uuid")->where('subject', 'LIKE', '%' . $query . '%')
+        ->orWhere('subject_uuid', 'LIKE', '%' . $query . '%')
+        ->get();
+        return $results;
+    }
 }

@@ -78,19 +78,28 @@ Route::prefix("v1")->group(function(){
     });
 });
 
-// todo: add search for subjects
+// * better route naming
+// todo: shift old routes to same naming pattern
 Route::prefix("v2")->group(function(){
+    // * contributor routes
     Route::middleware(["auth:sanctum"])->group(function(){
         Route::prefix("add")->group(function(){
             Route::post("selected-subjects",[SelectedSubjectController::class,"selectSubjects"]);
             Route::post("selected-subject",[SelectedSubjectController::class,"selectSubject"]);
         });
         Route::prefix("get")->group(function(){
+            // todo: make selected_subject fetches for the new fields as well
+            // todo: make two fuzzy searches for selected subjects
+            Route::get("subjects/{query}",[SubjectController::class,"searchSubjects"]);
             Route::get("selected-subjects",[SelectedSubjectController::class,"getSelectedSubjects"]);
+            Route::get("selected-subjects/assignments",[AssignmentController::class,"getAssignmentsWithSelectedSubjects"]);
         });
         Route::prefix("remove")->group(function(){
             Route::delete("selected-subject",[SelectedSubjectController::class,"removeSelectedSubject"]);
         });
+    });
+    // * Crosschecker Routes
+    Route::middleware(["auth:sanctum","checkCrosschecker"])->group(function(){
 
     });
 });

@@ -24,7 +24,6 @@ class SelectedSubjectController extends Controller
             return response()->json(["error"=>$e->getMessage()],$e->getCode());
         }
     }
-
     public function selectSubject(AddSelectedSubjectRequest $request){
         try{
             $validated = $request->validated();
@@ -46,6 +45,14 @@ class SelectedSubjectController extends Controller
         }catch(Exception $e){
             return response()->json(["error"=>$e->getMessage()],$e->getCode());
         }
+    }
+
+    public function searchSelectedSubjects(Request $request,$query){
+        $results = $this->service->searchSelectedSubjects($query,$request->user()->id);
+        return response()->json(["result" => $results,"search_term" => $query],200);
+
 
     }
+
+    
 }
