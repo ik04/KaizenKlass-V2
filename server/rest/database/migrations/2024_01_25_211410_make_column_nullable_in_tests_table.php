@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('test_papers', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('tests', function (Blueprint $table) {
+            $table->dateTime("exam_date")->nullable()->change();
         });
     }
 
@@ -22,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('test_papers');
+        Schema::table('tests', function (Blueprint $table) {
+            //
+        });
     }
 };
