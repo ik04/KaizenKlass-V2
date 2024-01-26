@@ -81,6 +81,7 @@ class AssignmentService{
 
         $assigmentId = $this->getAssignmentId($assignmentUuid);
         $assignment = Assignment::where("id", $assigmentId)->first();
+        // todo: allow removing description
             
         if (!$assignment) {
             throw new Exception(message:"assignment not found!",code:404);

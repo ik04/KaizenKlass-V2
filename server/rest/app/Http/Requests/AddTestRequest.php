@@ -17,7 +17,7 @@ class AddTestRequest extends FormRequest
     {
         return [
             "title" => "required|string",
-            "exam_date" =>"nullable|string",
+            "exam_date" =>"nullable|date_format:Y-m-d",
             "subject_uuid" => "string|required"
         ];
     }
