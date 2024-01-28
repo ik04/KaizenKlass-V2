@@ -190,13 +190,13 @@ export const AddAssignmentButton = ({ baseUrl }: { baseUrl: string }) => {
         <div className="flex space-x-4 items-center">
           <div
             onClick={resetFields}
-            className="hover:text-dashboard text-highlightSecondary border border-highlightSecondary duration-150 cursor-pointer hover:bg-highlightSecondary w-[15%] justify-center items-center flex p-1 font-base"
+            className="hover:text-dashboard text-highlightSecondary text-xs md:text-base border border-highlightSecondary duration-150 cursor-pointer hover:bg-highlightSecondary w-[15%] justify-center items-center flex p-1 font-base"
           >
             Reset
           </div>
           <div
             onClick={addAssignment}
-            className="hover:text-dashboard text-highlightSecondary border border-highlightSecondary duration-150 cursor-pointer hover:bg-highlightSecondary w-[15%] justify-center items-center flex p-1 font-base"
+            className="hover:text-dashboard text-highlightSecondary text-xs md:text-base border border-highlightSecondary duration-150 cursor-pointer hover:bg-highlightSecondary w-[15%] justify-center items-center flex p-1 font-base"
           >
             Submit
           </div>
