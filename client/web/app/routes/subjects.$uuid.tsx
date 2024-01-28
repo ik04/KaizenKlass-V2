@@ -73,7 +73,6 @@ export const loader = async ({ params }: any) => {
   try {
     const url = `${process.env.PUBLIC_DOMAIN}/api/v1/get-subject-assignments/${uuid}`;
     const resp = await axios.get(url);
-    // console.log(resp.data);
     const data = {
       subject: resp.data.subject,
       assignments: resp.data.assignments,
