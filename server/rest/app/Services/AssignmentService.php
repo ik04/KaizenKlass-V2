@@ -79,13 +79,11 @@ class AssignmentService{
     }
     public function editAssignment(string $assignmentUuid, array $data){
 
-        $assigmentId = $this->getAssignmentId($assignmentUuid);
-        $assignment = Assignment::where("id", $assigmentId)->first();
+         $assignment = Assignment::where("assignment_uuid", $assignmentUuid)->first();
         // todo: allow removing description
             
         if (!$assignment) {
             throw new Exception(message:"assignment not found!",code:404);
-            return null;
         }
         if (isset($data['title'])) {
             $assignment->title = $data['title'];

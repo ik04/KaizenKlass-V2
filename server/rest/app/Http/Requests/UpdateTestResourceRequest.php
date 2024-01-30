@@ -4,29 +4,25 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Validation\Validator;
 
-class AddAssignmentRequest extends FormRequest
-{   
+class UpdateTestResourceRequest extends FormRequest
+{
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
+     */
     public function rules(): array
     {
         return [
-            "title" => "required|string",
-            "subject_uuid" => "required|string",
             "description" => "string",
-            "link" => [
-                "string",
-                "nullable",
-                "regex:/^(https?|ftp):\/\/[^\s\/$?#].[^\s]*$/",],
-                "deadline" =>"nullable|date_format:Y-m-d|after_or_equal:today",
             "content" => [
                 "string",
                 "nullable",
                 "regex:#https://(?:docs\.google\.com/(?:document|presentation)/d/|drive\.google\.com/file/d/)([a-zA-Z0-9_-]+)/(?:edit|view)?\S*#"
-            ],        
-        ];
+            ],           
+         ];
     }
-
     public function messages(): array
     {
         return [

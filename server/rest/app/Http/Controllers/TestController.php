@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddTestRequest;
+use App\Http\Requests\UpdateTestRequest;
 use App\Services\TestService;
 use Exception;
 use Illuminate\Http\Request;
@@ -47,4 +48,23 @@ class TestController extends Controller
             return response()->json(["error"=>$e->getMessage()],$e->getCode());
         }
     }
+
+    public function updateTest(UpdateTestRequest $request,$uuid){
+        try{
+            $validated = $request->validated();
+            $test = $this->service->updateTest($uuid,$validated);
+            return response()->json(["message"=>"Test Updated!"]);
+        }catch(Exception $e){
+            return response()->json(["error"=>$e->getMessage()],$e->getCode());
+        }
+    }
+    public function deleteTest($uuid)
+{
+    try{
+        $this->service->deleteTest($uuid);
+        return response()->json(["message" => "Assignment deleted successfully"], 200);
+    }catch(Exception $e){
+        return response()->json(["error"=>$e->getMessage()],$e->getCode());
+    }
+}
 }

@@ -6,6 +6,7 @@ use App\Exceptions\TestAlreadyExistsException;
 use App\Exceptions\TestNotFoundException;
 use App\Models\Test;
 use App\Models\User;
+use Carbon\Carbon;
 use DateTime;
 use Ramsey\Uuid\Uuid;
 
@@ -13,6 +14,13 @@ class TestService{
     public function __construct(protected SubjectService $subjectService){
         
 
+    }
+    public function getTestId($uuid){
+        $testId = Test::select("id")->where("test_uuid",$uuid)->first();
+        if(!$testId){
+            throw new TestNotFoundException(message:"invalid uuid, test not found",code:404);
+        }
+        return $testId;
     }
 
     public function createTest($title, string $examDate = null,$subjectUuid){
@@ -83,16 +91,28 @@ class TestService{
 }
 
     public function deleteTest(string $uuid){
-        $test = Test::where("tests.test_uuid",$uuid)->first();
+        $test = Test::where("test_uuid",$uuid)->first();
         if(!$test){
             throw new TestNotFoundException(message:"Test Not Found",code:404);
         }
         $test->delete();
     }
-    public function updateTest(string $uuid){
-        $test = Test::where("tests.test_uuid",$uuid)->first();
+    public function updateTest(string $uuid,$data){
+        $test = Test::where("test_uuid",$uuid)->first();
         if(!$test){
             throw new TestNotFoundException(message:"Test Not Found",code:404);
         }
+        if (isset($data['title'])) {
+            $test->title = $data['title'];
+        }
+        if (isset($data['subject_uuid'])) {
+            $subjectId = $this->subjectService->getSubjectId($data['subject_uuid']);
+            $test->subject_id = $subjectId;
+        }
+        if (isset($data['exam_date'])) {
+            $test->exam_date = Carbon::parse($data['exam_date']);
+        }
+        $test->save();
+        return $test;
     }
 }

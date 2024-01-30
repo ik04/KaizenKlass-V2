@@ -7,6 +7,7 @@ use App\Http\Controllers\SelectedSubjectController;
 use App\Http\Controllers\SolutionController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\TestResourceController;
 use App\Http\Controllers\UserController;
 use App\Models\Subject;
 use Carbon\Carbon;
@@ -85,12 +86,11 @@ Route::prefix("v2")->group(function(){
     // * contributor routes
     Route::middleware(["auth:sanctum"])->group(function(){
         Route::prefix("add")->group(function(){
-            Route::post("selected-subjects",[SelectedSubjectController::class,"selectSubjects"]);
-            Route::post("selected-subject",[SelectedSubjectController::class,"selectSubject"]);
+            Route::post("selected-subjects",[SelectedSubjectController::class,"selectSubjects"]); // for onboarding
+            Route::post("selected-subject",[SelectedSubjectController::class,"selectSubject"]); // after onboarding
+            Route::post("test-resource",[TestResourceController::class,"createTestResource"]);
         });
         Route::prefix("get")->group(function(){
-            // todo: make selected_subject fetches for the new fields as well
-            // todo: make two fuzzy searches for selected subjects
             Route::get("subjects/search/{query}",[SubjectController::class,"searchSubjects"]);
             Route::get("selected-subjects/search/{query}",[SelectedSubjectController::class,"searchSelectedSubjects"]);
 
@@ -103,7 +103,11 @@ Route::prefix("v2")->group(function(){
             Route::get("test/{uuid}",[TestController::class,"getTest"]);
         });
         Route::prefix("remove")->group(function(){
-            Route::delete("selected-subject",[SelectedSubjectController::class,"removeSelectedSubject"]);
+            Route::delete("selected-subject",[SelectedSubjectController::class,"removeSelectedSubject"]); // after onboarding
+            Route::delete("test-resource/{uuid}",[TestResourceController::class,"deleteOwnTestResource"]); 
+        });
+        Route::prefix("update")->group(function(){
+            Route::put("test-resource/{uuid}",[TestResourceController::class,"updateOwnTestResource"]); 
         });
     });
     // * Crosschecker Routes
@@ -114,6 +118,10 @@ Route::prefix("v2")->group(function(){
         Route::prefix("get")->group(function(){
         });
         Route::prefix("remove")->group(function(){
+            Route::delete("test/{uuid}",[TestController::class,"deleteTest"]); 
+        });
+        Route::prefix("update")->group(function(){
+            Route::put("test/{uuid}",[TestController::class,"updateTest"]); 
         });
 
     });

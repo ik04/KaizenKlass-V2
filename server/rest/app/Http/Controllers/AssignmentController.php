@@ -76,18 +76,18 @@ class AssignmentController extends Controller
         }
     }
 
-public function deleteAssignment($assignmentUuid)
-{
-    $validator = Validator::make(['uuid' => $assignmentUuid], [
-        'uuid' => 'required|uuid',
-    ]);
+    public function deleteAssignment($assignmentUuid)
+    {
+        $validator = Validator::make(['uuid' => $assignmentUuid], [
+            'uuid' => 'required|uuid',
+        ]);
 
-    if ($validator->fails()) {
-        return response()->json(["message" => "Invalid UUID"], 400);
+        if ($validator->fails()) {
+            return response()->json(["message" => "Invalid UUID"], 400);
+        }
+        $this->service->deleteAssignment($assignmentUuid);
+        return response()->json(["message" => "Assignment deleted successfully"], 200);
     }
-    $this->service->deleteAssignment($assignmentUuid);
-    return response()->json(["message" => "Assignment deleted successfully"], 200);
-}
 
     public function getSolutionsByAssignment($assignmentUuid)
     {

@@ -112,7 +112,6 @@ class SolutionService{
         if (!$solution) {
         throw new SolutionNotFoundException(message:"Solution not found",code:404);
     }
-    
     $solution->delete();
     }
 }

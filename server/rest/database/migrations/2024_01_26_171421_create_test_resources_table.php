@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('test_resources', function (Blueprint $table) {
             $table->id();
+            $table->string("content");
+            $table->string("description")->nullable();
+            $table->uuid("solution_uuid")->unique();
+            $table->unsignedBigInteger("user_id");
+            $table->unsignedBigInteger("test_id");
+            $table->foreign("user_id")->references("id")->on('users')->onDelete("cascade");
+            $table->foreign("test_id")->references("id")->on('tests')->onDelete("cascade");
             $table->timestamps();
         });
     }
