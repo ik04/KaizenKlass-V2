@@ -18,7 +18,7 @@ export const AssignmentCard = ({
   return (
     <Link
       to={`/assignments/${assignment_uuid}`}
-      className="bg-mainLighter h-32 flex rounded-2xl flex-col items-start justify-center hover:border-highlight border border-mainLighter duration-200 transition-all space-y-3 px-5"
+      className="bg-mainLighter h-max-36 md:h-32 flex rounded-2xl flex-col items-start justify-center hover:border-highlight border border-mainLighter duration-200 transition-all space-y-3 px-5"
     >
       <Link
         to={`/assignments/${assignment_uuid}`}

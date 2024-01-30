@@ -1,5 +1,5 @@
 import { Label } from "@radix-ui/react-label";
-import { useLoaderData, useNavigate } from "@remix-run/react";
+import { Link, useLoaderData, useNavigate } from "@remix-run/react";
 import axios from "axios";
 import React, { useState } from "react";
 import { Form } from "react-hook-form";
@@ -93,6 +93,15 @@ export default function login() {
           >
             Login
           </div>
+          <p className="text-highlightSecondary font-base">
+            Don't have an account?{" "}
+            <Link
+              className="text-highlight hover:text-gray-400 duration-200"
+              to={"/register"}
+            >
+              Register
+            </Link>
+          </p>
         </div>
       </div>
     </div>

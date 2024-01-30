@@ -1,4 +1,4 @@
-import { useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 import axios from "axios";
 import React, { FormEvent } from "react";
 import { BackButton } from "~/components/backButton";
@@ -96,11 +96,20 @@ export default function register() {
             <Input placeholder="........." type="password" name="password" />
             <button
               type="submit"
-              className="font-base text-highlightSecondary border border-highlightSecondary cursor-pointer hover:bg-highlightSecondary hover:text-main duration-150 transition-all p-2 my-5 flex justify-center items-center text-xl"
+              className="font-base w-full text-highlightSecondary border border-highlightSecondary cursor-pointer hover:bg-highlightSecondary hover:text-main duration-150 transition-all p-2 my-5 flex justify-center items-center text-xl"
             >
               Register
             </button>
           </div>
+          <p className="text-highlightSecondary font-base">
+            have an account?{" "}
+            <Link
+              className="text-highlight hover:text-gray-400 duration-200"
+              to={"/login"}
+            >
+              Login
+            </Link>
+          </p>
         </form>
       </div>
     </div>
