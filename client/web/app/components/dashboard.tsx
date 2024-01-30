@@ -64,8 +64,9 @@ export const Dashboard = ({
             alt="hamburger"
             className="md:w-16 w-10"
           />
+          {/* make a home page */}
           <Link
-            to={"/home"}
+            to={"/subjects"}
             className="text-highlight font-display text-4xl md:text-5xl"
           >
             KaizenKlass
@@ -170,7 +171,7 @@ export const Dashboard = ({
                   className="md:w-16 w-10"
                 />
                 <Link
-                  to={"/home"}
+                  to={"/subjects"}
                   className={`text-highlight font-display text-4xl`}
                 >
                   KaizenKlass

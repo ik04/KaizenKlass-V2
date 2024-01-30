@@ -10,7 +10,7 @@ export const BackButton = () => {
       pathParts[1] == "register" ||
       pathParts[1] == "not-found"
     ) {
-      navigate(-1);
+      navigate("/subjects");
     } else {
       const newPath = pathParts.slice(0, -1).join("/");
       navigate(newPath);
