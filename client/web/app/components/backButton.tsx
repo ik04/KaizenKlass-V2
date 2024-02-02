@@ -3,18 +3,19 @@ import { useNavigate } from "@remix-run/react";
 export const BackButton = () => {
   const navigate = useNavigate();
   const goBack = () => {
-    const currentPath = location.pathname;
-    const pathParts = currentPath.split("/");
-    if (
-      pathParts[1] == "login" ||
-      pathParts[1] == "register" ||
-      pathParts[1] == "not-found"
-    ) {
-      navigate("/subjects");
-    } else {
-      const newPath = pathParts.slice(0, -1).join("/");
-      navigate(newPath);
-    }
+    // const currentPath = location.pathname;
+    // const pathParts = currentPath.split("/");
+    // if (
+    //   pathParts[1] == "login" ||
+    //   pathParts[1] == "register" ||
+    //   pathParts[1] == "not-found"
+    // ) {
+    //   navigate("/subjects");
+    // } else {
+    //   const newPath = pathParts.slice(0, -1).join("/");
+    //   navigate(newPath);
+    // }
+    navigate(-1);
   };
   return (
     <div

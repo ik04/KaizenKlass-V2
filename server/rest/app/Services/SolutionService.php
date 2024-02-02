@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Exceptions\EmptyDescriptionException;
 use App\Exceptions\SolutionNotFoundException;
 use App\Models\Solution;
+use App\Models\User;
 use Exception;
 use InvalidArgumentException;
 use Ramsey\Uuid\Uuid;
@@ -13,6 +14,17 @@ class SolutionService{
     public function __construct(protected AssignmentService $assignmentService)
     {
         
+    }
+    public function removeIds($solution){
+        unset($solution["id"]);
+        unset($solution["user_id"]);
+        unset($solution["assignment_id"]);
+        return $solution;
+    }
+    public function appendUserUuid($solution,$userId){
+        $userUuid = User::where("id",$userId)->select("user_uuid")->first()->user_uuid;
+        $solution["user_uuid"] = $userUuid;
+        return $solution;
     }
 
     private function convertDriveLinkToDownloadLink(string $originalLink): ?string
@@ -45,6 +57,8 @@ class SolutionService{
             $data["description"] = strip_tags($description);
         }
             $solution = Solution::create($data);
+            $solution = $this->appendUserUuid($solution,$userId);
+            $solution = $this->removeIds($solution);
             return $solution;
     }
 
@@ -68,6 +82,8 @@ class SolutionService{
         $solution->content = $this->convertDriveLinkToDownloadLink($content);
     }
     $solution->save();
+    $solution = $this->removeIds($solution);
+    
 
     return $solution;
     }
@@ -93,7 +109,8 @@ class SolutionService{
             $solution->content = $this->convertDriveLinkToDownloadLink($content);
         }
         $solution->save();
-    
+        $solution = $this->appendUserUuid($solution,$userId);
+        $solution = $this->removeIds($solution);
         return $solution;
     }
 

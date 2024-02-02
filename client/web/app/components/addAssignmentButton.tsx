@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Dialog, DialogContent, DialogTrigger } from "~/components/ui/dialog";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogTrigger,
+} from "~/components/ui/dialog";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
@@ -16,7 +21,13 @@ type ValuePiece = Date | null;
 
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
-export const AddAssignmentButton = ({ baseUrl }: { baseUrl: string }) => {
+export const AddAssignmentButton = ({
+  baseUrl,
+  handleAddAssignment,
+}: {
+  baseUrl: string;
+  handleAddAssignment: (assignment: Assignment) => void;
+}) => {
   const { toast } = useToast();
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [subject, setSubject] = useState<string>();
@@ -31,7 +42,6 @@ export const AddAssignmentButton = ({ baseUrl }: { baseUrl: string }) => {
     const resp = await axios.get(url);
     setSubjects(resp.data.subjects);
   };
-  const navigate = useNavigate();
 
   useEffect(() => {
     getSubjects();
@@ -52,8 +62,7 @@ export const AddAssignmentButton = ({ baseUrl }: { baseUrl: string }) => {
           title: "Assignment Added!",
           description: `${title} has been added to the assignments`,
         });
-        navigate(`/assignments/${resp.data.assignment.assignment_uuid}`);
-        location.reload();
+        handleAddAssignment(resp.data.assignment);
       } else {
         toast({
           title: "Required fields",
@@ -194,12 +203,14 @@ export const AddAssignmentButton = ({ baseUrl }: { baseUrl: string }) => {
           >
             Reset
           </div>
-          <div
-            onClick={addAssignment}
-            className="hover:text-dashboard text-highlightSecondary text-xs md:text-base border border-highlightSecondary duration-150 cursor-pointer hover:bg-highlightSecondary w-[15%] justify-center items-center flex p-1 font-base"
-          >
-            Submit
-          </div>
+          <DialogClose>
+            <div
+              onClick={addAssignment}
+              className="hover:text-dashboard w-full text-highlightSecondary text-xs md:text-base border border-highlightSecondary duration-150 cursor-pointer hover:bg-highlightSecondary  justify-center items-center flex p-1 font-base"
+            >
+              Submit
+            </div>
+          </DialogClose>
         </div>
       </DialogContent>
     </Dialog>

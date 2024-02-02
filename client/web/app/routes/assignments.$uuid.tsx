@@ -27,6 +27,10 @@ export default function assignments() {
   const { userUuid, hasEditPrivileges, isAuthenticated, role } =
     useContext(GlobalContext);
 
+  const handleAddSolution = (solution: Solution) => {
+    setAssignmentSolutions((prevSolutions) => [solution, ...prevSolutions]);
+  };
+
   const [readableDeadline, setReadableDeadline] = useState<string>();
   const [isDanger, setIsDanger] = useState<boolean>(false);
   const [assignmentSolutions, setAssignmentSolutions] =
@@ -287,7 +291,7 @@ export default function assignments() {
                 Solutions:
               </p>
               <div className="solutions flex flex-col space-y-5 md:space-y-7">
-                {solutions.map((solution) => (
+                {assignmentSolutions.map((solution) => (
                   <div className="md:flex md:space-x-4 md:items-start">
                     <div className="icon md:flex w-16 hidden justify-center p-3 items-center bg-mainLighter rounded-full">
                       <img
@@ -351,7 +355,11 @@ export default function assignments() {
 
               {isAuthenticated && (
                 <div className="my-10">
-                  <AddSolutionButton assignmentUuid={uuid} baseUrl={baseUrl} />
+                  <AddSolutionButton
+                    assignmentUuid={uuid}
+                    handleSolutionAddition={handleAddSolution}
+                    baseUrl={baseUrl}
+                  />
                 </div>
               )}
             </div>

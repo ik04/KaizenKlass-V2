@@ -5,13 +5,16 @@ import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import axios from "axios";
 import { useToast } from "./ui/use-toast";
+import { DialogClose } from "@radix-ui/react-dialog";
 
 export const AddSolutionButton = ({
   baseUrl,
   assignmentUuid,
+  handleSolutionAddition,
 }: {
   baseUrl: string;
   assignmentUuid: string;
+  handleSolutionAddition: (solution: Solution) => void;
 }) => {
   const { toast } = useToast();
   const [description, setDescription] = useState<string>();
@@ -24,11 +27,16 @@ export const AddSolutionButton = ({
           description,
           assignment_uuid: assignmentUuid,
         });
-        // console.log(resp);
         toast({
           title: "Solution Added!",
         });
-        location.reload();
+        handleSolutionAddition(resp.data.solution);
+      } else {
+        toast({
+          title: "Invalid Fields Inputs",
+          description: "description is required",
+          variant: "destructive",
+        });
       }
     } catch (error: any) {
       console.log(error.response);
@@ -84,12 +92,14 @@ export const AddSolutionButton = ({
             required
           />
         </div>
-        <div
-          onClick={addSolution}
-          className="hover:text-dashboard text-xs md:text-base text-highlightSecondary border border-highlightSecondary duration-150 cursor-pointer hover:bg-highlightSecondary w-[15%] justify-center items-center flex p-1 font-base"
-        >
-          Submit
-        </div>
+        <DialogClose>
+          <div
+            onClick={addSolution}
+            className="hover:text-dashboard text-xs md:text-base text-highlightSecondary border border-highlightSecondary duration-150 cursor-pointer hover:bg-highlightSecondary w-[15%] justify-center items-center flex p-1 font-base"
+          >
+            Submit
+          </div>
+        </DialogClose>
       </DialogContent>
     </Dialog>
   );
