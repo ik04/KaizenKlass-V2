@@ -8,6 +8,7 @@ import { BackButton } from "~/components/backButton";
 import { Dashboard } from "~/components/dashboard";
 import { EmptyState } from "~/components/emptyState";
 import { SubjectAssignmentCard } from "~/components/subjectAssignmentCard";
+import { Skeleton } from "~/components/ui/skeleton";
 import { GlobalContext } from "~/context/GlobalContext";
 
 export default function subject() {
@@ -25,6 +26,7 @@ export default function subject() {
   const [isEmpty, setIsEmpty] = useState<boolean>(false);
   const [subject, setSubject] = useState<string>("");
   const [assignments, setAssignments] = useState<Assignment[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const callSubjectAssignments = async () => {
@@ -43,6 +45,7 @@ export default function subject() {
         if (data.assignments.length === 0) {
           setIsEmpty(true);
         }
+        setIsLoading(false);
       } catch (error) {
         console.log(error);
       }
@@ -53,32 +56,49 @@ export default function subject() {
   return (
     <div className="bg-main h-screen">
       <Dashboard baseUrl={baseUrl}>
-        <div className="header w-full md:space-x-0 space-x-20 md:h-20 mb-10 md:justify-between flex items-center">
-          <BackButton />
-          <div className="font-display text-xl md:text-5xl text-highlightSecondary">
-            {subject}
-          </div>
-        </div>
-        {isAuthenticated && hasEditPrivileges && (
-          <div className="mb-7">
-            <AddSubjectAssignmentButton baseUrl={baseUrl} subjectUuid={uuid} />
-          </div>
-        )}
-        {!isEmpty ? (
-          <div className="flex-col space-y-7 flex mb-20">
-            {assignments &&
-              assignments.map((assignment) => (
-                <SubjectAssignmentCard
-                  key={assignment.subject_uuid}
-                  subject={assignment.subject}
-                  title={assignment.title}
-                  assignment_uuid={assignment.assignment_uuid}
-                  subject_uuid={assignment.subject_uuid}
+        {!isLoading ? (
+          <>
+            <div className="header w-full md:space-x-0 space-x-20 md:h-20 mb-10 md:justify-between flex items-center">
+              <BackButton />
+              <div className="font-display text-xl md:text-5xl text-highlightSecondary">
+                {subject}
+              </div>
+            </div>
+            {isAuthenticated && hasEditPrivileges && (
+              <div className="mb-7">
+                <AddSubjectAssignmentButton
+                  baseUrl={baseUrl}
+                  subjectUuid={uuid}
                 />
-              ))}
-          </div>
+              </div>
+            )}
+            {!isEmpty ? (
+              <div className="flex-col space-y-7 flex mb-20">
+                {assignments &&
+                  assignments.map((assignment) => (
+                    <SubjectAssignmentCard
+                      key={assignment.subject_uuid}
+                      subject={assignment.subject}
+                      title={assignment.title}
+                      assignment_uuid={assignment.assignment_uuid}
+                      subject_uuid={assignment.subject_uuid}
+                    />
+                  ))}
+              </div>
+            ) : (
+              <EmptyState />
+            )}
+          </>
         ) : (
-          <EmptyState />
+          <>
+            <div className="flex flex-col space-y-7">
+              <Skeleton className="h-32 px-5 rounded-2xl bg-mainLighter" />
+              <Skeleton className="h-32 px-5 rounded-2xl bg-mainLighter" />
+              <Skeleton className="h-32 px-5 rounded-2xl bg-mainLighter" />
+              <Skeleton className="h-32 px-5 rounded-2xl bg-mainLighter" />
+              <Skeleton className="h-32 px-5 rounded-2xl bg-mainLighter" />
+            </div>
+          </>
         )}
       </Dashboard>
     </div>
