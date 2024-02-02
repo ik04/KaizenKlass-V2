@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Dialog, DialogContent, DialogTrigger } from "~/components/ui/dialog";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogTrigger,
+} from "~/components/ui/dialog";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
@@ -16,9 +21,11 @@ type Value = ValuePiece | [ValuePiece, ValuePiece];
 export const AddSubjectAssignmentButton = ({
   baseUrl,
   subjectUuid,
+  handleAddAssignment,
 }: {
   baseUrl: string;
   subjectUuid: string;
+  handleAddAssignment: (assignment: Assignment) => void;
 }) => {
   const [title, setTitle] = useState<string>();
   const [description, setDescription] = useState<string>();
@@ -39,13 +46,12 @@ export const AddSubjectAssignmentButton = ({
         subject_uuid: subjectUuid,
         deadline: date && format(date, "yyyy-MM-dd"),
       });
-      // console.log(resp);
+      console.log(resp.data);
       toast({
         title: "Assignment Added!",
         description: `${title} has been added to the assignments`,
       });
-      // navigate(`/assignment/${resp.data.assignment.assignment_uuid}`);
-      location.reload();
+      handleAddAssignment(resp.data.assignment);
     } catch (error: any) {
       console.log(error.response);
 
@@ -122,12 +128,14 @@ export const AddSubjectAssignmentButton = ({
             onChange={(e) => setContent(e.target.value)}
           />
         </div>
-        <div
-          onClick={addAssignment}
-          className="hover:text-dashboard text-xs md:text-base text-highlightSecondary border border-highlightSecondary duration-150 cursor-pointer hover:bg-highlightSecondary w-[15%] justify-center items-center flex p-1 font-base"
-        >
-          Submit
-        </div>
+        <DialogClose>
+          <div
+            onClick={addAssignment}
+            className="hover:text-dashboard text-xs md:text-base text-highlightSecondary border border-highlightSecondary duration-150 cursor-pointer hover:bg-highlightSecondary w-[15%] justify-center items-center flex p-1 font-base"
+          >
+            Submit
+          </div>
+        </DialogClose>
       </DialogContent>
     </Dialog>
   );

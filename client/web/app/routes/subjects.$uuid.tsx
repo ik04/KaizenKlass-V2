@@ -27,7 +27,9 @@ export default function subject() {
   const [subject, setSubject] = useState<string>("");
   const [assignments, setAssignments] = useState<Assignment[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-
+  const handleAssignmentAddition = (assignment: Assignment) => {
+    setAssignments([assignment, ...assignments]);
+  };
   useEffect(() => {
     const callSubjectAssignments = async () => {
       try {
@@ -67,6 +69,7 @@ export default function subject() {
             {isAuthenticated && hasEditPrivileges && (
               <div className="mb-7">
                 <AddSubjectAssignmentButton
+                  handleAddAssignment={handleAssignmentAddition}
                   baseUrl={baseUrl}
                   subjectUuid={uuid}
                 />

@@ -24,6 +24,9 @@ export default function assignments() {
   const [isEmpty, setIsEmpty] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  const handleAssignmentAddition = (assignment: Assignment) => {
+    setAssignments([assignment, ...assignments]);
+  };
   const callAssignmentsWithSubjects = async () => {
     try {
       const url = `${baseUrl}/api/v1/get-assignment-subjects?page=1`;
@@ -86,7 +89,12 @@ export default function assignments() {
         {!isLoading ? (
           <>
             <div className="justify-center items-center my-4">
-              {hasEditPrivileges && <AddAssignmentButton baseUrl={baseUrl} />}
+              {hasEditPrivileges && (
+                <AddAssignmentButton
+                  handleAddAssignment={handleAssignmentAddition}
+                  baseUrl={baseUrl}
+                />
+              )}
             </div>
             {!isEmpty ? (
               <>
