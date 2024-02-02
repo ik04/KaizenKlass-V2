@@ -14,6 +14,7 @@ export default function subjects() {
       const url = `${baseUrl}/api/v1/get-subjects`;
       const resp = await axios.get(url);
       setSubjects(resp.data.subjects);
+      setIsLoading(false);
     };
     callSubjectsEnpoint();
   }, [baseUrl]);
