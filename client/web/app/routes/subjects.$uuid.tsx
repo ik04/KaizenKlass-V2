@@ -12,8 +12,6 @@ import { GlobalContext } from "~/context/GlobalContext";
 
 export default function subject() {
   const {
-    assignments,
-    subject,
     baseUrl,
     uuid,
   }: {
@@ -22,17 +20,35 @@ export default function subject() {
     baseUrl: string;
     uuid: string;
   } = useLoaderData();
-  // console.log(assignments);
   const { isAuthenticated, role, hasEditPrivileges } =
     useContext(GlobalContext);
   const [isEmpty, setIsEmpty] = useState<boolean>(false);
+  const [subject, setSubject] = useState<string>("");
+  const [assignments, setAssignments] = useState<Assignment[]>([]);
 
   useEffect(() => {
-    console.log(hasEditPrivileges);
-    if (assignments.length === 0) {
-      setIsEmpty(true);
-    }
-  }, []);
+    const callSubjectAssignments = async () => {
+      try {
+        const url = `${baseUrl}/api/v1/get-subject-assignments/${uuid}`;
+        const resp = await axios.get(url);
+        console.log(resp);
+        console.log("himom");
+        const data = {
+          subject: resp.data.subject,
+          assignments: resp.data.assignments,
+        };
+        setSubject(data.subject);
+        setAssignments(data.assignments);
+        console.log(hasEditPrivileges);
+        if (data.assignments.length === 0) {
+          setIsEmpty(true);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    callSubjectAssignments();
+  }, [uuid, baseUrl]);
 
   return (
     <div className="bg-main h-screen">
@@ -50,15 +66,16 @@ export default function subject() {
         )}
         {!isEmpty ? (
           <div className="flex-col space-y-7 flex mb-20">
-            {assignments.map((assignment) => (
-              <SubjectAssignmentCard
-                key={assignment.subject_uuid}
-                subject={assignment.subject}
-                title={assignment.title}
-                assignment_uuid={assignment.assignment_uuid}
-                subject_uuid={assignment.subject_uuid}
-              />
-            ))}
+            {assignments &&
+              assignments.map((assignment) => (
+                <SubjectAssignmentCard
+                  key={assignment.subject_uuid}
+                  subject={assignment.subject}
+                  title={assignment.title}
+                  assignment_uuid={assignment.assignment_uuid}
+                  subject_uuid={assignment.subject_uuid}
+                />
+              ))}
           </div>
         ) : (
           <EmptyState />
@@ -70,17 +87,9 @@ export default function subject() {
 
 export const loader = async ({ params }: any) => {
   const { uuid } = params;
-  try {
-    const url = `${process.env.PUBLIC_DOMAIN}/api/v1/get-subject-assignments/${uuid}`;
-    const resp = await axios.get(url);
-    const data = {
-      subject: resp.data.subject,
-      assignments: resp.data.assignments,
-      baseUrl: process.env.PUBLIC_DOMAIN,
-      uuid: uuid,
-    };
-    return data;
-  } catch (error) {
-    return redirect("/not-found");
-  }
+  const data = {
+    baseUrl: process.env.PUBLIC_DOMAIN,
+    uuid: uuid,
+  };
+  return data;
 };
