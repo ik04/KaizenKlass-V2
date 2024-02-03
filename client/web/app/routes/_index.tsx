@@ -18,6 +18,11 @@ export default function Index() {
     <div className="">
       <Landing />
       <About />
+      <script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5217417672318463"
+        crossOrigin="anonymous"
+      />
     </div>
   );
 }

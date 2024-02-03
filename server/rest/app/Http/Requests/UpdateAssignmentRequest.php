@@ -32,8 +32,8 @@ class UpdateAssignmentRequest extends FormRequest
             "content" => [
                 "string",
                 "nullable",
-                "regex:#https://(?:docs\.google\.com/(?:document|presentation)/d/|drive\.google\.com/file/d/)([a-zA-Z0-9_-]+)/(?:edit|view)?\S*#"
-            ],    
+                "regex:#https://(?:docs\.google\.com/(?:document|presentation)/d/|drive\.google\.com/file/d/)([a-zA-Z0-9_-]+)/(?:edit|view|usp=drivesdk)?\S*#"            
+            ],  
         ];
     }
     
