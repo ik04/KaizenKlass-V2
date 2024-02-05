@@ -1,0 +1,24 @@
+{
+    "years": [
+        {
+            "year": "First year",
+            "year_value": 1
+        },
+        {
+            "year": "Second Year",
+            "year_value": 2
+        },
+        {
+            "year": "Third year",
+            "year_value": 3
+        },
+        {
+            "year": "Fourth year",
+            "year_value": 4
+        },
+        {
+            "year": "Post Grad First Year",
+            "year_value": 5
+        }
+    ]
+}
