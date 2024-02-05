@@ -1,1112 +1,1387 @@
-{
-    "subjects": [
-        {
-            "subject_code": "21MGH201T",
-            "subject": "Human Resource Management"
-        },
-        {
-            "subject_code": "21MGH202T",
-            "subject": "Financial Management"
-        },
-        {
-            "subject_code": "21MGH203J",
-            "subject": "Market Research"
-        },
-        {
-            "subject_code": "21MGH301T",
-            "subject": "Introduction to Innovation Intellectual Property Management and Entrepreneurship"
-        },
-        {
-            "subject_code": "21MGH302T",
-            "subject": "Business Strategy"
-        },
-        {
-            "subject_code": "21MGH303P",
-            "subject": "IT Project Management"
-        },
-        {
-            "subject_code": "21MGH401T",
-            "subject": "Entrepreneurship and Family Business Management"
-        },
-        {
-            "subject_code": "21MGH402T",
-            "subject": "Services Science and Service Operations Management"
-        },
-        {
-            "subject_code": "21CSS201T",
-            "subject": "Computer Organization and Architecture"
-        },
-        {
-            "subject_code": "21CSC201J",
-            "subject": "Data Structures and Algorithms"
-        },
-        {
-            "subject_code": "21CSC202J",
-            "subject": "Operating Systems"
-        },
-        {
-            "subject_code": "21CSC204J",
-            "subject": "Design and Analysis of Algorithms"
-        },
-        {
-            "subject_code": "21CSC205P",
-            "subject": "Database Management Systems"
-        },
-        {
-            "subject_code": "21CSC301T",
-            "subject": "Formal Language and Automata"
-        },
-        {
-            "subject_code": "21CSC302J",
-            "subject": "Computer Networks"
-        },
-        {
-            "subject_code": "21CSC303J",
-            "subject": "Software Engineering and Project Management"
-        },
-        {
-            "subject_code": "21CSC304J",
-            "subject": "Compiler Design"
-        },
-        {
-            "subject_code": "21CSE251T",
-            "subject": "Digital Image Processing"
-        },
-        {
-            "subject_code": "21CSE253T",
-            "subject": "Internet of Things"
-        },
-        {
-            "subject_code": "21CSE221T",
-            "subject": "Python Programming for Data Analytics"
-        },
-        {
-            "subject_code": "21CSE269T",
-            "subject": "Java Programming"
-        },
-        {
-            "subject_code": "21CSE282T",
-            "subject": "Information Security"
-        },
-        {
-            "subject_code": "21CSE314T",
-            "subject": "Computational Statistics"
-        },
-        {
-            "subject_code": "21CSE315T",
-            "subject": "Conversational Systems"
-        },
-        {
-            "subject_code": "21CSE316T",
-            "subject": "Cognitive Science  Analytics"
-        },
-        {
-            "subject_code": "21CSE317T",
-            "subject": "Behavioral Economics"
-        },
-        {
-            "subject_code": "21CSE318T",
-            "subject": "Computational Finance and Modeling"
-        },
-        {
-            "subject_code": "21CSE319T",
-            "subject": "Advance Finance"
-        },
-        {
-            "subject_code": "21CSE352T",
-            "subject": "Neuro Fuzzy and Genetic Programming"
-        },
-        {
-            "subject_code": "21CSE353T",
-            "subject": "Augmented Virtual and Mixed Reality"
-        },
-        {
-            "subject_code": "21CSE354T",
-            "subject": "Full Stack Web Development"
-        },
-        {
-            "subject_code": "21CSE355T",
-            "subject": "Data Mining and Analytics"
-        },
-        {
-            "subject_code": "21CSE356T",
-            "subject": "Natural Language Processing"
-        },
-        {
-            "subject_code": "21CSE357T",
-            "subject": "Distributed Computing"
-        },
-        {
-            "subject_code": "21CSE358T",
-            "subject": "Network Security and Cryptography"
-        },
-        {
-            "subject_code": "21CSE359T",
-            "subject": "Information Storage and Management"
-        },
-        {
-            "subject_code": "21CSE362T",
-            "subject": "Cloud Computing"
-        },
-        {
-            "subject_code": "21CSE374T",
-            "subject": "Machine Learning for Enterprise"
-        },
-        {
-            "subject_code": "21CSE421T",
-            "subject": "Business Intelligence and Analytics"
-        },
-        {
-            "subject_code": "21CSE424T",
-            "subject": "Deep Learning for Data Analytics"
-        },
-        {
-            "subject_code": "21CSE451T",
-            "subject": "Pattern Recognition Techniques"
-        },
-        {
-            "subject_code": "21CSE453T",
-            "subject": "Speech Recognition"
-        },
-        {
-            "subject_code": "21CSE456T",
-            "subject": "Software Defined Networks"
-        },
-        {
-            "subject_code": "21CSE458T",
-            "subject": "Wireless and Mobile Communication"
-        },
-        {
-            "subject_code": "21CSE459T",
-            "subject": "Wireless Sensor Networks"
-        },
-        {
-            "subject_code": "21CSE481T",
-            "subject": "Information Visualization"
-        },
-        {
-            "subject_code": "21CSE483T",
-            "subject": "Robotics and Embedded Systems"
-        },
-        {
-            "subject_code": "21CSE484T",
-            "subject": "Enterprise Systems"
-        },
-        {
-            "subject_code": "21CSE419T",
-            "subject": "Usability Design of Software Applications"
-        },
-        {
-            "subject_code": "21CSE420T",
-            "subject": "IT Workshop u sing Scilab"
-        },
-        {
-            "subject_code": "21CSC203P",
-            "subject": "Advanced Programming Practice"
-        },
-        {
-            "subject_code": "21CSC305P",
-            "subject": "Machine Learning"
-        },
-        {
-            "subject_code": "21CSE252T",
-            "subject": "Biometrics"
-        },
-        {
-            "subject_code": "21CSE254T",
-            "subject": "Bio Inspired Computing"
-        },
-        {
-            "subject_code": "21CSE255T",
-            "subject": "Computer Graphics and Animation"
-        },
-        {
-            "subject_code": "21CSE351T",
-            "subject": "Computational Logic"
-        },
-        {
-            "subject_code": "21CSE360T",
-            "subject": "High Performance Computing"
-        },
-        {
-            "subject_code": "21CSE361T",
-            "subject": "Database Security and Privacy"
-        },
-        {
-            "subject_code": "21CSE399T",
-            "subject": "Advanced Mobile Communications"
-        },
-        {
-            "subject_code": "21CSE452T",
-            "subject": "Semantic Web"
-        },
-        {
-            "subject_code": "21CSE454T",
-            "subject": "Computer Vision"
-        },
-        {
-            "subject_code": "21CSE455T",
-            "subject": "Social Network Analysis"
-        },
-        {
-            "subject_code": "21CSE457T",
-            "subject": "Service Oriented Architecture"
-        },
-        {
-            "subject_code": "21CSE460T",
-            "subject": "Network Protocols and Algorithms"
-        },
-        {
-            "subject_code": "21CSC401J",
-            "subject": "Deep Learning Techniques"
-        },
-        {
-            "subject_code": "21CSC402P",
-            "subject": "Report Writing"
-        },
-        {
-            "subject_code": "21CSE271T",
-            "subject": "Programming in Java"
-        },
-        {
-            "subject_code": "21CSE272T",
-            "subject": "Genetic Algorithm and its Applications"
-        },
-        {
-            "subject_code": "21CSE291T",
-            "subject": "Introduction to Cognitive Neuroscience"
-        },
-        {
-            "subject_code": "21CSE311P",
-            "subject": "Robot Programming"
-        },
-        {
-            "subject_code": "21CSE312P",
-            "subject": "Software Engineering in Artificial Intelligence"
-        },
-        {
-            "subject_code": "21CSE313P",
-            "subject": "Accelerated Data Science"
-        },
-        {
-            "subject_code": "21CSE323T",
-            "subject": "Marketing Analytics"
-        },
-        {
-            "subject_code": "21CSE326T",
-            "subject": "Artificial Neural Networks"
-        },
-        {
-            "subject_code": "21CSE371T",
-            "subject": "Advanced Algorithms"
-        },
-        {
-            "subject_code": "21CSE375T",
-            "subject": "Computational Neuroscience"
-        },
-        {
-            "subject_code": "21CSE376T",
-            "subject": "Nature Inspired Computing Techniques"
-        },
-        {
-            "subject_code": "21CSE377T",
-            "subject": "Information Retrieval"
-        },
-        {
-            "subject_code": "21CSE396T",
-            "subject": "Design Principles of Smart Space Management"
-        },
-        {
-            "subject_code": "21CSE397T",
-            "subject": "Philosophy of Cognitive Science"
-        },
-        {
-            "subject_code": "21CSE398T",
-            "subject": "Logic and Knowledge Representation"
-        },
-        {
-            "subject_code": "21CSE411T",
-            "subject": "Artificial Intelligence in Genomics and Disease Prediction"
-        },
-        {
-            "subject_code": "21CSE412T",
-            "subject": "Machine Learning in Drug Discovery"
-        },
-        {
-            "subject_code": "21CSE414T",
-            "subject": "I o T Concepts a nd Applications"
-        },
-        {
-            "subject_code": "21CSE415T",
-            "subject": "Fuzzy Logic and its Applications"
-        },
-        {
-            "subject_code": "21CSE416T",
-            "subject": "Robotics Computational Motion Planning"
-        },
-        {
-            "subject_code": "21CSE417T",
-            "subject": "Reinforcement Learning Techniques"
-        },
-        {
-            "subject_code": "21CSE418T",
-            "subject": "Cyber Physical Systems"
-        },
-        {
-            "subject_code": "21CSC309J",
-            "subject": "Software Architecture and Design"
-        },
-        {
-            "subject_code": "21CSC403T",
-            "subject": "Software Measurements and Metrics"
-        },
-        {
-            "subject_code": "21CSC404T",
-            "subject": "Software Verification and Validation"
-        },
-        {
-            "subject_code": "21CSE275T",
-            "subject": "Requirements Engineering"
-        },
-        {
-            "subject_code": "21CSE276T",
-            "subject": "Software Quality Management"
-        },
-        {
-            "subject_code": "21CSE277T",
-            "subject": "Software Process"
-        },
-        {
-            "subject_code": "21CSE391P",
-            "subject": "User Interface Design"
-        },
-        {
-            "subject_code": "21CSE392P",
-            "subject": "Visual Programming"
-        },
-        {
-            "subject_code": "21CSE393P",
-            "subject": "Machine Learning Techniques"
-        },
-        {
-            "subject_code": "21CSE391T",
-            "subject": "Object Oriented Software Engineering"
-        },
-        {
-            "subject_code": "21CSE392T",
-            "subject": "Python for Software Engineering"
-        },
-        {
-            "subject_code": "21CSE393T",
-            "subject": "Analysis of Software Artifacts"
-        },
-        {
-            "subject_code": "21CSE493T",
-            "subject": "Software Security"
-        },
-        {
-            "subject_code": "21CSE495T",
-            "subject": "Artificial Intelligence in Agile Systems"
-        },
-        {
-            "subject_code": "21CSE496T",
-            "subject": "Deep Learning"
-        },
-        {
-            "subject_code": "21CSE497T",
-            "subject": "Gaming and Virtual Reality"
-        },
-        {
-            "subject_code": "21CSE498T",
-            "subject": "Smart p hone Computing and its Applications"
-        },
-        {
-            "subject_code": "21CSC314P",
-            "subject": "Big Data Essentials"
-        },
-        {
-            "subject_code": "21CSC316J",
-            "subject": "Cloud Architecture and Protocols"
-        },
-        {
-            "subject_code": "21CSE261T",
-            "subject": "Fundamentals of Cloud Computing"
-        },
-        {
-            "subject_code": "21CSE262T",
-            "subject": "Communication Systems Engineering"
-        },
-        {
-            "subject_code": "21CSE263T",
-            "subject": "Digital Communication Systems"
-        },
-        {
-            "subject_code": "21CSE330T",
-            "subject": "Cloud Architecture"
-        },
-        {
-            "subject_code": "21CSE329T",
-            "subject": "Service Oriented Architecture and Microservices"
-        },
-        {
-            "subject_code": "21CSE363T",
-            "subject": "Cloud Services Solution Architect"
-        },
-        {
-            "subject_code": "21CSE364T",
-            "subject": "Data Centric Networking and System Design"
-        },
-        {
-            "subject_code": "21CSE461T",
-            "subject": "Cloud Security"
-        },
-        {
-            "subject_code": "21CSE463T",
-            "subject": "Cloud Strategy Planning and Management"
-        },
-        {
-            "subject_code": "21CSE464T",
-            "subject": "Fog Computing Analytics"
-        },
-        {
-            "subject_code": "21CSE465T",
-            "subject": "Cloud Application Development"
-        },
-        {
-            "subject_code": "21CSE466T",
-            "subject": "Network Design and Management"
-        },
-        {
-            "subject_code": "21CSC311J",
-            "subject": "Wireless Networks"
-        },
-        {
-            "subject_code": "21CSC312J",
-            "subject": "Mobile Adhoc Networks"
-        },
-        {
-            "subject_code": "21CSE273T",
-            "subject": "Distributed Operating Systems"
-        },
-        {
-            "subject_code": "21CSE274T",
-            "subject": "Pervasive Computing"
-        },
-        {
-            "subject_code": "21CSE347T",
-            "subject": "Network Protocols and Programming"
-        },
-        {
-            "subject_code": "21CSE348T",
-            "subject": "Network Routing Algorithms"
-        },
-        {
-            "subject_code": "21CSE349T",
-            "subject": "Optical Networks"
-        },
-        {
-            "subject_code": "21CSE350T",
-            "subject": "Principles Of Cloud Computing"
-        },
-        {
-            "subject_code": "21CSE450T",
-            "subject": "Network Security"
-        },
-        {
-            "subject_code": "21CSC308T",
-            "subject": "Security Risk Management Principles"
-        },
-        {
-            "subject_code": "21CSC310J",
-            "subject": "Malware Analysis"
-        },
-        {
-            "subject_code": "21CSE229J",
-            "subject": "Check Point System Administration"
-        },
-        {
-            "subject_code": "21CSE281T",
-            "subject": "Cryptography and Network Security"
-        },
-        {
-            "subject_code": "21CSE283T",
-            "subject": "Cyber Law"
-        },
-        {
-            "subject_code": "21CSE381T",
-            "subject": "Forensics and Incident Response"
-        },
-        {
-            "subject_code": "21CSE382T",
-            "subject": "Security Management"
-        },
-        {
-            "subject_code": "21CSE383T",
-            "subject": "Security Governance Risk and Compliance"
-        },
-        {
-            "subject_code": "21CSE384J",
-            "subject": "Security Audit and Risk Assessment"
-        },
-        {
-            "subject_code": "21CSE385J",
-            "subject": "Advanced Malware Analysis"
-        },
-        {
-            "subject_code": "21CSE386J",
-            "subject": "Penetration Testing and Vulnerability Assessment"
-        },
-        {
-            "subject_code": "21CSE387J",
-            "subject": "Hacker Techniques Tools and Incident Handling"
-        },
-        {
-            "subject_code": "21CSE399J",
-            "subject": "Comprehensive Linux for All"
-        },
-        {
-            "subject_code": "21CSE485T",
-            "subject": "Database Security"
-        },
-        {
-            "subject_code": "21CSE486T",
-            "subject": "Operation System Security"
-        },
-        {
-            "subject_code": "21CSE487T",
-            "subject": "Cyber w arfare"
-        },
-        {
-            "subject_code": "21CSE488T",
-            "subject": "Hacker Mind Profiling T he IT Criminal"
-        },
-        {
-            "subject_code": "21CSE489T",
-            "subject": "Mobile and Wireless Security"
-        },
-        {
-            "subject_code": "21CSE490J",
-            "subject": "Windows and Linux Internals"
-        },
-        {
-            "subject_code": "21CSE491T",
-            "subject": "Cyber Crime and Digital Forensic s"
-        },
-        {
-            "subject_code": "21CSE492T",
-            "subject": "Cyber Crimes and Cyber Security"
-        },
-        {
-            "subject_code": "21CSC317J",
-            "subject": "Information Retrieval Techniques"
-        },
-        {
-            "subject_code": "21CSE267T",
-            "subject": "Statistics for Machine Learning"
-        },
-        {
-            "subject_code": "21CSE310J",
-            "subject": "Quantum Computation"
-        },
-        {
-            "subject_code": "21CSE373T",
-            "subject": "Streaming Analytics"
-        },
-        {
-            "subject_code": "21CSE475T",
-            "subject": "Applied Graph Theory"
-        },
-        {
-            "subject_code": "21CSE476T",
-            "subject": "Logical Deduction and Non  Verbal Reasoning"
-        },
-        {
-            "subject_code": "21CSE477T",
-            "subject": "Cloud Native Architecture for Modern Platforms"
-        },
-        {
-            "subject_code": "21CSE479T",
-            "subject": "Fault Tolerant Systems"
-        },
-        {
-            "subject_code": "21CSE480T",
-            "subject": "Image and Video Processing"
-        },
-        {
-            "subject_code": "21CSC313J",
-            "subject": "Cloud Computing for IoT"
-        },
-        {
-            "subject_code": "21CSC315J",
-            "subject": "Fog Computing"
-        },
-        {
-            "subject_code": "21CSE264T",
-            "subject": "Introduction to IoT Sensors Actuators and Microcontrollers"
-        },
-        {
-            "subject_code": "21CSE265T",
-            "subject": "Introduction to Embedded Programming and Embedded OS"
-        },
-        {
-            "subject_code": "21CSE266T",
-            "subject": "Internet of Things Architecture and Protocols"
-        },
-        {
-            "subject_code": "21CSE365T",
-            "subject": "Machine Learning for IoT"
-        },
-        {
-            "subject_code": "21CSE366T",
-            "subject": "Introduction to Cloud Application Development for IoT"
-        },
-        {
-            "subject_code": "21CSE367T",
-            "subject": "IoT Forensics"
-        },
-        {
-            "subject_code": "21CSE368J",
-            "subject": "Network Programming for IoT"
-        },
-        {
-            "subject_code": "21CSE369J",
-            "subject": "Introduction to Security of Internet of Things and Cyber  Physical Systems"
-        },
-        {
-            "subject_code": "21CSE370J",
-            "subject": "Data Visualization for IoT"
-        },
-        {
-            "subject_code": "21CSE371J",
-            "subject": "IoT Techniques Tools   and its Application"
-        },
-        {
-            "subject_code": "21CSE467T",
-            "subject": "Advanced Database Systems"
-        },
-        {
-            "subject_code": "21CSE468T",
-            "subject": "Edge Computing"
-        },
-        {
-            "subject_code": "21CSE469T",
-            "subject": "Energy Management for IoT Devices"
-        },
-        {
-            "subject_code": "21CSE470T",
-            "subject": "Applied Software Techniques in IoT Engineering"
-        },
-        {
-            "subject_code": "21CSE471T",
-            "subject": "Fundamentals of Cyber Security"
-        },
-        {
-            "subject_code": "21CSE472J",
-            "subject": "Full Stack Development for IoT"
-        },
-        {
-            "subject_code": "21CSE473T",
-            "subject": "Deep Learning for IoT"
-        },
-        {
-            "subject_code": "21CSE474T",
-            "subject": "IoT Privacy"
-        },
-        {
-            "subject_code": "21CSC305T",
-            "subject": "Block c hain u sing Cryptography"
-        },
-        {
-            "subject_code": "21CSE231T",
-            "subject": "Fundamentals of Block c hain"
-        },
-        {
-            "subject_code": "21CSE232T",
-            "subject": "IoT a nd Block c hain"
-        },
-        {
-            "subject_code": "21CSE233T",
-            "subject": "Distributed Systems and Applications"
-        },
-        {
-            "subject_code": "21CSE234T",
-            "subject": "Principles of Cryptography"
-        },
-        {
-            "subject_code": "21CSE331T",
-            "subject": "Cryptocurrencie s and Block c hain Technology"
-        },
-        {
-            "subject_code": "21CSE332T",
-            "subject": "Fundamentals of Ethereum"
-        },
-        {
-            "subject_code": "21CSE333T",
-            "subject": "AI a nd Block c hain"
-        },
-        {
-            "subject_code": "21CSE334T",
-            "subject": "Container Management"
-        },
-        {
-            "subject_code": "21CSE335T",
-            "subject": "Advanced Cryptography"
-        },
-        {
-            "subject_code": "21CSE336T",
-            "subject": "Cloud Computing with Blockchain"
-        },
-        {
-            "subject_code": "21CSE337T",
-            "subject": "Web Development"
-        },
-        {
-            "subject_code": "21CSE338T",
-            "subject": "Trust Based Computing"
-        },
-        {
-            "subject_code": "21CSE431T",
-            "subject": "Building Private Blockchain"
-        },
-        {
-            "subject_code": "21CSE432T",
-            "subject": "Block c h ain Technology with Hyperledger"
-        },
-        {
-            "subject_code": "21CSE433T",
-            "subject": "Block c hain Business Models"
-        },
-        {
-            "subject_code": "21CSE434T",
-            "subject": "Distributed Ledger Technology"
-        },
-        {
-            "subject_code": "21CSE435T",
-            "subject": "Smart Contracts and Application Development"
-        },
-        {
-            "subject_code": "21CSE436T",
-            "subject": "Bitcoin Essentials and U se Cases"
-        },
-        {
-            "subject_code": "21CSE437T",
-            "subject": "Decentralized Applications on Block c hain"
-        },
-        {
-            "subject_code": "21CSE438T",
-            "subject": "Web Security"
-        },
-        {
-            "subject_code": "21CSC306J",
-            "subject": "Software Engineering Perspectives in Computer Game Development"
-        },
-        {
-            "subject_code": "21CSC307T",
-            "subject": "Deep Learning in Gaming and Application"
-        },
-        {
-            "subject_code": "21CSE235T",
-            "subject": "Game Design Prototyping and Development"
-        },
-        {
-            "subject_code": "21CSE236T",
-            "subject": "GPU Programming"
-        },
-        {
-            "subject_code": "21CSE237T",
-            "subject": "Art Creation for Games"
-        },
-        {
-            "subject_code": "21CSE238T",
-            "subject": "Storytelling for Marketing"
-        },
-        {
-            "subject_code": "21CSE339T",
-            "subject": "Game Artificial Intelligence"
-        },
-        {
-            "subject_code": "21CSE340T",
-            "subject": "Analytics and Decision Making"
-        },
-        {
-            "subject_code": "21CSE341T",
-            "subject": "Computer Graphics"
-        },
-        {
-            "subject_code": "21CSE342T",
-            "subject": "Gaming Studio for Business"
-        },
-        {
-            "subject_code": "21CSE343T",
-            "subject": "Web Services Development for Games"
-        },
-        {
-            "subject_code": "21CSE344T",
-            "subject": "D Game Development with Unity"
-        },
-        {
-            "subject_code": "21CSE345T",
-            "subject": "Game System Integration"
-        },
-        {
-            "subject_code": "21CSE346T",
-            "subject": "Design Art and Theory"
-        },
-        {
-            "subject_code": "21CSE439T",
-            "subject": "Virtual Reality and Augmented Reality"
-        },
-        {
-            "subject_code": "21CSE440T",
-            "subject": "Computer Animation and Simulation"
-        },
-        {
-            "subject_code": "21CSE441T",
-            "subject": "Mobile Game Development"
-        },
-        {
-            "subject_code": "21CSE442T",
-            "subject": "Game Monetization Techniques"
-        },
-        {
-            "subject_code": "21CSE443T",
-            "subject": "Game Production and Publishing"
-        },
-        {
-            "subject_code": "21CSE444T",
-            "subject": "Applied Gamification"
-        },
-        {
-            "subject_code": "21CSE445T",
-            "subject": "Metaverse Fundamentals"
-        },
-        {
-            "subject_code": "21CSE446T",
-            "subject": "Digital Marketing and Publishing"
-        },
-        {
-            "subject_code": "21CSS202T",
-            "subject": "Fundamentals of Data Science"
-        },
-        {
-            "subject_code": "21CSS301T",
-            "subject": "Full Stack Development"
-        },
-        {
-            "subject_code": "21CSC206P",
-            "subject": "Advanced Object Oriented Programming"
-        },
-        {
-            "subject_code": "21CSC307P",
-            "subject": "Machine Learning for Data Analytics"
-        },
-        {
-            "subject_code": "21CSE222T",
-            "subject": "Big Data Tools and Techniques"
-        },
-        {
-            "subject_code": "21CSE224T",
-            "subject": "Computer Architecture"
-        },
-        {
-            "subject_code": "21CSE321T",
-            "subject": "Data Warehousing and Data Mining"
-        },
-        {
-            "subject_code": "21CSE322T",
-            "subject": "Multivariate Techniques for Data Analytics"
-        },
-        {
-            "subject_code": "21CSE325T",
-            "subject": "Applied Social Network Analysis"
-        },
-        {
-            "subject_code": "21CSE327T",
-            "subject": "Cloud Computing for Data Analytics"
-        },
-        {
-            "subject_code": "21CSE422T",
-            "subject": "Convolutional Neural Networks"
-        },
-        {
-            "subject_code": "21CSE423T",
-            "subject": "Big Data Visualization"
-        },
-        {
-            "subject_code": "21CSE425T",
-            "subject": "Advanced Machine Learning"
-        },
-        {
-            "subject_code": "21CSE426T",
-            "subject": "Financial Machine Learning"
-        },
-        {
-            "subject_code": "21CSE427T",
-            "subject": "Augmented and Virtual Reality"
-        },
-        {
-            "subject_code": "21CSE428T",
-            "subject": "Healthcare Analytics"
-        },
-        {
-            "subject_code": "21CSE429T",
-            "subject": "Data Science for Internet of Things"
-        },
-        {
-            "subject_code": "21CSE430T",
-            "subject": "Automatic Speech Recognition"
-        },
-        {
-            "subject_code": "21CSE447T",
-            "subject": "Robot  Motion Planning"
-        },
-        {
-            "subject_code": "21CSE448T",
-            "subject": "Bio  Inspired Computing and Fuzzy Logic"
-        },
-        {
-            "subject_code": "21CSE449T",
-            "subject": "Risk Analytics"
-        },
-        {
-            "subject_code": "21CSC505T",
-            "subject": "Computer Graphics and Vision"
-        },
-        {
-            "subject_code": "21CSC506J",
-            "subject": "Computation and Cognition The Probabilistic Approach"
-        },
-        {
-            "subject_code": "21CSE541T",
-            "subject": "Probabilistic Graphical Models Principles and Techniques"
-        },
-        {
-            "subject_code": "21CSE542T",
-            "subject": "Deep Generative Models"
-        },
-        {
-            "subject_code": "21CSE543T",
-            "subject": "Brain Machine Interface Science Technology and Application"
-        },
-        {
-            "subject_code": "21CSE544T",
-            "subject": "Data Analysis and Visualization"
-        },
-        {
-            "subject_code": "21CSE545T",
-            "subject": "Computational Perception and Cognition"
-        },
-        {
-            "subject_code": "21CSE546T",
-            "subject": "Medical Signal Processing"
-        },
-        {
-            "subject_code": "21CSE547T",
-            "subject": "Deep Multitask and Meta Learning"
-        },
-        {
-            "subject_code": "21CSE548T",
-            "subject": "Spatial and Temporal Computing"
-        },
-        {
-            "subject_code": "21CSE549T",
-            "subject": "Decision Making Under Uncertainty"
-        },
-        {
-            "subject_code": "21CSE552T",
-            "subject": "Computational Linguistics"
-        },
-        {
-            "subject_code": "21AIE536T",
-            "subject": "Artificial Intelligence Engines"
-        },
-        {
-            "subject_code": "21AIE538T",
-            "subject": "Artificial Intelligence for Industrial Applications"
-        },
-        {
-            "subject_code": "21AIE539T",
-            "subject": "Artificial Intelligence in Medical Imaging"
-        },
-        {
-            "subject_code": "21AIE541T",
-            "subject": "Multimodal Machine Learning"
-        },
-        {
-            "subject_code": "21CSC503T",
-            "subject": "Security Service Management"
-        },
-        {
-            "subject_code": "21CSC504J",
-            "subject": "Android Malware Analysis"
-        },
-        {
-            "subject_code": "21CSE531T",
-            "subject": "Cyber Security Operations"
-        },
-        {
-            "subject_code": "21CSE532T",
-            "subject": "Network Management and Protocols"
-        },
-        {
-            "subject_code": "21CSE533T",
-            "subject": "Firewalls and Access Controls"
-        },
-        {
-            "subject_code": "21CSE534T",
-            "subject": "Network Programming and Management"
-        },
-        {
-            "subject_code": "21CSE535T",
-            "subject": "Network Intrusions and Computer Forensics"
-        },
-        {
-            "subject_code": "21CSE536T",
-            "subject": "Mobile Forensics"
-        },
-        {
-            "subject_code": "21CSE537T",
-            "subject": "Digital Forensics"
-        },
-        {
-            "subject_code": "21CSE538T",
-            "subject": "Security Scripting and Analysis"
-        },
-        {
-            "subject_code": "21CSE539T",
-            "subject": "Principles of Secure Coding Principles"
-        },
-        {
-            "subject_code": "21CSE540T",
-            "subject": "Android Security and Design Internals"
-        },
-        {
-            "subject_code": "21CSC501T",
-            "subject": "Natural Language Processing Techniques"
-        },
-        {
-            "subject_code": "21CSC502J",
-            "subject": "Applied Deep Learning"
-        },
-        {
-            "subject_code": "21CSE521T",
-            "subject": "Advanced Algorithms Analysis"
-        },
-        {
-            "subject_code": "21CSE522T",
-            "subject": "Functional Programming"
-        },
-        {
-            "subject_code": "21CSE524T",
-            "subject": "Computer Vision Techniques"
-        },
-        {
-            "subject_code": "21CSE527T",
-            "subject": "Text Mining and Analytics"
-        },
-        {
-            "subject_code": "21CSE529T",
-            "subject": "Web Intelligence"
-        }
-    ]
-}
+[
+    {
+        "subject_code": "21MGH201T",
+        "subject": "Human Resource Management",
+        "year": 2
+    },
+    {
+        "subject_code": "21MGH202T",
+        "subject": "Financial Management",
+        "year": 2
+    },
+    {
+        "subject_code": "21MGH203J",
+        "subject": "Market Research",
+        "year": 2
+    },
+    {
+        "subject_code": "21MGH301T",
+        "subject": "Introduction to Innovation Intellectual Property Management and Entrepreneurship",
+        "year": 3
+    },
+    {
+        "subject_code": "21MGH302T",
+        "subject": "Business Strategy",
+        "year": 3
+    },
+    {
+        "subject_code": "21MGH303P",
+        "subject": "IT Project Management",
+        "year": 3
+    },
+    {
+        "subject_code": "21MGH401T",
+        "subject": "Entrepreneurship and Family Business Management",
+        "year": 4
+    },
+    {
+        "subject_code": "21MGH402T",
+        "subject": "Services Science and Service Operations Management",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSS201T",
+        "subject": "Computer Organization and Architecture",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSC201J",
+        "subject": "Data Structures and Algorithms",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSC202J",
+        "subject": "Operating Systems",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSC204J",
+        "subject": "Design and Analysis of Algorithms",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSC205P",
+        "subject": "Database Management Systems",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSC301T",
+        "subject": "Formal Language and Automata",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSC302J",
+        "subject": "Computer Networks",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSC303J",
+        "subject": "Software Engineering and Project Management",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSC304J",
+        "subject": "Compiler Design",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE251T",
+        "subject": "Digital Image Processing",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE253T",
+        "subject": "Internet of Things",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE221T",
+        "subject": "Python Programming for Data Analytics",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE269T",
+        "subject": "Java Programming",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE282T",
+        "subject": "Information Security",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE314T",
+        "subject": "Computational Statistics",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE315T",
+        "subject": "Conversational Systems",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE316T",
+        "subject": "Cognitive Science  Analytics",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE317T",
+        "subject": "Behavioral Economics",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE318T",
+        "subject": "Computational Finance and Modeling",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE319T",
+        "subject": "Advance Finance",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE352T",
+        "subject": "Neuro Fuzzy and Genetic Programming",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE353T",
+        "subject": "Augmented Virtual and Mixed Reality",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE354T",
+        "subject": "Full Stack Web Development",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE355T",
+        "subject": "Data Mining and Analytics",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE356T",
+        "subject": "Natural Language Processing",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE357T",
+        "subject": "Distributed Computing",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE358T",
+        "subject": "Network Security and Cryptography",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE359T",
+        "subject": "Information Storage and Management",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE362T",
+        "subject": "Cloud Computing",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE374T",
+        "subject": "Machine Learning for Enterprise",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE421T",
+        "subject": "Business Intelligence and Analytics",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE424T",
+        "subject": "Deep Learning for Data Analytics",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE451T",
+        "subject": "Pattern Recognition Techniques",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE453T",
+        "subject": "Speech Recognition",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE456T",
+        "subject": "Software Defined Networks",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE458T",
+        "subject": "Wireless and Mobile Communication",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE459T",
+        "subject": "Wireless Sensor Networks",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE481T",
+        "subject": "Information Visualization",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE483T",
+        "subject": "Robotics and Embedded Systems",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE484T",
+        "subject": "Enterprise Systems",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE419T",
+        "subject": "Usability Design of Software Applications",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE420T",
+        "subject": "IT Workshop u sing Scilab",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSC203P",
+        "subject": "Advanced Programming Practice",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSC305P",
+        "subject": "Machine Learning",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE252T",
+        "subject": "Biometrics",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE254T",
+        "subject": "Bio Inspired Computing",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE255T",
+        "subject": "Computer Graphics and Animation",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE351T",
+        "subject": "Computational Logic",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE360T",
+        "subject": "High Performance Computing",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE361T",
+        "subject": "Database Security and Privacy",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE399T",
+        "subject": "Advanced Mobile Communications",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE452T",
+        "subject": "Semantic Web",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE454T",
+        "subject": "Computer Vision",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE455T",
+        "subject": "Social Network Analysis",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE457T",
+        "subject": "Service Oriented Architecture",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE460T",
+        "subject": "Network Protocols and Algorithms",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSC401J",
+        "subject": "Deep Learning Techniques",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSC402P",
+        "subject": "Report Writing",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE271T",
+        "subject": "Programming in Java",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE272T",
+        "subject": "Genetic Algorithm and its Applications",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE291T",
+        "subject": "Introduction to Cognitive Neuroscience",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE311P",
+        "subject": "Robot Programming",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE312P",
+        "subject": "Software Engineering in Artificial Intelligence",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE313P",
+        "subject": "Accelerated Data Science",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE323T",
+        "subject": "Marketing Analytics",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE326T",
+        "subject": "Artificial Neural Networks",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE371T",
+        "subject": "Advanced Algorithms",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE375T",
+        "subject": "Computational Neuroscience",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE376T",
+        "subject": "Nature Inspired Computing Techniques",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE377T",
+        "subject": "Information Retrieval",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE396T",
+        "subject": "Design Principles of Smart Space Management",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE397T",
+        "subject": "Philosophy of Cognitive Science",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE398T",
+        "subject": "Logic and Knowledge Representation",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE411T",
+        "subject": "Artificial Intelligence in Genomics and Disease Prediction",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE412T",
+        "subject": "Machine Learning in Drug Discovery",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE414T",
+        "subject": "I o T Concepts a nd Applications",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE415T",
+        "subject": "Fuzzy Logic and its Applications",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE416T",
+        "subject": "Robotics Computational Motion Planning",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE417T",
+        "subject": "Reinforcement Learning Techniques",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE418T",
+        "subject": "Cyber Physical Systems",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSC309J",
+        "subject": "Software Architecture and Design",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSC403T",
+        "subject": "Software Measurements and Metrics",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSC404T",
+        "subject": "Software Verification and Validation",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE275T",
+        "subject": "Requirements Engineering",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE276T",
+        "subject": "Software Quality Management",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE277T",
+        "subject": "Software Process",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE391P",
+        "subject": "User Interface Design",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE392P",
+        "subject": "Visual Programming",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE393P",
+        "subject": "Machine Learning Techniques",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE391T",
+        "subject": "Object Oriented Software Engineering",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE392T",
+        "subject": "Python for Software Engineering",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE393T",
+        "subject": "Analysis of Software Artifacts",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE493T",
+        "subject": "Software Security",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE495T",
+        "subject": "Artificial Intelligence in Agile Systems",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE496T",
+        "subject": "Deep Learning",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE497T",
+        "subject": "Gaming and Virtual Reality",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE498T",
+        "subject": "Smart p hone Computing and its Applications",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSC314P",
+        "subject": "Big Data Essentials",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSC316J",
+        "subject": "Cloud Architecture and Protocols",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE261T",
+        "subject": "Fundamentals of Cloud Computing",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE262T",
+        "subject": "Communication Systems Engineering",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE263T",
+        "subject": "Digital Communication Systems",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE330T",
+        "subject": "Cloud Architecture",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE329T",
+        "subject": "Service Oriented Architecture and Microservices",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE363T",
+        "subject": "Cloud Services Solution Architect",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE364T",
+        "subject": "Data Centric Networking and System Design",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE461T",
+        "subject": "Cloud Security",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE463T",
+        "subject": "Cloud Strategy Planning and Management",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE464T",
+        "subject": "Fog Computing Analytics",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE465T",
+        "subject": "Cloud Application Development",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE466T",
+        "subject": "Network Design and Management",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSC311J",
+        "subject": "Wireless Networks",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSC312J",
+        "subject": "Mobile Adhoc Networks",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE273T",
+        "subject": "Distributed Operating Systems",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE274T",
+        "subject": "Pervasive Computing",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE347T",
+        "subject": "Network Protocols and Programming",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE348T",
+        "subject": "Network Routing Algorithms",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE349T",
+        "subject": "Optical Networks",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE350T",
+        "subject": "Principles Of Cloud Computing",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE450T",
+        "subject": "Network Security",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSC308T",
+        "subject": "Security Risk Management Principles",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSC310J",
+        "subject": "Malware Analysis",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE229J",
+        "subject": "Check Point System Administration",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE281T",
+        "subject": "Cryptography and Network Security",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE283T",
+        "subject": "Cyber Law",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE381T",
+        "subject": "Forensics and Incident Response",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE382T",
+        "subject": "Security Management",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE383T",
+        "subject": "Security Governance Risk and Compliance",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE384J",
+        "subject": "Security Audit and Risk Assessment",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE385J",
+        "subject": "Advanced Malware Analysis",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE386J",
+        "subject": "Penetration Testing and Vulnerability Assessment",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE387J",
+        "subject": "Hacker Techniques Tools and Incident Handling",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE399J",
+        "subject": "Comprehensive Linux for All",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE485T",
+        "subject": "Database Security",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE486T",
+        "subject": "Operation System Security",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE487T",
+        "subject": "Cyber w arfare",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE488T",
+        "subject": "Hacker Mind Profiling T he IT Criminal",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE489T",
+        "subject": "Mobile and Wireless Security",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE490J",
+        "subject": "Windows and Linux Internals",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE491T",
+        "subject": "Cyber Crime and Digital Forensic s",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE492T",
+        "subject": "Cyber Crimes and Cyber Security",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSC317J",
+        "subject": "Information Retrieval Techniques",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE267T",
+        "subject": "Statistics for Machine Learning",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE310J",
+        "subject": "Quantum Computation",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE373T",
+        "subject": "Streaming Analytics",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE475T",
+        "subject": "Applied Graph Theory",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE476T",
+        "subject": "Logical Deduction and Non  Verbal Reasoning",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE477T",
+        "subject": "Cloud Native Architecture for Modern Platforms",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE479T",
+        "subject": "Fault Tolerant Systems",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE480T",
+        "subject": "Image and Video Processing",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSC313J",
+        "subject": "Cloud Computing for IoT",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSC315J",
+        "subject": "Fog Computing",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE264T",
+        "subject": "Introduction to IoT Sensors Actuators and Microcontrollers",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE265T",
+        "subject": "Introduction to Embedded Programming and Embedded OS",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE266T",
+        "subject": "Internet of Things Architecture and Protocols",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE365T",
+        "subject": "Machine Learning for IoT",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE366T",
+        "subject": "Introduction to Cloud Application Development for IoT",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE367T",
+        "subject": "IoT Forensics",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE368J",
+        "subject": "Network Programming for IoT",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE369J",
+        "subject": "Introduction to Security of Internet of Things and Cyber  Physical Systems",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE370J",
+        "subject": "Data Visualization for IoT",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE371J",
+        "subject": "IoT Techniques Tools   and its Application",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE467T",
+        "subject": "Advanced Database Systems",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE468T",
+        "subject": "Edge Computing",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE469T",
+        "subject": "Energy Management for IoT Devices",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE470T",
+        "subject": "Applied Software Techniques in IoT Engineering",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE471T",
+        "subject": "Fundamentals of Cyber Security",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE472J",
+        "subject": "Full Stack Development for IoT",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE473T",
+        "subject": "Deep Learning for IoT",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE474T",
+        "subject": "IoT Privacy",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSC305T",
+        "subject": "Block c hain u sing Cryptography",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE231T",
+        "subject": "Fundamentals of Block c hain",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE232T",
+        "subject": "IoT a nd Block c hain",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE233T",
+        "subject": "Distributed Systems and Applications",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE234T",
+        "subject": "Principles of Cryptography",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE331T",
+        "subject": "Cryptocurrencie s and Block c hain Technology",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE332T",
+        "subject": "Fundamentals of Ethereum",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE333T",
+        "subject": "AI a nd Block c hain",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE334T",
+        "subject": "Container Management",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE335T",
+        "subject": "Advanced Cryptography",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE336T",
+        "subject": "Cloud Computing with Blockchain",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE337T",
+        "subject": "Web Development",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE338T",
+        "subject": "Trust Based Computing",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE431T",
+        "subject": "Building Private Blockchain",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE432T",
+        "subject": "Block c h ain Technology with Hyperledger",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE433T",
+        "subject": "Block c hain Business Models",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE434T",
+        "subject": "Distributed Ledger Technology",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE435T",
+        "subject": "Smart Contracts and Application Development",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE436T",
+        "subject": "Bitcoin Essentials and U se Cases",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE437T",
+        "subject": "Decentralized Applications on Block c hain",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE438T",
+        "subject": "Web Security",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSC306J",
+        "subject": "Software Engineering Perspectives in Computer Game Development",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSC307T",
+        "subject": "Deep Learning in Gaming and Application",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE235T",
+        "subject": "Game Design Prototyping and Development",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE236T",
+        "subject": "GPU Programming",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE237T",
+        "subject": "Art Creation for Games",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE238T",
+        "subject": "Storytelling for Marketing",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE339T",
+        "subject": "Game Artificial Intelligence",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE340T",
+        "subject": "Analytics and Decision Making",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE341T",
+        "subject": "Computer Graphics",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE342T",
+        "subject": "Gaming Studio for Business",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE343T",
+        "subject": "Web Services Development for Games",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE344T",
+        "subject": "D Game Development with Unity",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE345T",
+        "subject": "Game System Integration",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE346T",
+        "subject": "Design Art and Theory",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE439T",
+        "subject": "Virtual Reality and Augmented Reality",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE440T",
+        "subject": "Computer Animation and Simulation",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE441T",
+        "subject": "Mobile Game Development",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE442T",
+        "subject": "Game Monetization Techniques",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE443T",
+        "subject": "Game Production and Publishing",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE444T",
+        "subject": "Applied Gamification",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE445T",
+        "subject": "Metaverse Fundamentals",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE446T",
+        "subject": "Digital Marketing and Publishing",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSS202T",
+        "subject": "Fundamentals of Data Science",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSS301T",
+        "subject": "Full Stack Development",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSC206P",
+        "subject": "Advanced Object Oriented Programming",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSC307P",
+        "subject": "Machine Learning for Data Analytics",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE222T",
+        "subject": "Big Data Tools and Techniques",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE224T",
+        "subject": "Computer Architecture",
+        "year": 2
+    },
+    {
+        "subject_code": "21CSE321T",
+        "subject": "Data Warehousing and Data Mining",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE322T",
+        "subject": "Multivariate Techniques for Data Analytics",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE325T",
+        "subject": "Applied Social Network Analysis",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE327T",
+        "subject": "Cloud Computing for Data Analytics",
+        "year": 3
+    },
+    {
+        "subject_code": "21CSE422T",
+        "subject": "Convolutional Neural Networks",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE423T",
+        "subject": "Big Data Visualization",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE425T",
+        "subject": "Advanced Machine Learning",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE426T",
+        "subject": "Financial Machine Learning",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE427T",
+        "subject": "Augmented and Virtual Reality",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE428T",
+        "subject": "Healthcare Analytics",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE429T",
+        "subject": "Data Science for Internet of Things",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE430T",
+        "subject": "Automatic Speech Recognition",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE447T",
+        "subject": "Robot  Motion Planning",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE448T",
+        "subject": "Bio  Inspired Computing and Fuzzy Logic",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSE449T",
+        "subject": "Risk Analytics",
+        "year": 4
+    },
+    {
+        "subject_code": "21CSC505T",
+        "subject": "Computer Graphics and Vision",
+        "year": 5
+    },
+    {
+        "subject_code": "21CSC506J",
+        "subject": "Computation and Cognition The Probabilistic Approach",
+        "year": 5
+    },
+    {
+        "subject_code": "21CSE541T",
+        "subject": "Probabilistic Graphical Models Principles and Techniques",
+        "year": 5
+    },
+    {
+        "subject_code": "21CSE542T",
+        "subject": "Deep Generative Models",
+        "year": 5
+    },
+    {
+        "subject_code": "21CSE543T",
+        "subject": "Brain Machine Interface Science Technology and Application",
+        "year": 5
+    },
+    {
+        "subject_code": "21CSE544T",
+        "subject": "Data Analysis and Visualization",
+        "year": 5
+    },
+    {
+        "subject_code": "21CSE545T",
+        "subject": "Computational Perception and Cognition",
+        "year": 5
+    },
+    {
+        "subject_code": "21CSE546T",
+        "subject": "Medical Signal Processing",
+        "year": 5
+    },
+    {
+        "subject_code": "21CSE547T",
+        "subject": "Deep Multitask and Meta Learning",
+        "year": 5
+    },
+    {
+        "subject_code": "21CSE548T",
+        "subject": "Spatial and Temporal Computing",
+        "year": 5
+    },
+    {
+        "subject_code": "21CSE549T",
+        "subject": "Decision Making Under Uncertainty",
+        "year": 5
+    },
+    {
+        "subject_code": "21CSE552T",
+        "subject": "Computational Linguistics",
+        "year": 5
+    },
+    {
+        "subject_code": "21AIE536T",
+        "subject": "Artificial Intelligence Engines",
+        "year": 5
+    },
+    {
+        "subject_code": "21AIE538T",
+        "subject": "Artificial Intelligence for Industrial Applications",
+        "year": 5
+    },
+    {
+        "subject_code": "21AIE539T",
+        "subject": "Artificial Intelligence in Medical Imaging",
+        "year": 5
+    },
+    {
+        "subject_code": "21AIE541T",
+        "subject": "Multimodal Machine Learning",
+        "year": 5
+    },
+    {
+        "subject_code": "21CSC503T",
+        "subject": "Security Service Management",
+        "year": 5
+    },
+    {
+        "subject_code": "21CSC504J",
+        "subject": "Android Malware Analysis",
+        "year": 5
+    },
+    {
+        "subject_code": "21CSE531T",
+        "subject": "Cyber Security Operations",
+        "year": 5
+    },
+    {
+        "subject_code": "21CSE532T",
+        "subject": "Network Management and Protocols",
+        "year": 5
+    },
+    {
+        "subject_code": "21CSE533T",
+        "subject": "Firewalls and Access Controls",
+        "year": 5
+    },
+    {
+        "subject_code": "21CSE534T",
+        "subject": "Network Programming and Management",
+        "year": 5
+    },
+    {
+        "subject_code": "21CSE535T",
+        "subject": "Network Intrusions and Computer Forensics",
+        "year": 5
+    },
+    {
+        "subject_code": "21CSE536T",
+        "subject": "Mobile Forensics",
+        "year": 5
+    },
+    {
+        "subject_code": "21CSE537T",
+        "subject": "Digital Forensics",
+        "year": 5
+    },
+    {
+        "subject_code": "21CSE538T",
+        "subject": "Security Scripting and Analysis",
+        "year": 5
+    },
+    {
+        "subject_code": "21CSE539T",
+        "subject": "Principles of Secure Coding Principles",
+        "year": 5
+    },
+    {
+        "subject_code": "21CSE540T",
+        "subject": "Android Security and Design Internals",
+        "year": 5
+    },
+    {
+        "subject_code": "21CSC501T",
+        "subject": "Natural Language Processing Techniques",
+        "year": 5
+    },
+    {
+        "subject_code": "21CSC502J",
+        "subject": "Applied Deep Learning",
+        "year": 5
+    },
+    {
+        "subject_code": "21CSE521T",
+        "subject": "Advanced Algorithms Analysis",
+        "year": 5
+    },
+    {
+        "subject_code": "21CSE522T",
+        "subject": "Functional Programming",
+        "year": 5
+    },
+    {
+        "subject_code": "21CSE524T",
+        "subject": "Computer Vision Techniques",
+        "year": 5
+    },
+    {
+        "subject_code": "21CSE527T",
+        "subject": "Text Mining and Analytics",
+        "year": 5
+    },
+    {
+        "subject_code": "21CSE529T",
+        "subject": "Web Intelligence",
+        "year": 5
+    }
+]
