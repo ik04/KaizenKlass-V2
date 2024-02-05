@@ -4,27 +4,79 @@ import { useEffect, useState } from "react";
 import { Dashboard } from "~/components/dashboard";
 import { SplashScreen } from "~/components/splashScreen";
 import { SubjectCard } from "~/components/subjectCard";
+import { Input } from "~/components/ui/input";
 import { Skeleton } from "~/components/ui/skeleton";
-export default function subjects() {
+
+export default function Subjects() {
   const { baseUrl }: { baseUrl: string } = useLoaderData();
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [filteredSubjects, setFilteredSubjects] = useState<Subject[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [isSearching, setIsSearching] = useState<boolean>(false);
+
   useEffect(() => {
-    const callSubjectsEnpoint = async () => {
+    const callSubjectsEndpoint = async () => {
       const url = `${baseUrl}/api/v1/get-subjects`;
-      const resp = await axios.get(url);
-      setSubjects(resp.data.subjects);
-      setIsLoading(false);
+      try {
+        const resp = await axios.get(url);
+        setSubjects(resp.data.subjects);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching subjects:", error);
+      }
     };
-    callSubjectsEnpoint();
+    callSubjectsEndpoint();
   }, [baseUrl]);
+
+  useEffect(() => {
+    const filterSubjects = () => {
+      const filtered = subjects.filter((subject) =>
+        subject.subject.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredSubjects(filtered);
+    };
+    if (searchQuery == "") {
+      setIsSearching(false);
+    }
+
+    filterSubjects();
+  }, [searchQuery, subjects]);
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsSearching(true);
+    setSearchQuery(event.target.value);
+  };
+
+  const clearSearch = () => {
+    setIsSearching(false);
+    setSearchQuery("");
+  };
+
   return (
     <div className="bg-main min-h-screen">
       <Dashboard baseUrl={baseUrl}>
+        <div className="flex items-center space-x-3 text-xl">
+          <Input
+            type="text"
+            placeholder="Search subjects..."
+            value={searchQuery}
+            onChange={handleInputChange}
+            className="p-2 rounded-md border font-bold border-gray-300 focus:outline-none focus:border-blue-500"
+          />
+          {isSearching && (
+            <p
+              onClick={clearSearch}
+              className="font-base font-extrabold text-highlightSecondary"
+            >
+              X
+            </p>
+          )}
+        </div>
         <div className="md:grid flex flex-col md:grid-cols-4">
           {!isLoading ? (
             <>
-              {subjects.map((subject) => (
+              {(searchQuery ? filteredSubjects : subjects).map((subject) => (
                 <div key={subject.subject} className="py-10">
                   <SubjectCard
                     subject={subject.subject}
@@ -48,8 +100,10 @@ export default function subjects() {
     </div>
   );
 }
+
 // todo: make an actual dashboard with useful info to replace subjects page and make subjects page its own thing
 // todo: handle server errors (get help)
+
 export async function loader() {
   const data = {
     baseUrl: process.env.PUBLIC_DOMAIN,
