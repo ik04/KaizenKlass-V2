@@ -18,6 +18,7 @@ export default function subjects() {
     };
     callSubjectsEnpoint();
   }, [baseUrl]);
+  const searchSubjects = (query: string) => {};
   return (
     <div className="bg-main min-h-screen">
       <Dashboard baseUrl={baseUrl}>

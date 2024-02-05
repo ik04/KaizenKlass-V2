@@ -12,6 +12,7 @@ class Resource extends Model
         "title",
         "link",
         "description",
-        "resource_uuid"
+        "resource_uuid",
+        "type"
     ];
 }
