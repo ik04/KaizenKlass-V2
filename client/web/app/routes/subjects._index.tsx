@@ -56,23 +56,25 @@ export default function Subjects() {
   return (
     <div className="bg-main min-h-screen">
       <Dashboard baseUrl={baseUrl}>
-        <div className="flex items-center space-x-3 text-xl">
-          <Input
-            type="text"
-            placeholder="Search subjects..."
-            value={searchQuery}
-            onChange={handleInputChange}
-            className="p-2 rounded-md border font-bold border-gray-300 focus:outline-none focus:border-blue-500"
-          />
-          {isSearching && (
-            <p
-              onClick={clearSearch}
-              className="font-base font-extrabold text-highlightSecondary"
-            >
-              X
-            </p>
-          )}
-        </div>
+        {!isLoading && (
+          <div className="flex items-center space-x-3 text-xl">
+            <Input
+              type="text"
+              placeholder="Search subjects..."
+              value={searchQuery}
+              onChange={handleInputChange}
+              className="p-2 rounded-md border font-bold border-gray-300 focus:outline-none focus:border-blue-500"
+            />
+            {isSearching && (
+              <p
+                onClick={clearSearch}
+                className="font-base font-extrabold text-highlightSecondary"
+              >
+                X
+              </p>
+            )}
+          </div>
+        )}
         <div className="md:grid flex flex-col md:grid-cols-4">
           {!isLoading ? (
             <>
