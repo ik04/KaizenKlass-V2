@@ -12,4 +12,8 @@ class Subject extends Model
         "subject",
         "subject_uuid"
     ];
+    public function assignments()
+    {
+        return $this->hasMany(Assignment::class);
+    }
 }

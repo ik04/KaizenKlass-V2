@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Year extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        "year",
+        "year_value",
+    ];
+    public function subjects()
+    {
+        return $this->hasMany(Subject::class);
+    }
 }
