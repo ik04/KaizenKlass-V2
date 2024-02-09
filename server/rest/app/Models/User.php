@@ -21,4 +21,9 @@ class User extends Authenticatable
         "role"
     ];
 
+    public function solutions()
+    {
+        return $this->hasMany(Solution::class);
+    }
+
 }
