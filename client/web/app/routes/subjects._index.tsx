@@ -6,6 +6,7 @@ import { SplashScreen } from "~/components/splashScreen";
 import { SubjectCard } from "~/components/subjectCard";
 import { Input } from "~/components/ui/input";
 import { Skeleton } from "~/components/ui/skeleton";
+import Fuse from "fuse.js";
 
 export default function Subjects() {
   const { baseUrl }: { baseUrl: string } = useLoaderData();
@@ -31,14 +32,21 @@ export default function Subjects() {
 
   useEffect(() => {
     const filterSubjects = () => {
-      const filtered = subjects.filter((subject) =>
-        subject.subject.toLowerCase().includes(searchQuery.toLowerCase())
-      );
+      if (!searchQuery) {
+        setIsSearching(false);
+        setFilteredSubjects(subjects);
+        return;
+      }
+
+      const fuse = new Fuse(subjects, {
+        keys: ["subject"],
+      });
+
+      const result = fuse.search(searchQuery);
+      const filtered = result.map(({ item }) => item);
       setFilteredSubjects(filtered);
+      setIsSearching(true);
     };
-    if (searchQuery == "") {
-      setIsSearching(false);
-    }
 
     filterSubjects();
   }, [searchQuery, subjects]);

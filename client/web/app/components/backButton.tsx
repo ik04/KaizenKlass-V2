@@ -15,7 +15,8 @@ export const BackButton = () => {
     //   const newPath = pathParts.slice(0, -1).join("/");
     //   navigate(newPath);
     // }
-    navigate(-1);
+    // navigate(-1);
+    history.back();
   };
   return (
     <div
