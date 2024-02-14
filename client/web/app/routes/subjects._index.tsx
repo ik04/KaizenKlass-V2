@@ -66,12 +66,15 @@ export default function Subjects() {
       <Dashboard baseUrl={baseUrl}>
         {!isLoading && (
           <div className="flex items-center space-x-3 text-xl md:w-[94%]">
+
             <Input
               type="text"
               placeholder="Search subjects..."
               value={searchQuery}
               onChange={handleInputChange}
+
               className="p-2 rounded-md font-base font-bold bg-highlightSecondary text-mainLighter"
+
             />
             {isSearching && (
               <p
