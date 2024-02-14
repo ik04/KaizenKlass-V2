@@ -24,6 +24,7 @@ export default function assignments() {
     uuid: string;
   } = useLoaderData();
   // console.log(assignment, solutions);
+  const currentDomain = "https://kaizenklass.me";
   const { userUuid, hasEditPrivileges, isAuthenticated, role } =
     useContext(GlobalContext);
 
@@ -120,11 +121,15 @@ export default function assignments() {
     return formattedDateTime;
   }
 
-  function convertLinksToAnchors(text: string) {
+  function convertLinksToAnchors(text: string, currentDomain: string) {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
 
     return text.replace(urlRegex, function (url) {
-      return `<a href="${url}" style="color: #3A84CE;" target="_blank">${url}</a>`;
+      if (url === currentDomain || url.startsWith(currentDomain + "/")) {
+        return ` <a href="${url}" style="color: #3A84CE;">${url}</a>`;
+      } else {
+        return `<a href="${url}" style="color: #3A84CE;" target="_blank">${url}</a>`;
+      }
     });
   }
 
@@ -142,7 +147,6 @@ export default function assignments() {
         title: "Solution deleted!",
         description: `the solution has been deleted`,
       });
-      location.reload();
     } catch (error) {
       toast({
         title: "Error Request Failed",
@@ -232,7 +236,10 @@ export default function assignments() {
                     <div
                       className="text-highlight text-sm md:text-xl font-base whitespace-pre-line"
                       dangerouslySetInnerHTML={{
-                        __html: convertLinksToAnchors(assignment.description),
+                        __html: convertLinksToAnchors(
+                          assignment.description,
+                          currentDomain
+                        ),
                       }}
                     />
                   )}
@@ -330,7 +337,10 @@ export default function assignments() {
                       <div
                         className="text-highlight text-sm md:text-lg font-base whitespace-pre-line"
                         dangerouslySetInnerHTML={{
-                          __html: convertLinksToAnchors(solution.description),
+                          __html: convertLinksToAnchors(
+                            solution.description,
+                            currentDomain
+                          ),
                         }}
                       />
                       {solution.content && (
