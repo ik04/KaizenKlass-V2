@@ -56,7 +56,9 @@ class SolutionService{
             }
             $data["description"] = strip_tags($description);
         }
-            $solution = Solution::create($data);
+        $username = User::select("name")->where("id",$userId)->first()->name;
+        $solution = Solution::create($data);
+        $solution["username"] = $username;
             $solution = $this->appendUserUuid($solution,$userId);
             $solution = $this->removeIds($solution);
             return $solution;

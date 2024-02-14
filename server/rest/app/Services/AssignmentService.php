@@ -153,7 +153,7 @@ class AssignmentService{
             $subjectDetails = $this->subjectService->getSubjectDetails($assignment->subject_id);
     
             $solutionsData = [];
-            foreach ($assignment->solutions as $solution) {
+            foreach ($assignment->solutions()->orderBy('created_at', 'desc')->get() as $solution) {
                 $user = User::select("name", "user_uuid")->where("id", $solution->user_id)->first();
                 $username = $user->name;
                 $userUuid = $user->user_uuid;
