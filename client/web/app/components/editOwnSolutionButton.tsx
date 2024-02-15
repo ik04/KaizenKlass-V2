@@ -48,7 +48,6 @@ export const EditOwnSolutionButton = ({
               errorMessages += `${key}: ${value.join(", ")}\n`;
             }
           }
-
           toast({
             title: "Invalid Fields Inputs",
             description: errorMessages.trim(),
