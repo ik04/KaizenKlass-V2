@@ -43,6 +43,8 @@ export default function deadlines() {
           <div className="flex flex-col space-y-7 mb-20">
             {assignments.map((assignment) => (
               <DeadlineCard
+                subject_uuid={assignment.subject_uuid}
+                subject={assignment.subject}
                 assignment_uuid={assignment.assignment_uuid}
                 title={assignment.title}
                 deadline={assignment.deadline}

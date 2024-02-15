@@ -188,7 +188,7 @@ class AssignmentService{
         }
         public function getAssignmentsWithDeadline() {
             $currentDateTime = Carbon::now();
-            $assignments = Assignment::select("title", "deadline", "assignment_uuid")
+            $assignments = Assignment::join("subjects","subjects.id","=","assignments.subject_id")->select("assignments.title", "assignments.deadline", "assignments.assignment_uuid","subjects.subject","subjects.subject_uuid")
                 ->whereNotNull("deadline")->where("deadline",">",$currentDateTime)
                 ->get();
             return $assignments;
