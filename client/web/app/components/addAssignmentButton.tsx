@@ -36,6 +36,7 @@ export const AddAssignmentButton = ({
   const [link, setLink] = useState<string>();
   const [content, setContent] = useState<string>();
   const [date, setDate] = useState<Date | null>(null);
+  const [open, setOpen] = useState<boolean>(false);
 
   const getSubjects = async () => {
     const url = `${baseUrl}/api/v1/get-subjects`;
@@ -119,7 +120,7 @@ export const AddAssignmentButton = ({
 
   // todo: add datetime picker
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className="w-full">
         <div className="h-32 flex rounded-2xl flex-col items-start justify-center border-dashed border-2 hover:border-highlight border-mainLighter duration-200 transition-all space-y-3 px-5">
           <p className="font-base text-highlightSecondary text-3xl">

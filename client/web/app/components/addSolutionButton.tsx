@@ -19,6 +19,8 @@ export const AddSolutionButton = ({
   const { toast } = useToast();
   const [description, setDescription] = useState<string>();
   const [content, setContent] = useState<string>();
+  const [open, setOpen] = useState<boolean>(false);
+
   const addSolution = async () => {
     try {
       if (description) {
@@ -69,7 +71,7 @@ export const AddSolutionButton = ({
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className="w-full">
         <div className="h-32 flex rounded-2xl flex-col items-start justify-center border-dashed border-2 hover:border-highlight border-mainLighter duration-200 transition-all space-y-3 px-5">
           <p className="font-base text-highlightSecondary text-3xl">

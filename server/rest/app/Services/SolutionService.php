@@ -117,7 +117,10 @@ class SolutionService{
         $solution->save();
     
         $additional = $this->removeIds($solution);
-        $additional = $this->appendUserUuid($additional,$userId);        
+        // $additional = $this->appendUserUuid($additional,$userId);   
+        $userDetails = $userUuid = User::where("id",$userId)->select("user_uuid","name")->first();
+        $additional["user_uuid"] = $userDetails->user_uuid;
+        $additional["username"] = $userDetails->name;
         return $additional;
     }
     

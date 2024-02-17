@@ -13,27 +13,41 @@ import { MetaFunction, redirect } from "@remix-run/node";
 
 export default function assignments() {
   const {
-    assignment,
+    storedAssignment,
     solutions,
     baseUrl,
     uuid,
   }: {
-    assignment: Assignment;
+    storedAssignment: Assignment;
     solutions: Solution[];
     baseUrl: string;
     uuid: string;
   } = useLoaderData();
-  // console.log(assignment, solutions);
-  const currentDomain = "https://kaizenklass.me";
+  console.log(storedAssignment);
+  const currentDomain = "https://kaizenklass.me"; // todo: shift to .env
   const { userUuid, hasEditPrivileges, isAuthenticated, role } =
     useContext(GlobalContext);
 
   const handleAddSolution = (solution: Solution) => {
     setAssignmentSolutions((prevSolutions) => [solution, ...prevSolutions]);
   };
+  const handleEditAssignment = (assignment: Assignment) => {
+    setAssignment(assignment);
+  };
+
+  const handleEditSolution = (updatedSolution: Solution) => {
+    setAssignmentSolutions((prevSolutions: Solution[]) =>
+      prevSolutions.map((solution) =>
+        solution.solution_uuid === updatedSolution.solution_uuid
+          ? updatedSolution
+          : solution
+      )
+    );
+  };
 
   const [readableDeadline, setReadableDeadline] = useState<string>();
   const [isDanger, setIsDanger] = useState<boolean>(false);
+  const [assignment, setAssignment] = useState<Assignment>(storedAssignment);
   const [assignmentSolutions, setAssignmentSolutions] =
     useState<Solution[]>(solutions);
 
@@ -180,7 +194,7 @@ export default function assignments() {
       console.error("Error deleting solution:", error);
     }
   };
-  console.log(solutions);
+  // console.log(solutions);
 
   // todo: finish solution components
   // todo: redo assignments page with new design
@@ -207,6 +221,7 @@ export default function assignments() {
                     <div className="flex space-x-2">
                       {hasEditPrivileges && (
                         <EditAssignmentButton
+                          handleEditAssignment={handleEditAssignment}
                           assignmentUuid={uuid}
                           baseUrl={baseUrl}
                           originalLink={assignment.link}
@@ -316,6 +331,7 @@ export default function assignments() {
                           {isAuthenticated &&
                             userUuid == solution.user_uuid && (
                               <EditOwnSolutionButton
+                                handleEditSolution={handleEditSolution}
                                 baseUrl={baseUrl}
                                 originalDescription={solution.description}
                                 solutionUuid={solution.solution_uuid}
@@ -388,7 +404,7 @@ export const loader = async ({ params }: any) => {
     // console.log(resp.data);
     const data = {
       solutions: resp.data.solutions,
-      assignment: resp.data.assignment,
+      storedAssignment: resp.data.assignment,
       baseUrl: process.env.PUBLIC_DOMAIN,
       uuid: uuid,
     };
