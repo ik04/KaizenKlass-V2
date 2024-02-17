@@ -32,6 +32,7 @@ export const AddSubjectAssignmentButton = ({
   const [link, setLink] = useState<string>();
   const [content, setContent] = useState<string>();
   const [date, setDate] = useState<Date | null>(null);
+  const [open, setOpen] = useState<boolean>(false);
 
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -52,6 +53,7 @@ export const AddSubjectAssignmentButton = ({
         description: `${title} has been added to the assignments`,
       });
       handleAddAssignment(resp.data.assignment);
+      setOpen(false);
     } catch (error: any) {
       console.log(error.response);
 
@@ -91,7 +93,7 @@ export const AddSubjectAssignmentButton = ({
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className="w-full">
         <div className="h-32 flex rounded-2xl flex-col items-start justify-center border-dashed border-2 hover:border-highlight border-mainLighter duration-200 transition-all space-y-3 px-5">
           <p className="font-base text-highlightSecondary text-3xl">

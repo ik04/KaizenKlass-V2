@@ -6,7 +6,7 @@ import { Textarea } from "./ui/textarea";
 import axios from "axios";
 import { useToast } from "./ui/use-toast";
 import Calendar from "react-calendar";
-import { format } from "date-fns";
+import { format, set } from "date-fns";
 
 type ValuePiece = Date | null;
 
@@ -19,6 +19,7 @@ export const EditAssignmentButton = ({
   originalTitle,
   originalDescription,
   originalLink,
+  handleEditAssignment,
 }: {
   baseUrl: string;
   assignmentUuid: string;
@@ -26,6 +27,7 @@ export const EditAssignmentButton = ({
   originalTitle: string;
   originalDescription?: string;
   originalLink: string;
+  handleEditAssignment: (assignment: Assignment) => void;
 }) => {
   const { toast } = useToast();
   const [subjects, setSubjects] = useState<Subject[]>([]);
@@ -37,6 +39,7 @@ export const EditAssignmentButton = ({
   const [link, setLink] = useState<string>(originalLink);
   const [content, setContent] = useState<string>();
   const [date, setDate] = useState<Date | null>(null);
+  const [open, setOpen] = useState<boolean>(false);
 
   const getSubjects = async () => {
     const url = `${baseUrl}/api/v1/get-subjects`;
@@ -64,7 +67,9 @@ export const EditAssignmentButton = ({
       toast({
         title: "Assignment Updated!",
       });
-      location.reload();
+      handleEditAssignment(resp.data.assignment);
+      setOpen(false);
+      // location.reload();
     } catch (error: any) {
       console.log(error.response);
 
@@ -104,7 +109,7 @@ export const EditAssignmentButton = ({
 
   // todo: add datetime picker
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className="">
         <img src="/assets/pencil.png" className="w-7" alt="" />
       </DialogTrigger>

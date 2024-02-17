@@ -10,14 +10,18 @@ export const EditOwnSolutionButton = ({
   baseUrl,
   originalDescription,
   solutionUuid,
+  handleEditSolution,
 }: {
   baseUrl: string;
   originalDescription: string;
   solutionUuid: string;
+  handleEditSolution: (updatedSolution: Solution) => void;
 }) => {
   const { toast } = useToast();
   const [description, setDescription] = useState<string>(originalDescription);
   const [content, setContent] = useState<string>();
+  const [open, setOpen] = useState<boolean>(false);
+
   const editSolution = async () => {
     try {
       const resp = await axios.put(
@@ -32,7 +36,9 @@ export const EditOwnSolutionButton = ({
         title: "solution Updated!",
         description: "solution has been updated",
       });
-      location.reload();
+      // location.reload();
+      handleEditSolution(resp.data.solution);
+      setOpen(false);
     } catch (error: any) {
       console.log(error.response);
 
@@ -62,7 +68,7 @@ export const EditOwnSolutionButton = ({
     }
   };
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className="">
         <img src="/assets/pencil.png" className="md:w-7 w-5 mb-2" alt="" />
       </DialogTrigger>
