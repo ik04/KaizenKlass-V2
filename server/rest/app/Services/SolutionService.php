@@ -90,31 +90,37 @@ class SolutionService{
     return $solution;
     }
 
-    public function updateOwnSolution(?string $description,?string $content,string $solutionUuid,int $userId){
+    public function updateOwnSolution(?string $description, ?string $content, string $solutionUuid, int $userId){
         $solution = Solution::where('solution_uuid', $solutionUuid)
-        ->where('user_id', $userId)
-        ->first();
+            ->where('user_id', $userId)
+            ->first();
+        
         if (!$solution) {
-            throw new SolutionNotFoundException(message:"Solution not found",code:404);
+            throw new SolutionNotFoundException(message: "Solution not found", code: 404);
         }
-        if($description == null && $content == null){
-            throw new Exception(message:"Nothing to update", code:400);
+        
+        if ($description === null && $content === null) {
+            throw new Exception(message: "Nothing to update", code: 400);
         }
     
-        if ($description != null) {
-            if(strip_tags($description) == ""){
-                throw new EmptyDescriptionException(message:"Empty Description, please don't use tags.",code:400);
+        if ($description !== null) {
+            if (strip_tags($description) === "") {
+                throw new EmptyDescriptionException(message: "Empty Description, please don't use tags.", code: 400);
             }
             $solution->description = strip_tags($description);
         }
-        if ($content != null) {
+        
+        if ($content !== null) {
             $solution->content = $this->convertDriveLinkToDownloadLink($content);
         }
+    
         $solution->save();
-        $solution = $this->appendUserUuid($solution,$userId);
-        $solution = $this->removeIds($solution);
-        return $solution;
+    
+        $additional = $this->removeIds($solution);
+        $additional = $this->appendUserUuid($additional,$userId);        
+        return $additional;
     }
+    
 
     public function deleteSolution(string $solutionUuid){
         $solution = Solution::where('solution_uuid', $solutionUuid)->first();

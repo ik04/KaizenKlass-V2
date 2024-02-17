@@ -115,8 +115,7 @@ public function updateOwnSolution(UpdateSolutionRequest $request, $solutionUuid)
 {
     $validated = $request->validated();
     $solution = $this->service->updateOwnSolution($validated["description"] ?? null,$validated["content"] ?? null,$solutionUuid,$request->user()->id);
-    $solution->save();
-    return response()->json(["message" => "Solution updated successfully"], 200);
+    return response()->json(["message" => "Solution updated successfully","solution" => $solution], 200);
 }
 
 public function deleteOwnSolution($solutionUuid)
