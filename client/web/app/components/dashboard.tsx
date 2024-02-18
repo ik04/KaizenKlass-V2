@@ -2,6 +2,8 @@ import { Link } from "@remix-run/react";
 import axios from "axios";
 import React, { useContext, useState } from "react";
 import { GlobalContext } from "~/context/GlobalContext";
+import { Tooltip, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
+import { TooltipContent } from "@radix-ui/react-tooltip";
 
 // ! shift dashboard to global ( this is bad practice lmao)
 export const Dashboard = ({
@@ -30,7 +32,7 @@ export const Dashboard = ({
     { name: "login", href: "/login" },
     { name: "register", href: "/register" },
   ];
-  const authLinks = [{ name: username, href: "/home" }];
+  const authLinks = [{ name: username, href: "/subjects" }];
   const logout = async () => {
     const resp = await axios.post(`${baseUrl}/api/v1/logout`);
     location.reload();
@@ -115,43 +117,59 @@ export const Dashboard = ({
               : "transition-all duration-300 w-[150px]"
           }`}
         >
-          {sidebarIcons.map((icon, index) => (
-            <Link
-              key={icon.name}
-              className={`${
-                isSidebarExpanded
-                  ? "flex  w-full pl-[35px] justify-center items-center space-x-10"
-                  : ""
-              }`}
-              to={icon.href}
-            >
-              <img src={icon.img} alt={icon.name} />
-              {isSidebarExpanded && (
-                <span className="w-[70%] text-left font-base text-highlightSecondary text-2xl uppercase">
-                  {icon.name}
-                </span>
-              )}
-            </Link>
-          ))}
-          <div className="border-2 border-highlightSecondary w-[80%]"></div>
-          {extraSidebarIcons.map((icon, index) => (
-            <Link
-              key={icon.name}
-              className={`${
-                isSidebarExpanded
-                  ? "flex  w-full pl-[35px] justify-center items-center space-x-10"
-                  : ""
-              }`}
-              to={icon.href}
-            >
-              <img src={icon.img} alt={icon.name} />
-              {isSidebarExpanded && (
-                <span className="w-[70%] text-left font-base text-highlightSecondary text-2xl uppercase">
-                  {icon.name}
-                </span>
-              )}
-            </Link>
-          ))}
+          <TooltipProvider>
+            {sidebarIcons.map((icon, index) => (
+              <Tooltip>
+                <TooltipTrigger>
+                  <Link
+                    key={icon.name}
+                    className={`${
+                      isSidebarExpanded
+                        ? "flex  w-full pl-[35px] justify-center items-center space-x-10"
+                        : ""
+                    }`}
+                    to={icon.href}
+                  >
+                    <img src={icon.img} alt={icon.name} />
+                    {isSidebarExpanded && (
+                      <span className="w-[70%] text-left font-base text-highlightSecondary text-2xl uppercase">
+                        {icon.name}
+                      </span>
+                    )}
+                  </Link>
+                  <TooltipContent className="capitalize text-highlightSecondary font-base p-2">
+                    {icon.name}
+                  </TooltipContent>
+                </TooltipTrigger>
+              </Tooltip>
+            ))}
+            <div className="border-2 border-highlightSecondary w-[80%]"></div>
+            {extraSidebarIcons.map((icon, index) => (
+              <Tooltip>
+                <TooltipTrigger>
+                  <Link
+                    key={icon.name}
+                    className={`${
+                      isSidebarExpanded
+                        ? "flex  w-full pl-[35px] justify-center items-center space-x-10"
+                        : ""
+                    }`}
+                    to={icon.href}
+                  >
+                    <img src={icon.img} alt={icon.name} />
+                    {isSidebarExpanded && (
+                      <span className="w-[70%] text-left font-base text-highlightSecondary text-2xl uppercase">
+                        {icon.name}
+                      </span>
+                    )}
+                  </Link>
+                  <TooltipContent className="capitalize text-highlightSecondary font-base p-2">
+                    {icon.name}
+                  </TooltipContent>
+                </TooltipTrigger>
+              </Tooltip>
+            ))}
+          </TooltipProvider>
         </div>
         <div
           className={
