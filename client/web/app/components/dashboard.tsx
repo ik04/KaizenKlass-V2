@@ -120,7 +120,7 @@ export const Dashboard = ({
           <TooltipProvider>
             {sidebarIcons.map((icon, index) => (
               <Tooltip>
-                <TooltipTrigger>
+                <TooltipTrigger className={`${isSidebarExpanded && "w-full"}`}>
                   <Link
                     key={icon.name}
                     className={`${
@@ -146,7 +146,7 @@ export const Dashboard = ({
             <div className="border-2 border-highlightSecondary w-[80%]"></div>
             {extraSidebarIcons.map((icon, index) => (
               <Tooltip>
-                <TooltipTrigger>
+                <TooltipTrigger className={`${isSidebarExpanded && "w-full"}`}>
                   <Link
                     key={icon.name}
                     className={`${
