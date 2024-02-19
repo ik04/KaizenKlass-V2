@@ -194,7 +194,7 @@ export const Dashboard = ({
                     )}
                   </Link>
                   <TooltipContent className="capitalize text-highlightSecondary font-base p-2">
-                    {icon.name}
+                    {!isSidebarExpanded && icon.name}
                   </TooltipContent>
                 </TooltipTrigger>
               </Tooltip>
