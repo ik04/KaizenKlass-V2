@@ -18,7 +18,7 @@ class AddAssignmentRequest extends FormRequest
                 "string",
                 "nullable",
                 "regex:/^(https?|ftp):\/\/[^\s\/$?#].[^\s]*$/",],
-                "deadline" =>"nullable|date_format:Y-m-d",
+                "deadline" =>"nullable|date_format:Y-m-d H:i:s",
             "content" => [
                 "string",
                 "nullable",

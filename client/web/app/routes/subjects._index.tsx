@@ -101,7 +101,7 @@ export default function Subjects() {
                 {Array.from({ length: 12 }, (_, index) => (
                   <Skeleton
                     key={index}
-                    className="p-5 mb-11 md:mb-14 h-28 md:p-2 border border-mainLighter md:w-80 md:h-80 rounded-3xl bg-mainLighter transition-all"
+                    className="p-5 mb-11 md:m-8 my-8 md:mb-14 h-28 md:p-2 border border-mainLighter md:w-80 md:h-80 rounded-3xl bg-mainLighter transition-all"
                   />
                 ))}
               </>
