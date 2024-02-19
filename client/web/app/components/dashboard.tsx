@@ -1,6 +1,6 @@
-import { Link } from "@remix-run/react";
+import { Link, useLocation } from "@remix-run/react";
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "~/context/GlobalContext";
 import { Tooltip, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
 import { TooltipContent } from "@radix-ui/react-tooltip";
@@ -16,6 +16,7 @@ export const Dashboard = ({
   const { isAuthenticated, username, isSidebarExpanded, setSidebarExpanded } =
     useContext(GlobalContext);
   const [isMobileNavExpanded, setIsMobileNavExpanded] = useState(false);
+  const [isActive, setIsActive] = useState<number>(0);
   const sidebarIcons = [
     { href: "/subjects", img: "/assets/home.svg", name: "home" },
     {
@@ -37,6 +38,17 @@ export const Dashboard = ({
     const resp = await axios.post(`${baseUrl}/api/v1/logout`);
     location.reload();
   };
+  const locationHook = useLocation();
+  // console.log(locationHook.pathname);
+  const allIcons = sidebarIcons.concat(extraSidebarIcons);
+
+  useEffect(() => {
+    allIcons.forEach((icon, index) => {
+      if (locationHook.pathname == icon.href) {
+        setIsActive(index);
+      }
+    });
+  }, [allIcons]);
 
   const toggleSidebar = () => {
     const isMobileViewport = window.innerWidth < 768;
@@ -125,12 +137,22 @@ export const Dashboard = ({
                     key={icon.name}
                     className={`${
                       isSidebarExpanded
-                        ? "flex  w-full pl-[35px] justify-center items-center space-x-10"
-                        : ""
+                        ? `flex  w-full pl-[35px] justify-center items-center p-3 space-x-10 ${
+                            index == isActive ? "bg-mainLighter" : ""
+                          }`
+                        : ``
                     }`}
                     to={icon.href}
                   >
-                    <img src={icon.img} alt={icon.name} />
+                    <img
+                      src={icon.img}
+                      className={`${
+                        !isSidebarExpanded && index == isActive
+                          ? "bg-mainLighter p-3 rounded-2xl"
+                          : ""
+                      }`}
+                      alt={icon.name}
+                    />
                     {isSidebarExpanded && (
                       <span className="w-[70%] text-left font-base text-highlightSecondary text-2xl uppercase">
                         {icon.name}
@@ -138,7 +160,7 @@ export const Dashboard = ({
                     )}
                   </Link>
                   <TooltipContent className="capitalize text-highlightSecondary font-base p-2">
-                    {icon.name}
+                    {!isSidebarExpanded && icon.name}
                   </TooltipContent>
                 </TooltipTrigger>
               </Tooltip>
@@ -152,11 +174,19 @@ export const Dashboard = ({
                     className={`${
                       isSidebarExpanded
                         ? "flex  w-full pl-[35px] justify-center items-center space-x-10"
-                        : ""
+                        : ``
                     }`}
                     to={icon.href}
                   >
-                    <img src={icon.img} alt={icon.name} />
+                    <img
+                      src={icon.img}
+                      className={`${
+                        index == isActive - sidebarIcons.length
+                          ? "bg-mainLighter p-3 rounded-2xl"
+                          : ""
+                      }`}
+                      alt={icon.name}
+                    />
                     {isSidebarExpanded && (
                       <span className="w-[70%] text-left font-base text-highlightSecondary text-2xl uppercase">
                         {icon.name}
