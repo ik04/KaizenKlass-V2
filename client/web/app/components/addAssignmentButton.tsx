@@ -154,7 +154,7 @@ export const AddAssignmentButton = ({
         </div>
       </DialogTrigger>
       <DialogContent>
-        <div className="font-base">
+        <div className="font-base flex flex-col space-y-1 md:block">
           <div className="flex flex-col">
             <Label>Subject</Label>
             <select
@@ -188,12 +188,16 @@ export const AddAssignmentButton = ({
             placeholder="description (optional)"
             onChange={(e) => setDescription(e.target.value)}
           />
-          <div className="flex flex-col space-y-2">
+          <div className="flex flex-col space-y-1">
             <div className="">
               <Label>Deadline</Label>
               <div className="bg-highlightSecondary rounded-md p-5 flex space-y-7 flex-col">
                 <Calendar onChange={handleDateChange} value={date} />
-                {date && <p>Selected date: {format(date, "yyyy-MM-dd")}</p>}
+                {date && (
+                  <p className="text-sm">
+                    Selected date: {format(date, "yyyy-MM-dd")}
+                  </p>
+                )}
               </div>
             </div>
             <div className="">
