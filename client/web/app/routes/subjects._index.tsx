@@ -84,11 +84,11 @@ export default function Subjects() {
               )}
             </div>
           )}
-          <div className="flex flex-col bg-red-400 md:flex md:justify-center md:items-center md:flex-row md:flex-wrap md:w-full">
+          <div className="flex flex-col md:flex md:justify-center md:items-center md:flex-row md:flex-wrap md:w-full">
             {!isLoading ? (
               <>
                 {(searchQuery ? filteredSubjects : subjects).map((subject) => (
-                  <div key={subject.subject} className="md:m-5 md:my-5 my-8">
+                  <div key={subject.subject} className="md:m-8 my-8">
                     <SubjectCard
                       subject={subject.subject}
                       uuid={subject.subject_uuid}
