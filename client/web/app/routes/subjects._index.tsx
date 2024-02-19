@@ -64,50 +64,49 @@ export default function Subjects() {
   return (
     <div className="bg-main min-h-screen">
       <Dashboard baseUrl={baseUrl}>
-        {!isLoading && (
-          <div className="flex items-center space-x-3 text-xl md:w-[94%]">
-
-            <Input
-              type="text"
-              placeholder="Search subjects..."
-              value={searchQuery}
-              onChange={handleInputChange}
-
-              className="p-2 rounded-md font-base font-bold bg-highlightSecondary text-mainLighter"
-
-            />
-            {isSearching && (
-              <p
-                onClick={clearSearch}
-                className="font-base font-extrabold text-highlightSecondary"
-              >
-                X
-              </p>
+        <div className="flex flex-col">
+          {!isLoading && (
+            <div className="flex items-center space-x-3 text-xl md:w-full">
+              <Input
+                type="text"
+                placeholder="Search subjects..."
+                value={searchQuery}
+                onChange={handleInputChange}
+                className="p-2 rounded-md font-base font-bold bg-highlightSecondary text-mainLighter"
+              />
+              {isSearching && (
+                <p
+                  onClick={clearSearch}
+                  className="font-base font-extrabold text-highlightSecondary"
+                >
+                  X
+                </p>
+              )}
+            </div>
+          )}
+          <div className="flex flex-col bg-red-400 md:flex md:justify-center md:items-center md:flex-row md:flex-wrap md:w-full">
+            {!isLoading ? (
+              <>
+                {(searchQuery ? filteredSubjects : subjects).map((subject) => (
+                  <div key={subject.subject} className="md:m-5 md:my-5 my-8">
+                    <SubjectCard
+                      subject={subject.subject}
+                      uuid={subject.subject_uuid}
+                    />
+                  </div>
+                ))}
+              </>
+            ) : (
+              <>
+                {Array.from({ length: 12 }, (_, index) => (
+                  <Skeleton
+                    key={index}
+                    className="p-5 mb-11 md:mb-14 h-28 md:p-2 border border-mainLighter md:w-80 md:h-80 rounded-3xl bg-mainLighter transition-all"
+                  />
+                ))}
+              </>
             )}
           </div>
-        )}
-        <div className="md:grid flex flex-col md:grid-cols-4">
-          {!isLoading ? (
-            <>
-              {(searchQuery ? filteredSubjects : subjects).map((subject) => (
-                <div key={subject.subject} className="py-10">
-                  <SubjectCard
-                    subject={subject.subject}
-                    uuid={subject.subject_uuid}
-                  />
-                </div>
-              ))}
-            </>
-          ) : (
-            <>
-              {Array.from({ length: 12 }, (_, index) => (
-                <Skeleton
-                  key={index}
-                  className="p-5 mb-11 md:mb-14 h-28 md:p-2 border border-mainLighter md:w-80 md:h-80 rounded-3xl bg-mainLighter transition-all"
-                />
-              ))}
-            </>
-          )}
         </div>
       </Dashboard>
     </div>

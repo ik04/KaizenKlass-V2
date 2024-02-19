@@ -39,7 +39,6 @@ export const Dashboard = ({
     location.reload();
   };
   const locationHook = useLocation();
-  // console.log(locationHook.pathname);
   const allIcons = sidebarIcons.concat(extraSidebarIcons);
 
   useEffect(() => {
@@ -173,7 +172,11 @@ export const Dashboard = ({
                     key={icon.name}
                     className={`${
                       isSidebarExpanded
-                        ? "flex  w-full pl-[35px] justify-center items-center space-x-10"
+                        ? `flex  w-full pl-[35px] justify-center items-center p-3 space-x-10 ${
+                            index == isActive - sidebarIcons.length
+                              ? "bg-mainLighter"
+                              : ""
+                          }`
                         : ``
                     }`}
                     to={icon.href}
