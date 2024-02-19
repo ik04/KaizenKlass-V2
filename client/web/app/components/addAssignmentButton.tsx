@@ -36,6 +36,8 @@ export const AddAssignmentButton = ({
   const [link, setLink] = useState<string>();
   const [content, setContent] = useState<string>();
   const [date, setDate] = useState<Date | null>(null);
+  const [isDatePicked, setIsDatePicked] = useState<boolean>(false);
+  const [time, setTime] = useState("");
   const [open, setOpen] = useState<boolean>(false);
 
   const getSubjects = async () => {
@@ -51,13 +53,32 @@ export const AddAssignmentButton = ({
   const addAssignment = async () => {
     try {
       if (subject && title) {
+        if (date && !time) {
+          toast({
+            title: "Required fields",
+            variant: "destructive",
+            description: `Add both date and time are required for deadline`,
+          });
+          return;
+        }
+        let combinedDeadline = null;
+        if (time && date) {
+          // Combine date and time
+          const deadlineDateTime = new Date(date);
+          const [hours, minutes] = time.split(":");
+          deadlineDateTime.setHours(parseInt(hours, 10));
+          deadlineDateTime.setMinutes(parseInt(minutes, 10));
+          deadlineDateTime.setSeconds(0); // Ensure seconds are set to 0
+          combinedDeadline = format(deadlineDateTime, "yyyy-MM-dd HH:mm:ss");
+          console.log(combinedDeadline);
+        }
         const resp = await axios.post(`${baseUrl}/api/v1/add-assignment`, {
           title,
           content,
           link,
           description,
           subject_uuid: subject,
-          deadline: date && format(date, "yyyy-MM-dd"),
+          deadline: combinedDeadline,
         });
         toast({
           title: "Assignment Added!",
@@ -104,8 +125,10 @@ export const AddAssignmentButton = ({
   const handleDateChange = (value: Value) => {
     if (value instanceof Date) {
       setDate(value);
+      setIsDatePicked(true);
     } else if (Array.isArray(value) && value[0] instanceof Date) {
       setDate(value[0]);
+      setIsDatePicked(true);
     }
   };
 
@@ -116,6 +139,8 @@ export const AddAssignmentButton = ({
     setLink("");
     setContent("");
     setDate(null);
+    setIsDatePicked(false);
+    setTime("");
   };
 
   // todo: add datetime picker
@@ -150,21 +175,6 @@ export const AddAssignmentButton = ({
               ))}
             </select>
           </div>
-          {/* <Select required onValueChange={(value) => setSubject(value)}>
-            <SelectTrigger className="">
-              <SelectValue placeholder="Select Subject" />
-            </SelectTrigger>
-            <SelectContent>
-              {subjects.map((subject) => (
-                <SelectItem
-                  className="cursor-pointer"
-                  value={subject.subject_uuid}
-                >
-                  <p className="text-black">{subject.subject.toString()}</p>
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select> */}
           <Label>Title</Label>
           <Input
             value={title}
@@ -178,12 +188,39 @@ export const AddAssignmentButton = ({
             placeholder="description (optional)"
             onChange={(e) => setDescription(e.target.value)}
           />
-          <Label>Deadline</Label>
-          <div className="bg-highlightSecondary rounded-md p-5 flex space-y-7 flex-col">
-            <Calendar onChange={handleDateChange} value={date} />
-            {date && <p>Selected date: {format(date, "yyyy-MM-dd")}</p>}
+          <div className="flex flex-col space-y-2">
+            <div className="">
+              <Label>Deadline</Label>
+              <div className="bg-highlightSecondary rounded-md p-5 flex space-y-7 flex-col">
+                <Calendar onChange={handleDateChange} value={date} />
+                {date && <p>Selected date: {format(date, "yyyy-MM-dd")}</p>}
+              </div>
+            </div>
+            <div className="">
+              <Label>Time</Label>
+              {isDatePicked ? (
+                <>
+                  <Input
+                    type="time"
+                    onChange={(e) => {
+                      setTime(e.target.value);
+                    }}
+                  />
+                </>
+              ) : (
+                <>
+                  {" "}
+                  <Input
+                    disabled
+                    type="time"
+                    onChange={(e) => {
+                      setTime(e.target.value);
+                    }}
+                  />
+                </>
+              )}
+            </div>
           </div>
-          {/* get the right component */}
           <Label>Link</Label>
           <Input
             placeholder="Link to classroom"
