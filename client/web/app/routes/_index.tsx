@@ -21,6 +21,19 @@ export const meta: MetaFunction = () => {
       itemprop: "image",
       content: "https://kaizenklass.me/assets/meta.png",
     },
+    {
+      property: "og:image:width",
+      content: "526",
+    },
+    {
+      property: "og:image:height",
+      content: "275",
+    },
+    {
+      property: "og:site_name",
+      content: "Kaizen Klass",
+    },
+    // <meta property="og:site_name" content="Site Name" />
   ];
 };
 
