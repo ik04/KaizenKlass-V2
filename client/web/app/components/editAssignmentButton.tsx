@@ -152,12 +152,6 @@ export const EditAssignmentButton = ({
             {date && <p>Selected date: {format(date, "yyyy-MM-dd")}</p>}
           </div>{" "}
           {/* get the right component */}
-          <Label>Link</Label>
-          <Input
-            value={link}
-            placeholder="New Link to classroom"
-            onChange={(e) => setLink(e.target.value)}
-          />
           <Label>Content</Label>
           <Input
             placeholder="Add new content link"

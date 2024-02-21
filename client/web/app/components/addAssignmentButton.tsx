@@ -225,12 +225,6 @@ export const AddAssignmentButton = ({
               )}
             </div>
           </div>
-          <Label>Link</Label>
-          <Input
-            placeholder="Link to classroom"
-            value={link}
-            onChange={(e) => setLink(e.target.value)}
-          />
           <Label>Content</Label>
           <Input
             value={content}

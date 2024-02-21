@@ -119,11 +119,6 @@ export const AddSubjectAssignmentButton = ({
             <Calendar onChange={handleDateChange} value={date} />
             {date && <p>Selected date: {format(date, "yyyy-MM-dd")}</p>}
           </div>{" "}
-          <Label>Link</Label>
-          <Input
-            placeholder="Link to classroom"
-            onChange={(e) => setLink(e.target.value)}
-          />
           <Label>Content</Label>
           <Input
             placeholder="Drive link of assignment (a share link of the pdf)"

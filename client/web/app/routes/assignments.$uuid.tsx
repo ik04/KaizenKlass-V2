@@ -194,8 +194,16 @@ export default function assignments() {
       console.error("Error deleting solution:", error);
     }
   };
-  // console.log(solutions);
 
+  const convertToViewLink = (link: string) => {
+    // Extracting the file ID from the download link
+    const startIndex = link.indexOf("id=") + 3;
+    const endIndex = link.length;
+    const fileId = link.substring(startIndex, endIndex);
+    // Constructing the view link
+    const viewLink = `https://drive.google.com/file/d/${fileId}/view?usp=sharing`;
+    return viewLink;
+  };
   // todo: finish solution components
   // todo: redo assignments page with new design
   return (
@@ -277,23 +285,25 @@ export default function assignments() {
                   )}{" "}
                   <div className="flex space-x-2 md:space-x-5 items-center md:-ml-2 md:mt-6">
                     {assignment.content && (
-                      <a
-                        href={`${assignment.content}`}
-                        className="flex items-center space-x-2"
-                      >
-                        <img
-                          src="/assets/download.svg"
-                          className="md:w-10"
-                          alt=""
-                        />
-                        <p className="text-highlight font-base font-bold text-xs md:text-lg">
-                          Download Content
-                        </p>
-                      </a>
+                      <>
+                        <a
+                          href={`${assignment.content}`}
+                          className="flex items-center space-x-2"
+                        >
+                          <img
+                            src="/assets/download.svg"
+                            className="md:w-10"
+                            alt=""
+                          />
+                          <p className="text-highlight font-base font-bold text-xs md:text-lg">
+                            Download Content
+                          </p>
+                        </a>
+                      </>
                     )}
-                    {assignment.link && (
+                    {assignment.content && (
                       <a
-                        href={`${assignment.link}`}
+                        href={`${convertToViewLink(assignment.content)}`}
                         className="flex items-center space-x-2"
                       >
                         <img
@@ -302,7 +312,7 @@ export default function assignments() {
                           alt=""
                         />
                         <p className="text-highlight font-base font-bold text-xs md:text-lg">
-                          Visit Classroom
+                          View content
                         </p>
                       </a>
                     )}
@@ -359,21 +369,39 @@ export default function assignments() {
                           ),
                         }}
                       />
-                      {solution.content && (
-                        <a
-                          href={`${solution.content}`}
-                          className="flex items-center space-x-2"
-                        >
-                          <img
-                            src="/assets/download.svg"
-                            className="md:w-10"
-                            alt=""
-                          />
-                          <p className="text-highlight font-base text-xs md:text-lg font-bold">
-                            Download Content
-                          </p>
-                        </a>
-                      )}
+                      <div className="flex items-center space-x-2">
+                        {solution.content && (
+                          <a
+                            href={`${solution.content}`}
+                            className="flex items-center space-x-2"
+                          >
+                            <img
+                              src="/assets/download.svg"
+                              className="md:w-10"
+                              alt=""
+                            />
+                            <p className="text-highlight font-base text-xs md:text-lg font-bold">
+                              Download Content
+                            </p>
+                          </a>
+                        )}
+                        {solution.content && (
+                          <a
+                            target="_blank"
+                            href={`${convertToViewLink(solution.content)}`}
+                            className="flex items-center space-x-2"
+                          >
+                            <img
+                              src="/assets/link.svg"
+                              className="md:w-10"
+                              alt=""
+                            />
+                            <p className="text-highlight font-base text-xs md:text-lg font-bold">
+                              View Content
+                            </p>
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </div>
                 ))}
