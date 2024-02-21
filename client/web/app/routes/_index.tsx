@@ -18,6 +18,7 @@ export const meta: MetaFunction = () => {
     },
     {
       property: "og:image",
+      itemprop: "image",
       content: "https://kaizenklass.me/assets/meta.png",
     },
   ];
