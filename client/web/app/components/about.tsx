@@ -19,11 +19,8 @@ export const About = () => {
               I know that this problem isn't limited to myself and so i want to
               build a platform to combat these issues. i'll also creep in
               features to help out students generally as well as point them to
-              organizations that can help them grow, in my opinion the only
-              reason we do assignments is to get by and get marks. Its a waste
-              of our time and its better invested in protecting our careers via
-              upskilling. Join the Community and make life easier for everyone
-              involved :)
+              organizations that can help them grow. Join the Community and make
+              life easier for everyone involved :)
             </p>
           </div>
           <div className="image md:w-[450px] w-[250px]">
