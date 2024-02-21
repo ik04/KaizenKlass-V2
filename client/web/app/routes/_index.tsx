@@ -5,10 +5,20 @@ import { Landing } from "~/components/landing";
 export const meta: MetaFunction = () => {
   return [
     { title: "KaizenKlass" },
+    { property: "og:title", content: "KaizenKlass" },
     {
       name: "description",
       content:
         "Welcome to KaizenklassWelcome to our collaborative community! Join us in tackling the perpetual challenge of assignments together. Let's foster a supportive environment where individuals come together to share knowledge, insights, and assistance. We understand the stress that accumulates from assignments, and our goal is to create a space where you not only get the help you need but also gain a deeper understanding of your coursework. Break free from the assignment burden and embark on a learning journey with our collaborative community. Join us today to ease your academic stress and enhance your learning experience through shared knowledge and support!",
+    },
+    {
+      property: "og:description",
+      content:
+        "Welcome to KaizenklassWelcome to our collaborative community! Join us in tackling the perpetual challenge of assignments together. Let's foster a supportive environment where individuals come together to share knowledge, insights, and assistance. We understand the stress that accumulates from assignments, and our goal is to create a space where you not only get the help you need but also gain a deeper understanding of your coursework. Break free from the assignment burden and embark on a learning journey with our collaborative community. Join us today to ease your academic stress and enhance your learning experience through shared knowledge and support!",
+    },
+    {
+      property: "og:image",
+      content: "/images?src=/assets/meta.png&w=1200&q=75",
     },
   ];
 };
