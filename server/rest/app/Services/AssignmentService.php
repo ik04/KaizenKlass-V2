@@ -190,6 +190,7 @@ class AssignmentService{
             $currentDateTime = Carbon::now();
             $assignments = Assignment::join("subjects","subjects.id","=","assignments.subject_id")->select("assignments.title", "assignments.deadline", "assignments.assignment_uuid","subjects.subject","subjects.subject_uuid")
                 ->whereNotNull("deadline")->where("deadline",">",$currentDateTime)
+                ->orderBy("deadline","ASC")
                 ->get();
             return $assignments;
         }
