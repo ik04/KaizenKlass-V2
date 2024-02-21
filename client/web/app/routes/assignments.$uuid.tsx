@@ -303,6 +303,7 @@ export default function assignments() {
                     )}
                     {assignment.content && (
                       <a
+                        target="_blank"
                         href={`${convertToViewLink(assignment.content)}`}
                         className="flex items-center space-x-2"
                       >
