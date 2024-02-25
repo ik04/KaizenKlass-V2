@@ -47,6 +47,7 @@ after setting up the .env file run these commands in the server/rest directory:
 ```bash
 composer install
 php artisan migrate
+php artisan db:seed
 php artisan serve
 ```
 with this the dependencies will be install, the tables will be setup and the server will be started.
