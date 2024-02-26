@@ -85,6 +85,7 @@ export const AddAssignmentButton = ({
           description: `${title} has been added to the assignments`,
         });
         handleAddAssignment(resp.data.assignment);
+        resetFields();
       } else {
         toast({
           title: "Required fields",
@@ -143,7 +144,6 @@ export const AddAssignmentButton = ({
     setTime("");
   };
 
-  // todo: add datetime picker
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className="w-full">

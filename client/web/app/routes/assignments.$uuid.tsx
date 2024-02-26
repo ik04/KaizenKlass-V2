@@ -17,14 +17,15 @@ export default function assignments() {
     solutions,
     baseUrl,
     uuid,
+    currentDomain,
   }: {
     storedAssignment: Assignment;
     solutions: Solution[];
     baseUrl: string;
     uuid: string;
+    currentDomain: string;
   } = useLoaderData();
   console.log(storedAssignment);
-  const currentDomain = "https://kaizenklass.me"; // todo: shift to .env
   const { userUuid, hasEditPrivileges, isAuthenticated, role } =
     useContext(GlobalContext);
 
@@ -137,12 +138,14 @@ export default function assignments() {
 
   function convertLinksToAnchors(text: string, currentDomain: string) {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
+    console.log(text);
+    console.log(currentDomain);
 
     return text.replace(urlRegex, function (url) {
       if (url === currentDomain || url.startsWith(currentDomain + "/")) {
-        return ` <a href="${url}" style="color: #3A84CE;">${url}</a>`;
+        return ` <a href="${url}" style="color: #D5CEA3; cursor: pointer;">Visit Assignment</a>`;
       } else {
-        return `<a href="${url}" style="color: #3A84CE;" target="_blank">${url}</a>`;
+        return `<a href="${url}" style="color: #3A84CE; cursor: pointer;" target="_blank">${url}</a>`;
       }
     });
   }
@@ -430,11 +433,11 @@ export const loader = async ({ params }: any) => {
   try {
     const url = `${process.env.PUBLIC_DOMAIN}/api/v1/get-assignment-solutions/${uuid}`;
     const resp = await axios.get(url);
-    // console.log(resp.data);
     const data = {
       solutions: resp.data.solutions,
       storedAssignment: resp.data.assignment,
       baseUrl: process.env.PUBLIC_DOMAIN,
+      currentDomain: process.env.CURRENT_DOMAIN,
       uuid: uuid,
     };
     return data;
