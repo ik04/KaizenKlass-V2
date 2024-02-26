@@ -143,7 +143,7 @@ export default function assignments() {
 
     return text.replace(urlRegex, function (url) {
       if (url === currentDomain || url.startsWith(currentDomain + "/")) {
-        return ` <a href="${url}" style="color: #D5CEA3; cursor: pointer;">Visit Assignment</a>`;
+        return ` <a href="${url}" style="color: #D5CEA3; cursor: pointer; font-weight: bold;">Visit Source -></a>`;
       } else {
         return `<a href="${url}" style="color: #3A84CE; cursor: pointer;" target="_blank">${url}</a>`;
       }
