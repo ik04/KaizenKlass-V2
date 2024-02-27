@@ -11,8 +11,8 @@ import { MetaFunction } from "@remix-run/node";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Subjects" },
-    { property: "og:title", content: "Subjects" },
+    { title: "Subjects | KaizenKlass" },
+    { property: "og:title", content: "Subjects | KaizenKlass" },
     {
       property: "og:site_name",
       content: "Kaizen Klass",
