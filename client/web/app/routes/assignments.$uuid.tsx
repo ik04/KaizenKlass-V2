@@ -449,10 +449,10 @@ export const loader = async ({ params }: any) => {
 export const meta: MetaFunction<typeof loader> = ({ data }: { data: any }) => {
   const { storedAssignment } = data;
   return [
-    { title: `${storedAssignment.title}` },
+    { title: `${storedAssignment.title} | ${storedAssignment.subject}` },
     {
       property: "og:title",
-      content: `${storedAssignment.title}`,
+      content: `${storedAssignment.title} | ${storedAssignment.subject}`,
     },
     {
       name: "description",
