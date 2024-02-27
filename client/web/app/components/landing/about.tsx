@@ -1,5 +1,3 @@
-import { Link } from '@remix-run/react';
-
 export const About = () => {
 	return (
 		<div className='bg-main flex flex-col space-y-9'>
@@ -63,48 +61,6 @@ export const About = () => {
 					</div>
 					<div className='image md:w-[450px] w-[250px]'>
 						<img src='/assets/about-2.jpg' alt='' />
-					</div>
-				</div>
-			</div>
-			<div className='md:h-screen bg-main flex overflow-auto md:justify-center md:items-center'>
-				<div className='about-section md:w-full md:justify-around flex flex-col-reverse md:flex-row items-center p-3 md:p-0 justify-center md:items-center space-y-5'>
-					<div className='purpose flex flex-col md:space-y-10 space-y-4 md:items-start items-center'>
-						<h2 className='font-display text-highlight md:text-[80px] text-3xl'>
-							Drop me a Mail
-						</h2>
-						<p className='font-base text-highlightSecondary md:w-[800px] text-center md:text-start text-sm md:text-2xl'>
-							Feedback is invaluable to me and i hope to improve
-							the experience of using this application while
-							development is ongoing, i’d love to heard your
-							thoughts on the site and if and how its been helping
-							you out.
-						</p>
-
-						<p className='font-base text-highlightSecondary md:w-[800px] text-center md:text-start text-sm md:text-2xl'>
-							if you have any suggesstions regarding what i should
-							implement next feel free to drop them as well, you
-							can also use this to request assignments or request
-							to contribute to the site, i would greatly
-							appreciate your input.
-						</p>
-						<Link
-							to='mailto:kaizenklass5@gmail.com'
-							target='_blank'
-							role='button'
-							className='flex items-center space-x-3 md:space-x-6 md:w-full p-4 md:p-0 md:h-16 h-10 bg-highlightSecondary justify-center rounded-3xl hover:bg-secondary hover:text-highlight transition-all duration-300 ease-in-out focus:bg-secondary focus:text-highlight md:text-3xl text-xl font-base cursor-pointer'
-						>
-							<img
-								src='/assets/email.png'
-								className='md:w-12 w-5'
-								alt=''
-							/>
-							<p className='text-main md:text-3xl text-xl font-base'>
-								Email me now!
-							</p>
-						</Link>
-					</div>
-					<div className='image md:w-[450px] w-[250px]'>
-						<img src='/assets/about-3.jpg' alt='' />
 					</div>
 				</div>
 			</div>
