@@ -10,6 +10,19 @@ import { GlobalContext } from "~/context/GlobalContext";
 import Calendar from "react-calendar";
 import { Skeleton } from "~/components/ui/skeleton";
 import { toast } from "~/components/ui/use-toast";
+import { MetaFunction } from "@remix-run/node";
+
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Assignments | KaizenKlass" },
+    { property: "og:title", content: "Assignments | KaizenKlass" },
+    {
+      property: "og:site_name",
+      content: "Kaizen Klass",
+    },
+    // <meta property="og:site_name" content="Site Name" />
+  ];
+};
 
 export default function assignments() {
   // const { assignments }: { assignments: Assignment[] } = useLoaderData();

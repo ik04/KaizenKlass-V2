@@ -1,4 +1,4 @@
-import { redirect } from "@remix-run/node";
+import { MetaFunction, redirect } from "@remix-run/node";
 import { useLoaderData, useParams } from "@remix-run/react";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
@@ -10,6 +10,24 @@ import { EmptyState } from "~/components/emptyState";
 import { SubjectAssignmentCard } from "~/components/subjectAssignmentCard";
 import { Skeleton } from "~/components/ui/skeleton";
 import { GlobalContext } from "~/context/GlobalContext";
+
+function sanitizeAndCapitalizeSlug(slug: string) {
+  // Convert to lowercase
+  let sanitizedSlug = slug.toLowerCase();
+
+  // Replace dashes with spaces
+  sanitizedSlug = sanitizedSlug.replace(/-/g, " ");
+
+  // Remove special characters
+  sanitizedSlug = sanitizedSlug.replace(/[^\w\s]/g, "");
+
+  // Capitalize each letter
+  sanitizedSlug = sanitizedSlug.replace(/\b\w/g, (letter) =>
+    letter.toUpperCase()
+  );
+
+  return sanitizedSlug;
+}
 
 export default function subject() {
   const {
@@ -115,4 +133,19 @@ export const loader = async ({ params }: any) => {
     uuid: uuid,
   };
   return data;
+};
+
+export const meta: MetaFunction<typeof loader> = ({ data }: { data: any }) => {
+  const { uuid } = data;
+  return [
+    { title: `${sanitizeAndCapitalizeSlug(uuid)}` },
+    {
+      property: "og:title",
+      content: `${sanitizeAndCapitalizeSlug(uuid)}`,
+    },
+    {
+      property: "og:site_name",
+      content: "Kaizen Klass",
+    },
+  ];
 };

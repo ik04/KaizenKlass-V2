@@ -458,5 +458,9 @@ export const meta: MetaFunction<typeof loader> = ({ data }: { data: any }) => {
       name: "description",
       content: `${storedAssignment.description}`,
     },
+    {
+      property: "og:site_name",
+      content: "Kaizen Klass",
+    },
   ];
 };
