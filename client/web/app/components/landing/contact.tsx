@@ -4,17 +4,17 @@ const Contact = () => {
 	return (
 		<section className='w-full bg-main flex flex-col md:flex-row items-center p-4 md:p-16'>
 			<div className='max-w-7xl 2xl:max-w-screen-2xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-8'>
-				<section className='flex flex-col md:gap-10 gap-4 md:items-start items-center'>
-					<h2 className='font-display text-highlight md:text-[80px] text-3xl'>
+				<section className='flex flex-col md:gap-10 gap-4'>
+					<h2 className='font-display text-highlight md:text-7xl text-3xl text-center md:text-left'>
 						Drop me a Mail
 					</h2>
-					<p className='font-base text-highlightSecondary text-center md:text-start text-sm md:text-2xl'>
+					<p className='font-base text-highlightSecondary text-sm md:text-2xl'>
 						Feedback is invaluable to me and i hope to improve the
 						experience of using this application while development
 						is ongoing, i'd love to heard your thoughts on the site
 						and if and how its been helping you out.
 					</p>
-					<p className='font-base text-highlightSecondary text-center md:text-start text-sm md:text-2xl'>
+					<p className='font-base text-highlightSecondary text-sm md:text-2xl'>
 						if you have any suggesstions regarding what i should
 						implement next feel free to drop them as well, you can
 						also use this to request assignments or request to
