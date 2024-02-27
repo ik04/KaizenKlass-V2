@@ -10,7 +10,7 @@ export const Landing = () => {
 				<p className='text-highlightSecondary font-base text-center text-base md:text-4xl'>
 					Learn, Grow and Overcome Assignments
 				</p>
-				<div className='buttons flex md:space-x-5 space-x-3 md:mt-10 mt-5'>
+				<div className='buttons grid grid-cols-2 gap-5 md:mt-10 mt-5'>
 					<Link
 						to={'/contribute'}
 						role='button'
