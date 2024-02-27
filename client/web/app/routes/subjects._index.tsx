@@ -7,6 +7,19 @@ import { SubjectCard } from "~/components/subjectCard";
 import { Input } from "~/components/ui/input";
 import { Skeleton } from "~/components/ui/skeleton";
 import Fuse from "fuse.js";
+import { MetaFunction } from "@remix-run/node";
+
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Subjects" },
+    { property: "og:title", content: "Subjects" },
+    {
+      property: "og:site_name",
+      content: "Kaizen Klass",
+    },
+    // <meta property="og:site_name" content="Site Name" />
+  ];
+};
 
 export default function Subjects() {
   const { baseUrl }: { baseUrl: string } = useLoaderData();

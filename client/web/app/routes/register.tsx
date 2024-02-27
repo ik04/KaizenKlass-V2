@@ -1,3 +1,4 @@
+import { MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import axios from "axios";
 import React, { FormEvent } from "react";
@@ -11,6 +12,18 @@ interface UserRegister {
   email: string;
   password: string;
 }
+
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Register | KaizenKlass" },
+    { property: "og:title", content: "Register | KaizenKlass" },
+    {
+      property: "og:site_name",
+      content: "Kaizen Klass",
+    },
+    // <meta property="og:site_name" content="Site Name" />
+  ];
+};
 
 export default function register() {
   const { baseUrl }: { baseUrl: string } = useLoaderData();

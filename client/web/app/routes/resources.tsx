@@ -1,8 +1,21 @@
+import { MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import axios from "axios";
 import React from "react";
 import { Dashboard } from "~/components/dashboard";
 import { ResourceCard } from "~/components/resourceCard";
+
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Resources | KaizenKlass" },
+    { property: "og:title", content: "Resources | KaizenKlass" },
+    {
+      property: "og:site_name",
+      content: "Kaizen Klass",
+    },
+    // <meta property="og:site_name" content="Site Name" />
+  ];
+};
 
 export default function resources() {
   const { baseUrl, resources }: { baseUrl: string; resources: Resource[] } =

@@ -445,3 +445,22 @@ export const loader = async ({ params }: any) => {
     return redirect("/not-found");
   }
 };
+
+export const meta: MetaFunction<typeof loader> = ({ data }: { data: any }) => {
+  const { storedAssignment } = data;
+  return [
+    { title: `${storedAssignment.title}` },
+    {
+      property: "og:title",
+      content: `${storedAssignment.title}`,
+    },
+    {
+      name: "description",
+      content: `${storedAssignment.description}`,
+    },
+    {
+      property: "og:site_name",
+      content: "Kaizen Klass",
+    },
+  ];
+};

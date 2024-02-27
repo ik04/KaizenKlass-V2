@@ -1,7 +1,20 @@
+import { MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import React from "react";
 import { BackButton } from "~/components/backButton";
 import { Dashboard } from "~/components/dashboard";
+
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Not Found | KaizenKlass" },
+    { property: "og:title", content: "Not Found | KaizenKlass" },
+    {
+      property: "og:site_name",
+      content: "Kaizen Klass",
+    },
+    // <meta property="og:site_name" content="Site Name" />
+  ];
+};
 
 export default function notFound() {
   const { baseUrl }: { baseUrl: string } = useLoaderData();
