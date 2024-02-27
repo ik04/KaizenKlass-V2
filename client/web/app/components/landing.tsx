@@ -14,14 +14,14 @@ export const Landing = () => {
 					<Link
 						to={'/contribute'}
 						role='button'
-						className='cursor-pointer border border-highlight text-highlight md:w-[280px] text-base w-[120px] md:text-3xl h-[40px] md:h-[75px] justify-center items-center flex rounded-full font-base hover:bg-highlight hover:text-primary transition-all duration-300 ease-in-out'
+						className='cursor-pointer border border-highlight text-highlight md:w-[280px] text-base w-[120px] md:text-3xl h-[40px] md:h-[75px] justify-center items-center flex rounded-full font-base hover:bg-highlight hover:text-primary transition-all duration-300 ease-in-out focus:bg-highlight focus:text-primary'
 					>
 						Contribute
 					</Link>
 					<Link
 						to={'/subjects'}
 						role='button'
-						className='cursor-pointer border border-highlight bg-highlight text-primary md:w-[280px] text-base w-[120px] md:text-3xl h-[40px] md:h-[75px] justify-center items-center flex rounded-full font-base hover:bg-primary hover:text-highlight transition-all duration-300 ease-in-out'
+						className='cursor-pointer border border-highlight bg-highlight text-primary md:w-[280px] text-base w-[120px] md:text-3xl h-[40px] md:h-[75px] justify-center items-center flex rounded-full font-base hover:bg-primary hover:text-highlight transition-all duration-300 ease-in-out focus:bg-primary focus:text-highlight'
 					>
 						Check it out
 					</Link>
