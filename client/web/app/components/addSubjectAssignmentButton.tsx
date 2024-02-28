@@ -29,31 +29,57 @@ export const AddSubjectAssignmentButton = ({
 }) => {
   const [title, setTitle] = useState<string>();
   const [description, setDescription] = useState<string>();
-  const [link, setLink] = useState<string>();
   const [content, setContent] = useState<string>();
   const [date, setDate] = useState<Date | null>(null);
   const [open, setOpen] = useState<boolean>(false);
+  const [isDatePicked, setIsDatePicked] = useState<boolean>(false);
+  const [time, setTime] = useState("");
 
   const navigate = useNavigate();
   const { toast } = useToast();
 
   const addAssignment = async () => {
     try {
-      const resp = await axios.post(`${baseUrl}/api/v1/add-assignment`, {
-        title,
-        content,
-        link,
-        description,
-        subject_uuid: subjectUuid,
-        deadline: date && format(date, "yyyy-MM-dd"),
-      });
-      console.log(resp.data);
-      toast({
-        title: "Assignment Added!",
-        description: `${title} has been added to the assignments`,
-      });
-      handleAddAssignment(resp.data.assignment);
-      setOpen(false);
+      if (subjectUuid && title) {
+        if (date && !time) {
+          toast({
+            title: "Required fields",
+            variant: "destructive",
+            description: `Add both date and time are required for deadline`,
+          });
+          return;
+        }
+        let combinedDeadline = null;
+        if (time && date) {
+          // Combine date and time
+          const deadlineDateTime = new Date(date);
+          const [hours, minutes] = time.split(":");
+          deadlineDateTime.setHours(parseInt(hours, 10));
+          deadlineDateTime.setMinutes(parseInt(minutes, 10));
+          deadlineDateTime.setSeconds(0); // Ensure seconds are set to 0
+          combinedDeadline = format(deadlineDateTime, "yyyy-MM-dd HH:mm:ss");
+          console.log(combinedDeadline);
+        }
+        const resp = await axios.post(`${baseUrl}/api/v1/add-assignment`, {
+          title,
+          content,
+          description,
+          subject_uuid: subjectUuid,
+          deadline: combinedDeadline,
+        });
+        toast({
+          title: "Assignment Added!",
+          description: `${title} has been added to the assignments`,
+        });
+        handleAddAssignment(resp.data.assignment);
+        resetFields();
+      } else {
+        toast({
+          title: "Required fields",
+          variant: "destructive",
+          description: `Add both title and subject`,
+        });
+      }
     } catch (error: any) {
       console.log(error.response);
 
@@ -84,11 +110,22 @@ export const AddSubjectAssignmentButton = ({
     }
   };
 
+  const resetFields = () => {
+    setTitle("");
+    setDescription("");
+    setContent("");
+    setDate(null);
+    setIsDatePicked(false);
+    setTime("");
+  };
+
   const handleDateChange = (value: Value) => {
     if (value instanceof Date) {
       setDate(value);
+      setIsDatePicked(true);
     } else if (Array.isArray(value) && value[0] instanceof Date) {
       setDate(value[0]);
+      setIsDatePicked(true);
     }
   };
 
@@ -118,7 +155,31 @@ export const AddSubjectAssignmentButton = ({
           <div className="bg-highlightSecondary rounded-md p-5 flex space-y-7 flex-col">
             <Calendar onChange={handleDateChange} value={date} />
             {date && <p>Selected date: {format(date, "yyyy-MM-dd")}</p>}
-          </div>{" "}
+          </div>
+          <div className="">
+            <Label>Time</Label>
+            {isDatePicked ? (
+              <>
+                <Input
+                  type="time"
+                  onChange={(e) => {
+                    setTime(e.target.value);
+                  }}
+                />
+              </>
+            ) : (
+              <>
+                {" "}
+                <Input
+                  disabled
+                  type="time"
+                  onChange={(e) => {
+                    setTime(e.target.value);
+                  }}
+                />
+              </>
+            )}
+          </div>
           <Label>Content</Label>
           <Input
             placeholder="Drive link of assignment (a share link of the pdf)"
