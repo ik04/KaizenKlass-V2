@@ -5,15 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Subject extends Model
+class TestResource extends Model
 {
     use HasFactory;
     protected $fillable = [
-        "subject",
-        "subject_uuid"
+        "content",
+        "test_resource_uuid",
+        "test_id",
+        "description",
+        "user_id"
     ];
-    public function assignments()
-    {
-        return $this->hasMany(Assignment::class);
-    }
 }

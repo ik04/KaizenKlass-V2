@@ -8,10 +8,13 @@ use Ramsey\Uuid\Uuid;
 
 class SubjectService{
     public function getSubjectId($subjectUuid){
-        if(!$actualSubjectId = Subject::select("id")->where("subject_uuid",$subjectUuid)->first()->id){
-            throw new InvalidSlugException(message:"Invalid Subject Slug", code:400);
+        $subject = Subject::select("id")->where("subject_uuid", $subjectUuid)->first();
+    
+        if (!$subject) {
+            throw new InvalidSlugException("Invalid Subject Slug", 400);
         }
-        return $actualSubjectId;
+    
+        return $subject->id;
     }
     public function getSubjectName($subjectUuid){
         if(!$subject = Subject::select("subject")->where("subject_uuid",$subjectUuid)->first()->subject){
@@ -36,7 +39,7 @@ class SubjectService{
 
                     return $subjects;
     }
-    public function deleteSubject(Uuid $subjectUuid){
+    public function deleteSubject($subjectUuid){
         if (!Subject::where('subject_uuid', $subjectUuid)->exists()) {
             return response()->json(["error" => "Subject not found"], 404);
         }
@@ -46,5 +49,11 @@ class SubjectService{
     public function getSubjectDetails($subjectId){
         $subjectDetails = Subject::select("subject","subject_uuid")->where("id",$subjectId)->first();
         return $subjectDetails;
+    }
+    public function searchSubjects($query){
+        $results = Subject::select("subject","subject_uuid")->where('subject', 'LIKE', '%' . $query . '%')
+        ->orWhere('subject_uuid', 'LIKE', '%' . $query . '%')
+        ->get();
+        return $results;
     }
 }

@@ -90,6 +90,7 @@ class UserController extends Controller
             'name' => $user->name,
             'uuid' => $user->user_uuid,
             'role' => $user->role,
+            'is_first_login' => $user->is_first_login,
             'access_token' => $request -> cookie('at'),
         ],200);
     }
