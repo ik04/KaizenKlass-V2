@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Dialog, DialogContent, DialogTrigger } from "~/components/ui/dialog";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogTrigger,
+} from "~/components/ui/dialog";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
@@ -16,7 +21,13 @@ type ValuePiece = Date | null;
 
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
-export const AddAssignmentButton = ({ baseUrl }: { baseUrl: string }) => {
+export const AddAssignmentButton = ({
+  baseUrl,
+  handleAddAssignment,
+}: {
+  baseUrl: string;
+  handleAddAssignment: (assignment: Assignment) => void;
+}) => {
   const { toast } = useToast();
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [subject, setSubject] = useState<string>();
@@ -25,13 +36,15 @@ export const AddAssignmentButton = ({ baseUrl }: { baseUrl: string }) => {
   const [link, setLink] = useState<string>();
   const [content, setContent] = useState<string>();
   const [date, setDate] = useState<Date | null>(null);
+  const [isDatePicked, setIsDatePicked] = useState<boolean>(false);
+  const [time, setTime] = useState("");
+  const [open, setOpen] = useState<boolean>(false);
 
   const getSubjects = async () => {
     const url = `${baseUrl}/api/v1/get-subjects`;
     const resp = await axios.get(url);
     setSubjects(resp.data.subjects);
   };
-  const navigate = useNavigate();
 
   useEffect(() => {
     getSubjects();
@@ -40,20 +53,39 @@ export const AddAssignmentButton = ({ baseUrl }: { baseUrl: string }) => {
   const addAssignment = async () => {
     try {
       if (subject && title) {
+        if (date && !time) {
+          toast({
+            title: "Required fields",
+            variant: "destructive",
+            description: `Add both date and time are required for deadline`,
+          });
+          return;
+        }
+        let combinedDeadline = null;
+        if (time && date) {
+          // Combine date and time
+          const deadlineDateTime = new Date(date);
+          const [hours, minutes] = time.split(":");
+          deadlineDateTime.setHours(parseInt(hours, 10));
+          deadlineDateTime.setMinutes(parseInt(minutes, 10));
+          deadlineDateTime.setSeconds(0); // Ensure seconds are set to 0
+          combinedDeadline = format(deadlineDateTime, "yyyy-MM-dd HH:mm:ss");
+          console.log(combinedDeadline);
+        }
         const resp = await axios.post(`${baseUrl}/api/v1/add-assignment`, {
           title,
           content,
           link,
           description,
           subject_uuid: subject,
-          deadline: date && format(date, "yyyy-MM-dd"),
+          deadline: combinedDeadline,
         });
         toast({
           title: "Assignment Added!",
           description: `${title} has been added to the assignments`,
         });
-        navigate(`/assignments/${resp.data.assignment.assignment_uuid}`);
-        location.reload();
+        handleAddAssignment(resp.data.assignment);
+        resetFields();
       } else {
         toast({
           title: "Required fields",
@@ -94,8 +126,10 @@ export const AddAssignmentButton = ({ baseUrl }: { baseUrl: string }) => {
   const handleDateChange = (value: Value) => {
     if (value instanceof Date) {
       setDate(value);
+      setIsDatePicked(true);
     } else if (Array.isArray(value) && value[0] instanceof Date) {
       setDate(value[0]);
+      setIsDatePicked(true);
     }
   };
 
@@ -106,11 +140,12 @@ export const AddAssignmentButton = ({ baseUrl }: { baseUrl: string }) => {
     setLink("");
     setContent("");
     setDate(null);
+    setIsDatePicked(false);
+    setTime("");
   };
 
-  // todo: add datetime picker
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className="w-full">
         <div className="h-32 flex rounded-2xl flex-col items-start justify-center border-dashed border-2 hover:border-highlight border-mainLighter duration-200 transition-all space-y-3 px-5">
           <p className="font-base text-highlightSecondary text-3xl">
@@ -119,7 +154,7 @@ export const AddAssignmentButton = ({ baseUrl }: { baseUrl: string }) => {
         </div>
       </DialogTrigger>
       <DialogContent>
-        <div className="font-base">
+        <div className="font-base flex flex-col space-y-1 md:block">
           <div className="flex flex-col">
             <Label>Subject</Label>
             <select
@@ -140,21 +175,6 @@ export const AddAssignmentButton = ({ baseUrl }: { baseUrl: string }) => {
               ))}
             </select>
           </div>
-          {/* <Select required onValueChange={(value) => setSubject(value)}>
-            <SelectTrigger className="">
-              <SelectValue placeholder="Select Subject" />
-            </SelectTrigger>
-            <SelectContent>
-              {subjects.map((subject) => (
-                <SelectItem
-                  className="cursor-pointer"
-                  value={subject.subject_uuid}
-                >
-                  <p className="text-black">{subject.subject.toString()}</p>
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select> */}
           <Label>Title</Label>
           <Input
             value={title}
@@ -168,18 +188,43 @@ export const AddAssignmentButton = ({ baseUrl }: { baseUrl: string }) => {
             placeholder="description (optional)"
             onChange={(e) => setDescription(e.target.value)}
           />
-          <Label>Deadline</Label>
-          <div className="bg-highlightSecondary rounded-md p-5 flex space-y-7 flex-col">
-            <Calendar onChange={handleDateChange} value={date} />
-            {date && <p>Selected date: {format(date, "yyyy-MM-dd")}</p>}
+          <div className="flex flex-col space-y-1">
+            <div className="">
+              <Label>Deadline</Label>
+              <div className="bg-highlightSecondary rounded-md p-5 flex space-y-7 flex-col">
+                <Calendar onChange={handleDateChange} value={date} />
+                {date && (
+                  <p className="text-sm">
+                    Selected date: {format(date, "yyyy-MM-dd")}
+                  </p>
+                )}
+              </div>
+            </div>
+            <div className="">
+              <Label>Time</Label>
+              {isDatePicked ? (
+                <>
+                  <Input
+                    type="time"
+                    onChange={(e) => {
+                      setTime(e.target.value);
+                    }}
+                  />
+                </>
+              ) : (
+                <>
+                  {" "}
+                  <Input
+                    disabled
+                    type="time"
+                    onChange={(e) => {
+                      setTime(e.target.value);
+                    }}
+                  />
+                </>
+              )}
+            </div>
           </div>
-          {/* get the right component */}
-          <Label>Link</Label>
-          <Input
-            placeholder="Link to classroom"
-            value={link}
-            onChange={(e) => setLink(e.target.value)}
-          />
           <Label>Content</Label>
           <Input
             value={content}
@@ -190,16 +235,18 @@ export const AddAssignmentButton = ({ baseUrl }: { baseUrl: string }) => {
         <div className="flex space-x-4 items-center">
           <div
             onClick={resetFields}
-            className="hover:text-dashboard text-highlightSecondary border border-highlightSecondary duration-150 cursor-pointer hover:bg-highlightSecondary w-[15%] justify-center items-center flex p-1 font-base"
+            className="hover:text-dashboard text-highlightSecondary text-xs md:text-base border border-highlightSecondary duration-150 cursor-pointer hover:bg-highlightSecondary w-[15%] justify-center items-center flex p-1 font-base"
           >
             Reset
           </div>
-          <div
-            onClick={addAssignment}
-            className="hover:text-dashboard text-highlightSecondary border border-highlightSecondary duration-150 cursor-pointer hover:bg-highlightSecondary w-[15%] justify-center items-center flex p-1 font-base"
-          >
-            Submit
-          </div>
+          <DialogClose>
+            <div
+              onClick={addAssignment}
+              className="hover:text-dashboard w-full text-highlightSecondary text-xs md:text-base border border-highlightSecondary duration-150 cursor-pointer hover:bg-highlightSecondary  justify-center items-center flex p-1 font-base"
+            >
+              Submit
+            </div>
+          </DialogClose>
         </div>
       </DialogContent>
     </Dialog>

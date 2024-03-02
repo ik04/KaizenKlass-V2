@@ -1,23 +1,49 @@
-import type { MetaFunction } from "@remix-run/node";
-import { About } from "~/components/about";
-import { Landing } from "~/components/landing";
+import type { MetaFunction } from '@remix-run/node';
+import { About } from '~/components/landing/about';
+import Contact from '~/components/landing/contact';
+import { Landing } from '~/components/landing/landing';
 
 export const meta: MetaFunction = () => {
-  return [
-    { title: "KaizenKlass" },
-    {
-      name: "description",
-      content:
-        "Welcome to KaizenklassWelcome to our collaborative community! Join us in tackling the perpetual challenge of assignments together. Let's foster a supportive environment where individuals come together to share knowledge, insights, and assistance. We understand the stress that accumulates from assignments, and our goal is to create a space where you not only get the help you need but also gain a deeper understanding of your coursework. Break free from the assignment burden and embark on a learning journey with our collaborative community. Join us today to ease your academic stress and enhance your learning experience through shared knowledge and support!",
-    },
-  ];
+	return [
+		{ title: 'KaizenKlass' },
+		{ property: 'og:title', content: 'KaizenKlass' },
+		{
+			name: 'description',
+			content:
+				'a community of people who are willing to collaborate and help each other out with the ever pressing issue of assignments',
+		},
+		{
+			property: 'og:description',
+			content:
+				'a community of people who are willing to collaborate and help each other out with the ever pressing issue of assignments',
+		},
+		{
+			property: 'og:image',
+			itemprop: 'image',
+			content: 'https://kaizenklass.me/assets/meta.png',
+		},
+		{
+			property: 'og:image:width',
+			content: '526',
+		},
+		{
+			property: 'og:image:height',
+			content: '275',
+		},
+		{
+			property: 'og:site_name',
+			content: 'Kaizen Klass',
+		},
+		// <meta property="og:site_name" content="Site Name" />
+	];
 };
 
 export default function Index() {
-  return (
-    <div className="">
-      <Landing />
-      <About />
-    </div>
-  );
+	return (
+		<main className='w-full min-h-screen'>
+			<Landing />
+			<About />
+			<Contact />
+		</main>
+	);
 }

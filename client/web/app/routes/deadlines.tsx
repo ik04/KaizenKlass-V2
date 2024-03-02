@@ -1,3 +1,4 @@
+import { MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -6,6 +7,18 @@ import { Dashboard } from "~/components/dashboard";
 import { DeadlineCard } from "~/components/deadlineCard";
 import { EmptyState } from "~/components/emptyState";
 import { toast } from "~/components/ui/use-toast";
+
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Deadlines | KaizenKlass" },
+    { property: "og:title", content: "Deadlines | KaizenKlass" },
+    {
+      property: "og:site_name",
+      content: "Kaizen Klass",
+    },
+    // <meta property="og:site_name" content="Site Name" />
+  ];
+};
 
 export default function deadlines() {
   const {
@@ -43,6 +56,8 @@ export default function deadlines() {
           <div className="flex flex-col space-y-7 mb-20">
             {assignments.map((assignment) => (
               <DeadlineCard
+                subject_uuid={assignment.subject_uuid}
+                subject={assignment.subject}
                 assignment_uuid={assignment.assignment_uuid}
                 title={assignment.title}
                 deadline={assignment.deadline}

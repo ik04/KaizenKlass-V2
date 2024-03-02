@@ -18,11 +18,11 @@ class AddAssignmentRequest extends FormRequest
                 "string",
                 "nullable",
                 "regex:/^(https?|ftp):\/\/[^\s\/$?#].[^\s]*$/",],
-                "deadline" =>"nullable|date_format:Y-m-d|after_or_equal:today",
+                "deadline" =>"nullable|date_format:Y-m-d H:i:s",
             "content" => [
                 "string",
                 "nullable",
-                "regex:#https://(?:docs\.google\.com/(?:document|presentation)/d/|drive\.google\.com/file/d/)([a-zA-Z0-9_-]+)/(?:edit|view)?\S*#"
+                "regex:#https://(?:docs\.google\.com/(?:document|presentation)/d/|drive\.google\.com/file/d/)([a-zA-Z0-9_-]+)/(?:edit|view|usp=drivesdk)?\S*#"            
             ],        
         ];
     }

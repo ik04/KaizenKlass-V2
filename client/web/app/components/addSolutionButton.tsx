@@ -5,17 +5,22 @@ import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import axios from "axios";
 import { useToast } from "./ui/use-toast";
+import { DialogClose } from "@radix-ui/react-dialog";
 
 export const AddSolutionButton = ({
   baseUrl,
   assignmentUuid,
+  handleSolutionAddition,
 }: {
   baseUrl: string;
   assignmentUuid: string;
+  handleSolutionAddition: (solution: Solution) => void;
 }) => {
   const { toast } = useToast();
   const [description, setDescription] = useState<string>();
   const [content, setContent] = useState<string>();
+  const [open, setOpen] = useState<boolean>(false);
+
   const addSolution = async () => {
     try {
       if (description) {
@@ -24,11 +29,16 @@ export const AddSolutionButton = ({
           description,
           assignment_uuid: assignmentUuid,
         });
-        // console.log(resp);
         toast({
           title: "Solution Added!",
         });
-        location.reload();
+        handleSolutionAddition(resp.data.solution);
+      } else {
+        toast({
+          title: "Invalid Fields Inputs",
+          description: "description is required",
+          variant: "destructive",
+        });
       }
     } catch (error: any) {
       console.log(error.response);
@@ -61,7 +71,7 @@ export const AddSolutionButton = ({
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className="w-full">
         <div className="h-32 flex rounded-2xl flex-col items-start justify-center border-dashed border-2 hover:border-highlight border-mainLighter duration-200 transition-all space-y-3 px-5">
           <p className="font-base text-highlightSecondary text-3xl">
@@ -84,12 +94,14 @@ export const AddSolutionButton = ({
             required
           />
         </div>
-        <div
-          onClick={addSolution}
-          className="hover:text-dashboard text-highlightSecondary border border-highlightSecondary duration-150 cursor-pointer hover:bg-highlightSecondary w-[15%] justify-center items-center flex p-1 font-base"
-        >
-          Submit
-        </div>
+        <DialogClose>
+          <div
+            onClick={addSolution}
+            className="hover:text-dashboard text-xs md:text-base text-highlightSecondary border border-highlightSecondary duration-150 cursor-pointer hover:bg-highlightSecondary w-[15%] justify-center items-center flex p-1 font-base"
+          >
+            Submit
+          </div>
+        </DialogClose>
       </DialogContent>
     </Dialog>
   );

@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('assignments', function (Blueprint $table) {
-            $table->dateTime("deadline")->nullable()->change();
+            $table->dropColumn("link");
         });
     }
 
@@ -21,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('assignments', function (Blueprint $table) {
-            $table->dateTime("deadline")->nullable(false)->change(); // Revert the column to not nullable
+            //
         });
     }
 };

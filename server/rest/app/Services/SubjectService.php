@@ -16,7 +16,13 @@ class SubjectService{
     
         return $subject->id;
     }
-    
+    public function getSubjectName($subjectUuid){
+        if(!$subject = Subject::select("subject")->where("subject_uuid",$subjectUuid)->first()->subject){
+            throw new InvalidSlugException(message:"Invalid Subject Slug", code:400);
+        }
+        return $subject;
+    }
+
 
     public function addSubject(string $subject){
         $subject = Subject::create([
@@ -26,8 +32,12 @@ class SubjectService{
         return $subject;
     }
     public function getSubjects(){
-        $subjects = Subject::select("subject","subject_uuid")->orderBy('created_at',"DESC")->get();
-        return $subjects;
+        $subjects = Subject::select("subject", "subject_uuid")
+                    ->withCount('assignments') 
+                    ->orderByDesc('assignments_count') 
+                    ->get();
+
+                    return $subjects;
     }
     public function deleteSubject($subjectUuid){
         if (!Subject::where('subject_uuid', $subjectUuid)->exists()) {

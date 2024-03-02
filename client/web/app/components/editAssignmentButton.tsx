@@ -6,7 +6,7 @@ import { Textarea } from "./ui/textarea";
 import axios from "axios";
 import { useToast } from "./ui/use-toast";
 import Calendar from "react-calendar";
-import { format } from "date-fns";
+import { format, set } from "date-fns";
 
 type ValuePiece = Date | null;
 
@@ -19,6 +19,7 @@ export const EditAssignmentButton = ({
   originalTitle,
   originalDescription,
   originalLink,
+  handleEditAssignment,
 }: {
   baseUrl: string;
   assignmentUuid: string;
@@ -26,6 +27,7 @@ export const EditAssignmentButton = ({
   originalTitle: string;
   originalDescription?: string;
   originalLink: string;
+  handleEditAssignment: (assignment: Assignment) => void;
 }) => {
   const { toast } = useToast();
   const [subjects, setSubjects] = useState<Subject[]>([]);
@@ -34,9 +36,11 @@ export const EditAssignmentButton = ({
   const [description, setDescription] = useState<string>(
     originalDescription ?? ""
   );
-  const [link, setLink] = useState<string>(originalLink);
   const [content, setContent] = useState<string>();
   const [date, setDate] = useState<Date | null>(null);
+  const [open, setOpen] = useState<boolean>(false);
+  const [isDatePicked, setIsDatePicked] = useState<boolean>(false);
+  const [time, setTime] = useState("");
 
   const getSubjects = async () => {
     const url = `${baseUrl}/api/v1/get-subjects`;
@@ -49,22 +53,43 @@ export const EditAssignmentButton = ({
   }, []);
   const editAssignment = async () => {
     try {
+      if (date && !time) {
+        toast({
+          title: "Required fields",
+          variant: "destructive",
+          description: `Add both date and time are required for deadline`,
+        });
+        return;
+      }
+      let combinedDeadline = null;
+      if (time && date) {
+        // Combine date and time
+        const deadlineDateTime = new Date(date);
+        const [hours, minutes] = time.split(":");
+        deadlineDateTime.setHours(parseInt(hours, 10));
+        deadlineDateTime.setMinutes(parseInt(minutes, 10));
+        deadlineDateTime.setSeconds(0); // Ensure seconds are set to 0
+        combinedDeadline = format(deadlineDateTime, "yyyy-MM-dd HH:mm:ss");
+        console.log(combinedDeadline);
+      }
       const resp = await axios.put(
         `${baseUrl}/api/v1/edit-assignment/${assignmentUuid}`,
         {
           title,
           content,
-          link,
           description,
           subject_uuid: subject,
-          deadline: date && format(date, "yyyy-MM-dd"),
+          deadline: combinedDeadline,
         }
       );
       // console.log(resp);
       toast({
         title: "Assignment Updated!",
       });
-      location.reload();
+      handleEditAssignment(resp.data.assignment);
+      setOpen(false);
+      resetFields();
+      // location.reload();
     } catch (error: any) {
       console.log(error.response);
 
@@ -97,14 +122,24 @@ export const EditAssignmentButton = ({
   const handleDateChange = (value: Value) => {
     if (value instanceof Date) {
       setDate(value);
+      setIsDatePicked(true);
     } else if (Array.isArray(value) && value[0] instanceof Date) {
       setDate(value[0]);
+      setIsDatePicked(true);
     }
+  };
+  const resetFields = () => {
+    setTitle("");
+    setDescription("");
+    setContent("");
+    setDate(null);
+    setIsDatePicked(false);
+    setTime("");
   };
 
   // todo: add datetime picker
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className="">
         <img src="/assets/pencil.png" className="w-7" alt="" />
       </DialogTrigger>
@@ -145,14 +180,32 @@ export const EditAssignmentButton = ({
           <div className="bg-highlightSecondary rounded-md p-5 flex space-y-7 flex-col">
             <Calendar onChange={handleDateChange} value={date} />
             {date && <p>Selected date: {format(date, "yyyy-MM-dd")}</p>}
-          </div>{" "}
+          </div>
+          <div className="">
+            <Label>Time</Label>
+            {isDatePicked ? (
+              <>
+                <Input
+                  type="time"
+                  onChange={(e) => {
+                    setTime(e.target.value);
+                  }}
+                />
+              </>
+            ) : (
+              <>
+                {" "}
+                <Input
+                  disabled
+                  type="time"
+                  onChange={(e) => {
+                    setTime(e.target.value);
+                  }}
+                />
+              </>
+            )}
+          </div>
           {/* get the right component */}
-          <Label>Link</Label>
-          <Input
-            value={link}
-            placeholder="New Link to classroom"
-            onChange={(e) => setLink(e.target.value)}
-          />
           <Label>Content</Label>
           <Input
             placeholder="Add new content link"
@@ -161,7 +214,7 @@ export const EditAssignmentButton = ({
         </div>
         <div
           onClick={editAssignment}
-          className="hover:text-dashboard text-highlightSecondary border border-highlightSecondary duration-150 cursor-pointer hover:bg-highlightSecondary w-[15%] justify-center items-center flex p-1 font-base"
+          className="hover:text-dashboard text-xs md:text-base text-highlightSecondary border border-highlightSecondary duration-150 cursor-pointer hover:bg-highlightSecondary w-[15%] justify-center items-center flex p-1 font-base"
         >
           Update
         </div>

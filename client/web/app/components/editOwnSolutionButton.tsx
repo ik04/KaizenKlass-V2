@@ -10,14 +10,18 @@ export const EditOwnSolutionButton = ({
   baseUrl,
   originalDescription,
   solutionUuid,
+  handleEditSolution,
 }: {
   baseUrl: string;
   originalDescription: string;
   solutionUuid: string;
+  handleEditSolution: (updatedSolution: Solution) => void;
 }) => {
   const { toast } = useToast();
   const [description, setDescription] = useState<string>(originalDescription);
   const [content, setContent] = useState<string>();
+  const [open, setOpen] = useState<boolean>(false);
+
   const editSolution = async () => {
     try {
       const resp = await axios.put(
@@ -32,7 +36,9 @@ export const EditOwnSolutionButton = ({
         title: "solution Updated!",
         description: "solution has been updated",
       });
-      location.reload();
+      // location.reload();
+      handleEditSolution(resp.data.solution);
+      setOpen(false);
     } catch (error: any) {
       console.log(error.response);
 
@@ -48,7 +54,6 @@ export const EditOwnSolutionButton = ({
               errorMessages += `${key}: ${value.join(", ")}\n`;
             }
           }
-
           toast({
             title: "Invalid Fields Inputs",
             description: errorMessages.trim(),
@@ -63,7 +68,7 @@ export const EditOwnSolutionButton = ({
     }
   };
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className="">
         <img src="/assets/pencil.png" className="md:w-7 w-5 mb-2" alt="" />
       </DialogTrigger>
@@ -85,7 +90,7 @@ export const EditOwnSolutionButton = ({
         </div>
         <div
           onClick={editSolution}
-          className="hover:text-dashboard text-highlightSecondary border border-highlightSecondary duration-150 cursor-pointer hover:bg-highlightSecondary w-[15%] justify-center items-center flex p-1 font-base"
+          className="hover:text-dashboard text-xs md:text-base text-highlightSecondary border border-highlightSecondary duration-150 cursor-pointer hover:bg-highlightSecondary w-[15%] justify-center items-center flex p-1 font-base"
         >
           Submit
         </div>

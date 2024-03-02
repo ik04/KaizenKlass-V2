@@ -18,6 +18,7 @@ export const EditSolutionButton = ({
   const { toast } = useToast();
   const [description, setDescription] = useState<string>(originalDescription);
   const [content, setContent] = useState<string>();
+  const [open, setOpen] = useState<boolean>(false);
 
   const editSolution = async () => {
     try {
@@ -34,6 +35,7 @@ export const EditSolutionButton = ({
         description: "solution has been updated",
       });
       location.reload();
+      setOpen(false);
     } catch (error: any) {
       console.log(error.response);
 
@@ -64,7 +66,7 @@ export const EditSolutionButton = ({
     }
   };
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className="">
         <img src="/assets/pencil.png" className="w-7 mb-2" alt="" />
       </DialogTrigger>
@@ -86,7 +88,7 @@ export const EditSolutionButton = ({
         </div>
         <div
           onClick={editSolution}
-          className="hover:text-dashboard text-highlightSecondary border border-highlightSecondary duration-150 cursor-pointer hover:bg-highlightSecondary w-[15%] justify-center items-center flex p-1 font-base"
+          className="hover:text-dashboard text-xs md:text-base text-highlightSecondary border border-highlightSecondary duration-150 cursor-pointer hover:bg-highlightSecondary w-[15%] justify-center items-center flex p-1 font-base"
         >
           Submit
         </div>

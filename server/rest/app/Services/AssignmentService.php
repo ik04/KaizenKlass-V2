@@ -19,6 +19,13 @@ class AssignmentService{
         
 
     }
+
+    public function removeIds($assignment){
+        unset($assignment["id"]);
+        unset($assignment["subject_id"]);
+        return $assignment;
+    }
+
     private function convertDriveLinkToDownloadLink(string $originalLink): ?string
 {
     $fileIdRegex = '/\/d\/(.+?)\/|id=(.+?)&|&id=(.+?)($|&)/';
@@ -46,6 +53,7 @@ class AssignmentService{
     }
     $subjectId = $this->subjectService->getSubjectId($subjectUuid);
     $assignments = Assignment::select(["title","assignment_uuid"])->where("subject_id",$subjectId)->orderBy("created_at","DESC")->get();
+    
     $result = ["assignments" => $assignments,"subjectName" => $subject["subject"]];
     return $result;
     }
@@ -55,6 +63,7 @@ class AssignmentService{
             throw new SubjectNotFoundException(message:"Invalid Subject uuid",code:400);
         }
         $subjectId = $this->subjectService->getSubjectId($subjectUuid);
+        $subject = $this->subjectService->getSubjectName($subjectUuid);
     
         $assignmentData = [
             "title" => $title,
@@ -74,7 +83,9 @@ class AssignmentService{
         }
     
         $assignment = Assignment::create($assignmentData);
-        return response(["assignment"]);
+        $assignment["subject"] = $subject;
+        $assignment["subject_uuid"] = $subjectUuid;
+        return $assignment;
 
     }
     public function editAssignment(string $assignmentUuid, array $data){
@@ -109,7 +120,7 @@ class AssignmentService{
         }
             
         $assignment->save();
-            
+        $assignment = $this->removeIds($assignment);
         return $assignment;
         }
 
@@ -141,7 +152,7 @@ class AssignmentService{
             $subjectDetails = $this->subjectService->getSubjectDetails($assignment->subject_id);
     
             $solutionsData = [];
-            foreach ($assignment->solutions as $solution) {
+            foreach ($assignment->solutions()->orderBy('created_at', 'desc')->get() as $solution) {
                 $user = User::select("name", "user_uuid")->where("id", $solution->user_id)->first();
                 $username = $user->name;
                 $userUuid = $user->user_uuid;
@@ -176,8 +187,9 @@ class AssignmentService{
         }
         public function getAssignmentsWithDeadline() {
             $currentDateTime = Carbon::now();
-            $assignments = Assignment::select("title", "deadline", "assignment_uuid")
+            $assignments = Assignment::join("subjects","subjects.id","=","assignments.subject_id")->select("assignments.title", "assignments.deadline", "assignments.assignment_uuid","subjects.subject","subjects.subject_uuid")
                 ->whereNotNull("deadline")->where("deadline",">",$currentDateTime)
+                ->orderBy("deadline","ASC")
                 ->get();
             return $assignments;
         }

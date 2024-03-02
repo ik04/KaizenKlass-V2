@@ -13,22 +13,42 @@ import { MetaFunction, redirect } from "@remix-run/node";
 
 export default function assignments() {
   const {
-    assignment,
+    storedAssignment,
     solutions,
     baseUrl,
     uuid,
+    currentDomain,
   }: {
-    assignment: Assignment;
+    storedAssignment: Assignment;
     solutions: Solution[];
     baseUrl: string;
     uuid: string;
+    currentDomain: string;
   } = useLoaderData();
-  // console.log(assignment, solutions);
+  console.log(storedAssignment);
   const { userUuid, hasEditPrivileges, isAuthenticated, role } =
     useContext(GlobalContext);
 
+  const handleAddSolution = (solution: Solution) => {
+    setAssignmentSolutions((prevSolutions) => [solution, ...prevSolutions]);
+  };
+  const handleEditAssignment = (assignment: Assignment) => {
+    setAssignment(assignment);
+  };
+
+  const handleEditSolution = (updatedSolution: Solution) => {
+    setAssignmentSolutions((prevSolutions: Solution[]) =>
+      prevSolutions.map((solution) =>
+        solution.solution_uuid === updatedSolution.solution_uuid
+          ? updatedSolution
+          : solution
+      )
+    );
+  };
+
   const [readableDeadline, setReadableDeadline] = useState<string>();
   const [isDanger, setIsDanger] = useState<boolean>(false);
+  const [assignment, setAssignment] = useState<Assignment>(storedAssignment);
   const [assignmentSolutions, setAssignmentSolutions] =
     useState<Solution[]>(solutions);
 
@@ -116,11 +136,17 @@ export default function assignments() {
     return formattedDateTime;
   }
 
-  function convertLinksToAnchors(text: string) {
+  function convertLinksToAnchors(text: string, currentDomain: string) {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
+    console.log(text);
+    console.log(currentDomain);
 
     return text.replace(urlRegex, function (url) {
-      return `<a href="${url}" style="color: #3A84CE;" target="_blank">${url}</a>`;
+      if (url === currentDomain || url.startsWith(currentDomain + "/")) {
+        return ` <a href="${url}" style="color: #D5CEA3; cursor: pointer; font-weight: bold;">Visit Source -></a>`;
+      } else {
+        return `<a href="${url}" style="color: #3A84CE; cursor: pointer;" target="_blank">${url}</a>`;
+      }
     });
   }
 
@@ -138,7 +164,6 @@ export default function assignments() {
         title: "Solution deleted!",
         description: `the solution has been deleted`,
       });
-      location.reload();
     } catch (error) {
       toast({
         title: "Error Request Failed",
@@ -172,8 +197,16 @@ export default function assignments() {
       console.error("Error deleting solution:", error);
     }
   };
-  console.log(solutions);
 
+  const convertToViewLink = (link: string) => {
+    // Extracting the file ID from the download link
+    const startIndex = link.indexOf("id=") + 3;
+    const endIndex = link.length;
+    const fileId = link.substring(startIndex, endIndex);
+    // Constructing the view link
+    const viewLink = `https://drive.google.com/file/d/${fileId}/view?usp=sharing`;
+    return viewLink;
+  };
   // todo: finish solution components
   // todo: redo assignments page with new design
   return (
@@ -199,6 +232,7 @@ export default function assignments() {
                     <div className="flex space-x-2">
                       {hasEditPrivileges && (
                         <EditAssignmentButton
+                          handleEditAssignment={handleEditAssignment}
                           assignmentUuid={uuid}
                           baseUrl={baseUrl}
                           originalLink={assignment.link}
@@ -228,7 +262,10 @@ export default function assignments() {
                     <div
                       className="text-highlight text-sm md:text-xl font-base whitespace-pre-line"
                       dangerouslySetInnerHTML={{
-                        __html: convertLinksToAnchors(assignment.description),
+                        __html: convertLinksToAnchors(
+                          assignment.description,
+                          currentDomain
+                        ),
                       }}
                     />
                   )}
@@ -251,23 +288,26 @@ export default function assignments() {
                   )}{" "}
                   <div className="flex space-x-2 md:space-x-5 items-center md:-ml-2 md:mt-6">
                     {assignment.content && (
-                      <a
-                        href={`${assignment.content}`}
-                        className="flex items-center space-x-2"
-                      >
-                        <img
-                          src="/assets/download.svg"
-                          className="md:w-10"
-                          alt=""
-                        />
-                        <p className="text-highlight font-base font-bold text-xs md:text-lg">
-                          Download Content
-                        </p>
-                      </a>
+                      <>
+                        <a
+                          href={`${assignment.content}`}
+                          className="flex items-center space-x-2"
+                        >
+                          <img
+                            src="/assets/download.svg"
+                            className="md:w-10"
+                            alt=""
+                          />
+                          <p className="text-highlight font-base font-bold text-xs md:text-lg">
+                            Download Content
+                          </p>
+                        </a>
+                      </>
                     )}
-                    {assignment.link && (
+                    {assignment.content && (
                       <a
-                        href={`${assignment.link}`}
+                        target="_blank"
+                        href={`${convertToViewLink(assignment.content)}`}
                         className="flex items-center space-x-2"
                       >
                         <img
@@ -276,7 +316,7 @@ export default function assignments() {
                           alt=""
                         />
                         <p className="text-highlight font-base font-bold text-xs md:text-lg">
-                          Visit Classroom
+                          View content
                         </p>
                       </a>
                     )}
@@ -287,7 +327,7 @@ export default function assignments() {
                 Solutions:
               </p>
               <div className="solutions flex flex-col space-y-5 md:space-y-7">
-                {solutions.map((solution) => (
+                {assignmentSolutions.map((solution) => (
                   <div className="md:flex md:space-x-4 md:items-start">
                     <div className="icon md:flex w-16 hidden justify-center p-3 items-center bg-mainLighter rounded-full">
                       <img
@@ -305,6 +345,7 @@ export default function assignments() {
                           {isAuthenticated &&
                             userUuid == solution.user_uuid && (
                               <EditOwnSolutionButton
+                                handleEditSolution={handleEditSolution}
                                 baseUrl={baseUrl}
                                 originalDescription={solution.description}
                                 solutionUuid={solution.solution_uuid}
@@ -326,24 +367,45 @@ export default function assignments() {
                       <div
                         className="text-highlight text-sm md:text-lg font-base whitespace-pre-line"
                         dangerouslySetInnerHTML={{
-                          __html: convertLinksToAnchors(solution.description),
+                          __html: convertLinksToAnchors(
+                            solution.description,
+                            currentDomain
+                          ),
                         }}
                       />
-                      {solution.content && (
-                        <a
-                          href={`${solution.content}`}
-                          className="flex items-center space-x-2"
-                        >
-                          <img
-                            src="/assets/download.svg"
-                            className="md:w-10"
-                            alt=""
-                          />
-                          <p className="text-highlight font-base text-xs md:text-lg font-bold">
-                            Download Content
-                          </p>
-                        </a>
-                      )}
+                      <div className="flex items-center space-x-2">
+                        {solution.content && (
+                          <a
+                            href={`${solution.content}`}
+                            className="flex items-center space-x-2"
+                          >
+                            <img
+                              src="/assets/download.svg"
+                              className="md:w-10"
+                              alt=""
+                            />
+                            <p className="text-highlight font-base text-xs md:text-lg font-bold">
+                              Download Content
+                            </p>
+                          </a>
+                        )}
+                        {solution.content && (
+                          <a
+                            target="_blank"
+                            href={`${convertToViewLink(solution.content)}`}
+                            className="flex items-center space-x-2"
+                          >
+                            <img
+                              src="/assets/link.svg"
+                              className="md:w-10"
+                              alt=""
+                            />
+                            <p className="text-highlight font-base text-xs md:text-lg font-bold">
+                              View Content
+                            </p>
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -351,7 +413,11 @@ export default function assignments() {
 
               {isAuthenticated && (
                 <div className="my-10">
-                  <AddSolutionButton assignmentUuid={uuid} baseUrl={baseUrl} />
+                  <AddSolutionButton
+                    assignmentUuid={uuid}
+                    handleSolutionAddition={handleAddSolution}
+                    baseUrl={baseUrl}
+                  />
                 </div>
               )}
             </div>
@@ -367,15 +433,34 @@ export const loader = async ({ params }: any) => {
   try {
     const url = `${process.env.PUBLIC_DOMAIN}/api/v1/get-assignment-solutions/${uuid}`;
     const resp = await axios.get(url);
-    // console.log(resp.data);
     const data = {
       solutions: resp.data.solutions,
-      assignment: resp.data.assignment,
+      storedAssignment: resp.data.assignment,
       baseUrl: process.env.PUBLIC_DOMAIN,
+      currentDomain: process.env.CURRENT_DOMAIN,
       uuid: uuid,
     };
     return data;
   } catch (error) {
     return redirect("/not-found");
   }
+};
+
+export const meta: MetaFunction<typeof loader> = ({ data }: { data: any }) => {
+  const { storedAssignment } = data;
+  return [
+    { title: `${storedAssignment.title} | ${storedAssignment.subject}` },
+    {
+      property: "og:title",
+      content: `${storedAssignment.title} | ${storedAssignment.subject}`,
+    },
+    {
+      name: "description",
+      content: `${storedAssignment.description}`,
+    },
+    {
+      property: "og:site_name",
+      content: "Kaizen Klass",
+    },
+  ];
 };

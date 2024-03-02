@@ -14,8 +14,10 @@ interface Assignment {
 }
 interface AssignmentWithDeadline {
   title: string;
+  subject_uuid: string;
   assignment_uuid: string;
   deadline: string;
+  subject: string;
 }
 interface Solution {
   content: string;
