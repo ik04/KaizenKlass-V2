@@ -25,7 +25,7 @@ export default function assignments() {
     uuid: string;
     currentDomain: string;
   } = useLoaderData();
-  console.log(storedAssignment);
+  console.log(storedAssignment.deadline);
   const { userUuid, hasEditPrivileges, isAuthenticated, role } =
     useContext(GlobalContext);
 
@@ -138,8 +138,6 @@ export default function assignments() {
 
   function convertLinksToAnchors(text: string, currentDomain: string) {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
-    console.log(text);
-    console.log(currentDomain);
 
     return text.replace(urlRegex, function (url) {
       if (url === currentDomain || url.startsWith(currentDomain + "/")) {
@@ -239,6 +237,7 @@ export default function assignments() {
                           originalTitle={assignment.title}
                           originalSubjectUuid={assignment.subject_uuid}
                           originalDescription={assignment.description}
+                          originalDeadline={assignment.deadline}
                         />
                       )}
 

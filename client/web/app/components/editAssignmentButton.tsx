@@ -20,6 +20,7 @@ export const EditAssignmentButton = ({
   originalDescription,
   originalLink,
   handleEditAssignment,
+  originalDeadline,
 }: {
   baseUrl: string;
   assignmentUuid: string;
@@ -27,9 +28,25 @@ export const EditAssignmentButton = ({
   originalTitle: string;
   originalDescription?: string;
   originalLink: string;
+  originalDeadline?: string;
   handleEditAssignment: (assignment: Assignment) => void;
 }) => {
   const { toast } = useToast();
+  const splitDateAndTime = (dateTimeString: string) => {
+    const dateTimeParts = dateTimeString.split(" ");
+    const dateString = dateTimeParts[0];
+    const timeString = dateTimeParts[1];
+    return { dateString, timeString };
+  };
+
+  const {
+    dateString,
+    timeString,
+  }: { dateString?: string | null; timeString?: string | null } =
+    originalDeadline
+      ? splitDateAndTime(originalDeadline)
+      : { dateString: null, timeString: null };
+
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [subject, setSubject] = useState<string>(originalSubjectUuid);
   const [title, setTitle] = useState<string>(originalTitle);
@@ -37,10 +54,16 @@ export const EditAssignmentButton = ({
     originalDescription ?? ""
   );
   const [content, setContent] = useState<string>();
-  const [date, setDate] = useState<Date | null>(null);
+  const [date, setDate] = useState<Date | null>(
+    dateString ? new Date(dateString) : null
+  );
+  const [time, setTime] = useState<string | null>(
+    timeString ? timeString : null
+  );
   const [open, setOpen] = useState<boolean>(false);
-  const [isDatePicked, setIsDatePicked] = useState<boolean>(false);
-  const [time, setTime] = useState("");
+  const [isDatePicked, setIsDatePicked] = useState<boolean>(
+    timeString ? true : false
+  );
 
   const getSubjects = async () => {
     const url = `${baseUrl}/api/v1/get-subjects`;
@@ -88,7 +111,7 @@ export const EditAssignmentButton = ({
       });
       handleEditAssignment(resp.data.assignment);
       setOpen(false);
-      resetFields();
+      // resetFields();
       // location.reload();
     } catch (error: any) {
       console.log(error.response);
@@ -128,14 +151,14 @@ export const EditAssignmentButton = ({
       setIsDatePicked(true);
     }
   };
-  const resetFields = () => {
-    setTitle("");
-    setDescription("");
-    setContent("");
-    setDate(null);
-    setIsDatePicked(false);
-    setTime("");
-  };
+  // const resetFields = () => {
+  //   setTitle("");
+  //   setDescription("");
+  //   setContent("");
+  //   setDate(null);
+  //   setIsDatePicked(false);
+  //   setTime("");
+  // };
 
   // todo: add datetime picker
   return (
@@ -187,6 +210,7 @@ export const EditAssignmentButton = ({
               <>
                 <Input
                   type="time"
+                  value={time || ""}
                   onChange={(e) => {
                     setTime(e.target.value);
                   }}
