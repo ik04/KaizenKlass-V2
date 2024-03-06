@@ -1,0 +1,39 @@
+version: "3.8"
+services:
+  # Laravel server
+  laravel:
+    container_name: laravel-app
+    restart: always
+    build:
+      context: ./server/rest
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/var/www/html
+
+  # Remix frontend
+  remix:
+    container_name: remix-app
+    restart: always
+    build:
+      context: ./client/web
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client/web:/app
+
+  # MySQL database
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: kaizenklass
+      MYSQL_USER: kaizenklass
+      MYSQL_PASSWORD: secret
+    volumes:
+      - db-data:/var/lib/mysql
+
+volumes:
+  db-data:
