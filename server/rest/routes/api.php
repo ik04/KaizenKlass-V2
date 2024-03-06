@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\ContentController;
+use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\SolutionController;
 use App\Http\Controllers\SubjectController;
@@ -35,6 +37,10 @@ Route::prefix("v1")->group(function(){
     
     Route::post("register-contributor",[UserController::class,"registerContributor"]);
     Route::post("login",[UserController::class,"login"]);
+    Route::post("password/forgot",[ForgotPasswordController::class,"forgotPassword"]);
+    Route::post("password/reset",[ResetPasswordController::class,"resetPassword"]);
+
+
     Route::get("user-data",[UserController::class,"userData"]); // No regular users
     Route::get("get-subjects",[SubjectController::class,"getSubjects"]);
     Route::get("get-subject-assignments/{subjectUuid}",[AssignmentController::class,"getAssignmentsBySubject"]); // used in subjects page
@@ -42,6 +48,8 @@ Route::prefix("v1")->group(function(){
     Route::get("get-assignment-subjects",[AssignmentController::class,"getAssignmentsWithSubjects"]); // for assignments page
     Route::get("get-deadlines",[AssignmentController::class,"getAssignmentsWithDeadline"]);
     Route::get("get-resources",[ResourceController::class,"getResources"]);
+    
+
 
     
     // * contributor routes
