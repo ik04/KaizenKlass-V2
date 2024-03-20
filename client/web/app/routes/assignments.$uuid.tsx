@@ -439,7 +439,8 @@ export const loader = async ({ params }: any) => {
     }
     return data
   } catch (error) {
-    return redirect("/not-found")
+    console.log(error)
+    // return redirect("/not-found")
   }
 }
 
