@@ -1,15 +1,15 @@
-import { Link, useLoaderData } from "@remix-run/react"
-import axios from "axios"
-import React, { useContext, useEffect, useState } from "react"
-import { BackButton } from "~/components/backButton"
-import { Dashboard } from "~/components/dashboard"
-import { AddSolutionButton } from "~/components/addSolutionButton"
-import { GlobalContext } from "~/context/GlobalContext"
-import { EditAssignmentButton } from "~/components/editAssignmentButton"
-import { toast } from "~/components/ui/use-toast"
-import { EditSolutionButton } from "~/components/editSolutionButton"
-import { EditOwnSolutionButton } from "~/components/editOwnSolutionButton"
-import { MetaFunction, redirect } from "@remix-run/node"
+import { Link, useLoaderData } from "@remix-run/react";
+import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
+import { BackButton } from "~/components/backButton";
+import { Dashboard } from "~/components/dashboard";
+import { AddSolutionButton } from "~/components/addSolutionButton";
+import { GlobalContext } from "~/context/GlobalContext";
+import { EditAssignmentButton } from "~/components/editAssignmentButton";
+import { toast } from "~/components/ui/use-toast";
+import { EditSolutionButton } from "~/components/editSolutionButton";
+import { EditOwnSolutionButton } from "~/components/editOwnSolutionButton";
+import { MetaFunction, redirect } from "@remix-run/node";
 
 export default function assignments() {
   const {
@@ -19,22 +19,22 @@ export default function assignments() {
     uuid,
     currentDomain,
   }: {
-    storedAssignment: Assignment
-    solutions: Solution[]
-    baseUrl: string
-    uuid: string
-    currentDomain: string
-  } = useLoaderData()
-  console.log(storedAssignment.deadline)
+    storedAssignment: Assignment;
+    solutions: Solution[];
+    baseUrl: string;
+    uuid: string;
+    currentDomain: string;
+  } = useLoaderData();
+  console.log(storedAssignment.deadline);
   const { userUuid, hasEditPrivileges, isAuthenticated, role } =
-    useContext(GlobalContext)
+    useContext(GlobalContext);
 
   const handleAddSolution = (solution: Solution) => {
-    setAssignmentSolutions((prevSolutions) => [solution, ...prevSolutions])
-  }
+    setAssignmentSolutions((prevSolutions) => [solution, ...prevSolutions]);
+  };
   const handleEditAssignment = (assignment: Assignment) => {
-    setAssignment(assignment)
-  }
+    setAssignment(assignment);
+  };
 
   const handleEditSolution = (updatedSolution: Solution) => {
     setAssignmentSolutions((prevSolutions: Solution[]) =>
@@ -43,79 +43,80 @@ export default function assignments() {
           ? updatedSolution
           : solution
       )
-    )
-  }
+    );
+  };
 
-  const [readableDeadline, setReadableDeadline] = useState<string>()
-  const [isDanger, setIsDanger] = useState<boolean>(false)
-  const [assignment, setAssignment] = useState<Assignment>(storedAssignment)
+  const [readableDeadline, setReadableDeadline] = useState<string>();
+  const [isDanger, setIsDanger] = useState<boolean>(false);
+  const [assignment, setAssignment] = useState<Assignment>(storedAssignment);
   const [assignmentSolutions, setAssignmentSolutions] =
-    useState<Solution[]>(solutions)
+    useState<Solution[]>(solutions);
 
   const calculateTimeUntilDeadline = (deadline: string) => {
-    const now = new Date()
-    const deadlineDate = new Date(deadline)
-    const timeDifference = deadlineDate.getTime() - now.getTime()
+    const now = new Date();
+    const deadlineDate = new Date(deadline);
+    const timeDifference = deadlineDate.getTime() - now.getTime();
 
-    const daysUntilDeadline = Math.floor(timeDifference / (1000 * 60 * 60 * 24))
+    const daysUntilDeadline = Math.floor(
+      timeDifference / (1000 * 60 * 60 * 24)
+    );
     const hoursUntilDeadline = Math.floor(
       (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-    )
+    );
     const minutesUntilDeadline = Math.floor(
       (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
-    )
+    );
 
     if (daysUntilDeadline > 0) {
+      setIsDanger(false);
       setReadableDeadline(
-        `${daysUntilDeadline} day${daysUntilDeadline === 1 ? "" : "s"}`
-      )
-    } else if (hoursUntilDeadline > 0) {
-      setIsDanger(true)
-      setReadableDeadline(
-        `${hoursUntilDeadline} hour${hoursUntilDeadline === 1 ? "" : "s"}`
-      )
-    } else if (minutesUntilDeadline < 0) {
-      setIsDanger(true)
-      setReadableDeadline("Passed")
+        `${daysUntilDeadline} day${
+          daysUntilDeadline === 1 ? "" : "s"
+        } ${hoursUntilDeadline} hour${hoursUntilDeadline === 1 ? "" : "s"}`
+      );
     } else {
-      setIsDanger(true)
+      setIsDanger(true);
       setReadableDeadline(
-        `${minutesUntilDeadline} minute${minutesUntilDeadline === 1 ? "" : "s"}`
-      )
+        `${hoursUntilDeadline} hour${
+          hoursUntilDeadline === 1 ? "" : "s"
+        } ${minutesUntilDeadline} minute${
+          minutesUntilDeadline === 1 ? "" : "s"
+        }`
+      );
     }
-  }
+  };
 
   useEffect(() => {
     if (assignment.deadline) {
-      calculateTimeUntilDeadline(assignment.deadline)
+      calculateTimeUntilDeadline(assignment.deadline);
     }
-  }, [assignment.deadline])
+  }, [assignment.deadline]);
   const deleteAssignment = async () => {
     try {
       const resp = await axios.delete(
         `${baseUrl}/api/v1/delete-assignment/${uuid}`
-      )
+      );
 
       // console.log("deleted assignment!");
-      history.back()
+      history.back();
     } catch (error) {
       toast({
         title: "Error Deleting Assignment",
         description: `An error occurred while deleting the solution`,
         variant: "destructive",
-      })
-      console.error(error)
+      });
+      console.error(error);
     }
-  }
+  };
   // ? limit to 1 answer per assignment
   // todo: add dates
   // todo: ideate on figma design for divisions
 
   function parseDateTimeForIndia(dateTimeString: string): string {
-    const parsedDate = new Date(dateTimeString)
+    const parsedDate = new Date(dateTimeString);
 
     if (isNaN(parsedDate.getTime())) {
-      return "Invalid date"
+      return "Invalid date";
     }
 
     const options: Intl.DateTimeFormatOptions = {
@@ -127,82 +128,82 @@ export default function assignments() {
       second: "2-digit",
       hour12: false,
       timeZone: "Asia/Kolkata",
-    }
+    };
 
-    const formattedDateTime = parsedDate.toLocaleString("en-IN", options)
+    const formattedDateTime = parsedDate.toLocaleString("en-IN", options);
 
-    return formattedDateTime
+    return formattedDateTime;
   }
 
   function convertLinksToAnchors(text: string, currentDomain: string) {
-    const urlRegex = /(https?:\/\/[^\s]+)/g
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
 
     return text.replace(urlRegex, function (url) {
       if (url === currentDomain || url.startsWith(currentDomain + "/")) {
-        return ` <a href="${url}" style="color: #D5CEA3; cursor: pointer; font-weight: bold;">Visit Source -></a>`
+        return ` <a href="${url}" style="color: #D5CEA3; cursor: pointer; font-weight: bold;">Visit Source -></a>`;
       } else {
-        return `<a href="${url}" style="color: #3A84CE; cursor: pointer;" target="_blank">${url}</a>`
+        return `<a href="${url}" style="color: #3A84CE; cursor: pointer;" target="_blank">${url}</a>`;
       }
-    })
+    });
   }
 
   const deleteOwnSolution = async (solutionUuid: string) => {
     try {
       const resp = await axios.delete(
         `${baseUrl}/api/v1/delete-own-solution/${solutionUuid}`
-      )
+      );
       setAssignmentSolutions((prevSolutions: Solution[]) =>
         prevSolutions.filter(
           (solution) => solution.solution_uuid !== solutionUuid
         )
-      )
+      );
       toast({
         title: "Solution deleted!",
         description: `the solution has been deleted`,
-      })
+      });
     } catch (error) {
       toast({
         title: "Error Request Failed",
         description: "An error occurred while deleting the solution",
         variant: "destructive",
-      })
-      console.error("Error deleting solution:", error)
+      });
+      console.error("Error deleting solution:", error);
     }
-  }
+  };
   const deleteSolution = async (solutionUuid: string) => {
     try {
       const resp = await axios.delete(
         `${baseUrl}/api/v1/delete-solution/${solutionUuid}`
-      )
+      );
       setAssignmentSolutions((prevSolutions: Solution[]) =>
         prevSolutions.filter(
           (solution) => solution.solution_uuid !== solutionUuid
         )
-      )
+      );
       toast({
         title: "Solution deleted!",
         description: `the solution has been deleted`,
-      })
-      console.log("deleted solution!")
+      });
+      console.log("deleted solution!");
     } catch (error) {
       toast({
         title: "Error Request Failed",
         description: "An error occurred while deleting the solution",
         variant: "destructive",
-      })
-      console.error("Error deleting solution:", error)
+      });
+      console.error("Error deleting solution:", error);
     }
-  }
+  };
 
   const convertToViewLink = (link: string) => {
     // Extracting the file ID from the download link
-    const startIndex = link.indexOf("id=") + 3
-    const endIndex = link.length
-    const fileId = link.substring(startIndex, endIndex)
+    const startIndex = link.indexOf("id=") + 3;
+    const endIndex = link.length;
+    const fileId = link.substring(startIndex, endIndex);
     // Constructing the view link
-    const viewLink = `https://drive.google.com/file/d/${fileId}/view?usp=sharing`
-    return viewLink
-  }
+    const viewLink = `https://drive.google.com/file/d/${fileId}/view?usp=sharing`;
+    return viewLink;
+  };
   // todo: finish solution components
   // todo: redo assignments page with new design
   return (
@@ -422,30 +423,30 @@ export default function assignments() {
         </div>
       </Dashboard>
     </div>
-  )
+  );
 }
 
 export const loader = async ({ params }: any) => {
-  const { uuid } = params
+  const { uuid } = params;
   try {
-    const url = `${process.env.PUBLIC_DOMAIN}/api/v1/get-assignment-solutions/${uuid}`
-    const resp = await axios.get(url)
+    const url = `${process.env.PUBLIC_DOMAIN}/api/v1/get-assignment-solutions/${uuid}`;
+    const resp = await axios.get(url);
     const data = {
       solutions: resp.data.solutions,
       storedAssignment: resp.data.assignment,
       baseUrl: process.env.PUBLIC_DOMAIN,
       currentDomain: process.env.CURRENT_DOMAIN,
       uuid: uuid,
-    }
-    return data
+    };
+    return data;
   } catch (error) {
-    console.log(error)
+    console.log(error);
     // return redirect("/not-found")
   }
-}
+};
 
 export const meta: MetaFunction<typeof loader> = ({ data }: { data: any }) => {
-  const { storedAssignment } = data
+  const { storedAssignment } = data;
   return [
     { title: `${storedAssignment.title} | ${storedAssignment.subject}` },
     {
@@ -460,5 +461,5 @@ export const meta: MetaFunction<typeof loader> = ({ data }: { data: any }) => {
       property: "og:site_name",
       content: "Kaizen Klass",
     },
-  ]
-}
+  ];
+};
