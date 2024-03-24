@@ -33,18 +33,20 @@ export const DeadlineCard = ({
     );
 
     if (daysUntilDeadline > 0) {
+      setIsDanger(false);
       setReadableDeadline(
-        `${daysUntilDeadline} day${daysUntilDeadline === 1 ? "" : "s"}`
-      );
-    } else if (hoursUntilDeadline > 0) {
-      setIsDanger(true);
-      setReadableDeadline(
-        `${hoursUntilDeadline} hour${hoursUntilDeadline === 1 ? "" : "s"}`
+        `${daysUntilDeadline} day${
+          daysUntilDeadline === 1 ? "" : "s"
+        } ${hoursUntilDeadline} hour${hoursUntilDeadline === 1 ? "" : "s"}`
       );
     } else {
       setIsDanger(true);
       setReadableDeadline(
-        `${minutesUntilDeadline} minute${minutesUntilDeadline === 1 ? "" : "s"}`
+        `${hoursUntilDeadline} hour${
+          hoursUntilDeadline === 1 ? "" : "s"
+        } ${minutesUntilDeadline} minute${
+          minutesUntilDeadline === 1 ? "" : "s"
+        }`
       );
     }
   };
