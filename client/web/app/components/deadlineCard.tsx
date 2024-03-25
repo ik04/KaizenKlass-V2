@@ -44,9 +44,7 @@ export const DeadlineCard = ({
       setReadableDeadline(
         `${hoursUntilDeadline} hour${
           hoursUntilDeadline === 1 ? "" : "s"
-        } ${minutesUntilDeadline} minute${
-          minutesUntilDeadline === 1 ? "" : "s"
-        }`
+        } ${minutesUntilDeadline} min${minutesUntilDeadline === 1 ? "" : "s"}`
       );
     }
   };

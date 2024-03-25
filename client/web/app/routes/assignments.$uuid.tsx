@@ -74,14 +74,16 @@ export default function assignments() {
           daysUntilDeadline === 1 ? "" : "s"
         } ${hoursUntilDeadline} hour${hoursUntilDeadline === 1 ? "" : "s"}`
       );
+    }
+    if (minutesUntilDeadline < 0) {
+      setIsDanger(true);
+      setReadableDeadline("Passed");
     } else {
       setIsDanger(true);
       setReadableDeadline(
         `${hoursUntilDeadline} hour${
           hoursUntilDeadline === 1 ? "" : "s"
-        } ${minutesUntilDeadline} minute${
-          minutesUntilDeadline === 1 ? "" : "s"
-        }`
+        } ${minutesUntilDeadline} min${minutesUntilDeadline === 1 ? "" : "s"}`
       );
     }
   };
