@@ -74,8 +74,7 @@ export default function assignments() {
           daysUntilDeadline === 1 ? "" : "s"
         } ${hoursUntilDeadline} hour${hoursUntilDeadline === 1 ? "" : "s"}`
       );
-    }
-    if (minutesUntilDeadline < 0) {
+    } else if (minutesUntilDeadline < 0) {
       setIsDanger(true);
       setReadableDeadline("Passed");
     } else {
