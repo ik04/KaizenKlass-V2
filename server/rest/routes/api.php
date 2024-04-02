@@ -63,8 +63,7 @@ Route::prefix("v1")->group(function(){
     });
     
     // * crosschecker routes
-    Route::middleware(["auth:sanctum","checkCrosschecker"])->group(function(){
-        
+    Route::middleware(["auth:sanctum","checkCrosschecker"])->group(function(){ 
         Route::post("add-assignment",[AssignmentController::class,"addAssignment"]);
         Route::put("edit-assignment/{assignmentUuid}", [AssignmentController::class, "editAssignment"]);
         Route::delete("delete-assignment/{assignmentUuid}", [AssignmentController::class, "deleteAssignment"]);
