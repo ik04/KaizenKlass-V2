@@ -1,8 +1,7 @@
-FROM php:8-cli
+FROM composer:latest
 
-RUN apt-get update -y && apt-get install -y libmcrypt-dev
+#RUN apt-get update -y && apt-get install -y it 7zip zip
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 # RUN docker-php-ext-install pdo mbstring
 
 WORKDIR /app
