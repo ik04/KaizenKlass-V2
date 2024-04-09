@@ -11,6 +11,7 @@ services:
       - "8000:8000"
     volumes:
       - .:/var/www/html
+    user: $(id -u):$(id -g)
 
   # Remix frontend
   remix:
@@ -23,6 +24,7 @@ services:
       - "3000:3000"
     volumes:
       - ./client/web:/app
+    user: $(id -u):$(id -g)
 
   # MySQL database
   db:
@@ -34,6 +36,7 @@ services:
       MYSQL_PASSWORD: secret
     volumes:
       - db-data:/var/lib/mysql
+    user: $(id -u):$(id -g)
 
 volumes:
   db-data:
