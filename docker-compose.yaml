@@ -23,11 +23,12 @@ services:
     container_name: remix-app
     restart: always
     environment:
-      - PUBLIC_DOMAIN=http://laravel:8000
+      - PUBLIC_DOMAIN=http://localhost:8000
     build:
       context: ./client/web
       dockerfile: Dockerfile
     ports:
+      - "3001:3001"
       - "3000:3000"
     volumes:
       - ./client/web:/app
