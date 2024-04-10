@@ -2,6 +2,9 @@ version: "3.8"
 services:
   # Laravel server
   laravel:
+    depends_on:
+      db:
+        condition: service_healthy
     container_name: laravel-app
     restart: always
     build:
@@ -15,8 +18,12 @@ services:
 
   # Remix frontend
   remix:
+    depends_on:
+      - laravel
     container_name: remix-app
     restart: always
+    environment:
+      - PUBLIC_DOMAIN=http://laravel:8000
     build:
       context: ./client/web
       dockerfile: Dockerfile
@@ -36,6 +43,11 @@ services:
     volumes:
       - db-data:/var/lib/mysql
     user: "${UID}:${GID}"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   db-data:
