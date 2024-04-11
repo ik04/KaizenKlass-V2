@@ -7,6 +7,13 @@ services:
         condition: service_healthy
     container_name: laravel-app
     restart: always
+    environment:
+      - DB_HOST=db
+      - DB_DATABASE=kaizenklass
+      - DB_USERNAME=kaizenklass
+      - DB_PASSWORD=secret
+      - SEEDER_EMAIL=tester@kaizenklass.me
+      - SEEDER_PASSWORD=tester
     build:
       context: ./server/rest
       dockerfile: Dockerfile
