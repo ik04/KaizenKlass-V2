@@ -1,0 +1,61 @@
+version: "3.8"
+services:
+  # Laravel server
+  laravel:
+    depends_on:
+      db:
+        condition: service_healthy
+    container_name: laravel-app
+    restart: always
+    environment:
+      - DB_HOST=db
+      - DB_DATABASE=kaizenklass
+      - DB_USERNAME=kaizenklass
+      - DB_PASSWORD=secret
+      - SEEDER_EMAIL=tester@kaizenklass.me
+      - SEEDER_PASSWORD=tester
+    build:
+      context: ./server/rest
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/var/www/html
+    user: "${UID}:${GID}"
+
+  # Remix frontend
+  remix:
+    depends_on:
+      - laravel
+    container_name: remix-app
+    restart: always
+    environment:
+      - PUBLIC_DOMAIN=http://localhost:8000
+    build:
+      context: ./client/web
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+      - "3000:3000"
+    volumes:
+      - ./client/web:/app
+    user: "${UID}:${GID}"
+  # MySQL database
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: kaizenklass
+      MYSQL_USER: kaizenklass
+      MYSQL_PASSWORD: secret
+    volumes:
+      - db-data:/var/lib/mysql
+    user: "${UID}:${GID}"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  db-data:
