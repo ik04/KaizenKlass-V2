@@ -34,6 +34,15 @@ Route::prefix("v1")->group(function(){
     // Route::post("register-admin",[UserController::class,"registerAdmin"]);
     // * dev routes
     Route::get("get-assignments",[AssignmentController::class,"getAssignments"]);
+    Route::post("test",function(){
+        return response()->json([
+            "services" => [
+                "link_detection" => true,
+                "image_detection" => true,
+                "profanity_detection" => true
+                ]
+              ],200);
+    });
     
     
     Route::post("register-contributor",[UserController::class,"registerContributor"]);
@@ -57,8 +66,7 @@ Route::prefix("v1")->group(function(){
     });
     
     // * crosschecker routes
-    Route::middleware(["auth:sanctum","checkCrosschecker"])->group(function(){
-        
+    Route::middleware(["auth:sanctum","checkCrosschecker"])->group(function(){ 
         Route::post("add-assignment",[AssignmentController::class,"addAssignment"]);
         Route::put("edit-assignment/{assignmentUuid}", [AssignmentController::class, "editAssignment"]);
         Route::delete("delete-assignment/{assignmentUuid}", [AssignmentController::class, "deleteAssignment"]);

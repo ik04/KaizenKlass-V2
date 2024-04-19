@@ -25,7 +25,7 @@ export default function assignments() {
     uuid: string;
     currentDomain: string;
   } = useLoaderData();
-  console.log(storedAssignment);
+  console.log(storedAssignment.deadline);
   const { userUuid, hasEditPrivileges, isAuthenticated, role } =
     useContext(GlobalContext);
 
@@ -68,13 +68,11 @@ export default function assignments() {
     );
 
     if (daysUntilDeadline > 0) {
+      setIsDanger(false);
       setReadableDeadline(
-        `${daysUntilDeadline} day${daysUntilDeadline === 1 ? "" : "s"}`
-      );
-    } else if (hoursUntilDeadline > 0) {
-      setIsDanger(true);
-      setReadableDeadline(
-        `${hoursUntilDeadline} hour${hoursUntilDeadline === 1 ? "" : "s"}`
+        `${daysUntilDeadline} day${
+          daysUntilDeadline === 1 ? "" : "s"
+        } ${hoursUntilDeadline} hour${hoursUntilDeadline === 1 ? "" : "s"}`
       );
     } else if (minutesUntilDeadline < 0) {
       setIsDanger(true);
@@ -82,7 +80,9 @@ export default function assignments() {
     } else {
       setIsDanger(true);
       setReadableDeadline(
-        `${minutesUntilDeadline} minute${minutesUntilDeadline === 1 ? "" : "s"}`
+        `${hoursUntilDeadline} hour${
+          hoursUntilDeadline === 1 ? "" : "s"
+        } ${minutesUntilDeadline} min${minutesUntilDeadline === 1 ? "" : "s"}`
       );
     }
   };
@@ -138,8 +138,6 @@ export default function assignments() {
 
   function convertLinksToAnchors(text: string, currentDomain: string) {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
-    console.log(text);
-    console.log(currentDomain);
 
     return text.replace(urlRegex, function (url) {
       if (url === currentDomain || url.startsWith(currentDomain + "/")) {
@@ -213,7 +211,7 @@ export default function assignments() {
     <div className="bg-main h-screen">
       <Dashboard baseUrl={baseUrl}>
         <div className="flex flex-col space-y-4 pb-5">
-          <BackButton />
+          {<BackButton />}
           <div className="md:flex md:justify-center md:items-center md:w-full">
             <div className="md:flex md:flex-col md:space-y-9 md:w-4/5">
               <div className="md:flex md:space-x-4 md:items-start">
@@ -239,6 +237,7 @@ export default function assignments() {
                           originalTitle={assignment.title}
                           originalSubjectUuid={assignment.subject_uuid}
                           originalDescription={assignment.description}
+                          originalDeadline={assignment.deadline}
                         />
                       )}
 
@@ -442,7 +441,8 @@ export const loader = async ({ params }: any) => {
     };
     return data;
   } catch (error) {
-    return redirect("/not-found");
+    console.log(error);
+    // return redirect("/not-found")
   }
 };
 
