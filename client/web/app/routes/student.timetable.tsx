@@ -6,7 +6,7 @@ import { Dashboard } from "~/components/dashboard";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Resources | KaizenKlass" },
+    { title: "Timetable | KaizenKlass" },
     { property: "og:title", content: "Timetable | KaizenKlass" },
     {
       property: "og:site_name",
@@ -42,6 +42,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   try {
     const baseUrl: string = process.env.PUBLIC_DOMAIN || "";
     const cookies = request.headers.get("cookie");
+    console.log(cookies);
 
     if (!cookies) {
       throw new Error("No cookies found in the request headers");
@@ -62,17 +63,18 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     });
     console.log(isLog.status);
     if (isLog.status !== 204) {
-      throw new Error("Unauthorized access");
+      return redirect("/login");
     }
     // * fetching day order
     const scraperResp = await axios.post(`${process.env.SCRAPER_DOMAIN}/do`);
     const dayOrder = Number(scraperResp.data.day_order.trim());
+
     const data = {
       baseUrl,
       dayOrder,
     };
     return data;
   } catch (err) {
-    return redirect("/login");
+    return redirect("/student/login");
   }
 };
