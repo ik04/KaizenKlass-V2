@@ -27,8 +27,19 @@ export const Dashboard = ({
     { href: "/deadlines", img: "/assets/skull.svg", name: "deadlines" },
   ];
   const extraSidebarIcons = [
-    { href: "/resources", img: "/assets/treasure.svg", name: "resources" },
-  ];
+    {
+      href: "/student/timetable",
+      img: "/assets/timetable.svg",
+      name: "Timetable",
+      isAuth: true,
+    },
+    {
+      href: "/resources",
+      img: "/assets/treasure.svg",
+      name: "resources",
+      isAuth: false,
+    },
+  ].filter((icon) => !icon.isAuth || isAuthenticated);
   const navlinks = [
     { name: "login", href: "/login" },
     { name: "register", href: "/register" },

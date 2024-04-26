@@ -31,17 +31,6 @@ Route::prefix("v1")->group(function(){
     // Route::post("register-admin",[UserController::class,"registerAdmin"]);
     // * dev routes
     Route::get("get-assignments",[AssignmentController::class,"getAssignments"]);
-    Route::post("test",function(){
-        return response()->json([
-            "services" => [
-                "link_detection" => true,
-                "image_detection" => true,
-                "profanity_detection" => true
-                ]
-              ],200);
-    });
-    
-    
     Route::post("register-contributor",[UserController::class,"registerContributor"]);
     Route::post("login",[UserController::class,"login"]);
     Route::get("user-data",[UserController::class,"userData"]); // No regular users
@@ -55,6 +44,9 @@ Route::prefix("v1")->group(function(){
     
     // * contributor routes
     Route::middleware(["auth:sanctum"])->group(function(){
+        Route::get("is-log",function(){
+            return response()->noContent();
+        });
         Route::post("logout",[UserController::class,"logout"]);
         Route::post("add-solution",[SolutionController::class,"addSolution"]);
         Route::delete("delete-own-account/{userUuid}", [UserController::class, "deleteOwnAccount"]);
@@ -89,6 +81,5 @@ Route::prefix("v1")->group(function(){
 Route::prefix("v2")->group(function(){
     Route::middleware(["auth:sanctum"])->group(function(){
         Route::post("add/selected-subjects");
-
     });
 });
