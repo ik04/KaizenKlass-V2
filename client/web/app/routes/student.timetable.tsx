@@ -16,9 +16,14 @@ export const meta: MetaFunction = () => {
   ];
 };
 
+interface LoaderData {
+  baseUrl: string;
+  dayOrder: number;
+  userDetails?: any;
+}
+
 const Timetable = () => {
-  const { baseUrl, dayOrder }: { baseUrl: string; dayOrder: number } =
-    useLoaderData();
+  const { baseUrl, dayOrder, userDetails }: LoaderData = useLoaderData();
 
   return (
     <div className="bg-main min-h-screen">
@@ -37,12 +42,12 @@ const Timetable = () => {
 };
 
 export default Timetable;
-
-export const loader = async ({ request }: LoaderFunctionArgs) => {
+// ! better error handling
+export const loader = async ({ request, context }: LoaderFunctionArgs) => {
   try {
     const baseUrl: string = process.env.PUBLIC_DOMAIN || "";
     const cookies = request.headers.get("cookie");
-    console.log(cookies);
+    // console.log(cookies);
 
     if (!cookies) {
       throw new Error("No cookies found in the request headers");
@@ -61,7 +66,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    console.log(isLog.status);
+    // console.log(isLog.status);
     if (isLog.status !== 204) {
       return redirect("/login");
     }
@@ -69,9 +74,28 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     const scraperResp = await axios.post(`${process.env.SCRAPER_DOMAIN}/do`);
     const dayOrder = Number(scraperResp.data.day_order.trim());
 
+    const tokenCookie = cookies
+      .split(";")
+      .find((cookie) => cookie.trim().startsWith("token="));
+    if (!tokenCookie) {
+      return redirect("/student/login");
+    }
+    const token = tokenCookie.split("=")[1];
+    const scrapeDetails = await axios.post(
+      `${process.env.SCRAPER_DOMAIN}/course-user`,
+      {},
+      {
+        headers: {
+          "x-access-token": token,
+        },
+      }
+    );
+    const userDetails = scrapeDetails.data;
+
     const data = {
       baseUrl,
       dayOrder,
+      userDetails,
     };
     return data;
   } catch (err) {
