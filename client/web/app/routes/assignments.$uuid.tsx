@@ -52,46 +52,58 @@ export default function assignments() {
   const [assignmentSolutions, setAssignmentSolutions] =
     useState<Solution[]>(solutions);
 
-  const calculateTimeUntilDeadline = (deadline: string) => {
-    const now = new Date();
-    const deadlineDate = new Date(deadline);
-    const timeDifference = deadlineDate.getTime() - now.getTime();
-
-    const daysUntilDeadline = Math.floor(
-      timeDifference / (1000 * 60 * 60 * 24)
-    );
-    const hoursUntilDeadline = Math.floor(
-      (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-    );
-    const minutesUntilDeadline = Math.floor(
-      (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
-    );
-
-    if (daysUntilDeadline > 0) {
-      setIsDanger(false);
-      setReadableDeadline(
-        `${daysUntilDeadline} day${
-          daysUntilDeadline === 1 ? "" : "s"
-        } ${hoursUntilDeadline} hour${hoursUntilDeadline === 1 ? "" : "s"}`
-      );
-    } else if (minutesUntilDeadline < 0) {
-      setIsDanger(true);
-      setReadableDeadline("Passed");
-    } else {
-      setIsDanger(true);
-      setReadableDeadline(
-        `${hoursUntilDeadline} hour${
-          hoursUntilDeadline === 1 ? "" : "s"
-        } ${minutesUntilDeadline} min${minutesUntilDeadline === 1 ? "" : "s"}`
-      );
-    }
-  };
-
   useEffect(() => {
-    if (assignment.deadline) {
-      calculateTimeUntilDeadline(assignment.deadline);
-    }
+    const calculateTimeUntilDeadline = (deadline: string) => {
+      const now = new Date();
+      const deadlineDate = new Date(deadline);
+      const timeDifference = deadlineDate.getTime() - now.getTime();
+      const daysUntilDeadline = Math.floor(
+        timeDifference / (1000 * 60 * 60 * 24)
+      );
+      const hoursUntilDeadline = Math.floor(
+        (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      const minutesUntilDeadline = Math.floor(
+        (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+      );
+      const secondsUntilDeadline = Math.floor(
+        (timeDifference % (1000 * 60)) / 1000
+      );
+
+      if (daysUntilDeadline > 0) {
+        setIsDanger(false);
+        setReadableDeadline(
+          `${daysUntilDeadline} day${
+            daysUntilDeadline === 1 ? "" : "s"
+          } ${hoursUntilDeadline} hour${
+            hoursUntilDeadline === 1 ? "" : "s"
+          } ${minutesUntilDeadline} min${
+            minutesUntilDeadline === 1 ? "" : "s"
+          } `
+        );
+      } else if (minutesUntilDeadline < 0) {
+        setIsDanger(true);
+        setReadableDeadline("Passed");
+      } else {
+        setIsDanger(true);
+        setReadableDeadline(
+          `${hoursUntilDeadline} Hour${
+            hoursUntilDeadline === 1 ? "" : "s"
+          } ${minutesUntilDeadline} Min${
+            minutesUntilDeadline === 1 ? "" : "s"
+          } ${secondsUntilDeadline} Sec${secondsUntilDeadline === 1 ? "" : "s"}`
+        );
+      }
+    };
+
+    const interval = setInterval(() => {
+      if (assignment.deadline) {
+        calculateTimeUntilDeadline(assignment.deadline);
+      }
+    }, 1000);
+    return () => clearInterval(interval);
   }, [assignment.deadline]);
+
   const deleteAssignment = async () => {
     try {
       const resp = await axios.delete(
@@ -270,7 +282,7 @@ export default function assignments() {
                   )}
                   {assignment.deadline !== null && (
                     <div className="flex items-center justify-between">
-                      <p className="text-highlightSecondary cursor-default font-base text-sm md:text-base transition-all duration-150 hover:text-red-500">
+                      <p className="text-highlightSecondary text-xs cursor-default font-base md:text-base transition-all duration-150 hover:text-red-500">
                         {assignment.deadline &&
                           parseDateTimeForIndia(assignment.deadline)}
                       </p>
@@ -278,8 +290,8 @@ export default function assignments() {
                         className={`${
                           !isDanger
                             ? "text-highlightSecondary font-light"
-                            : "text-red-500 font-light"
-                        } font-base font-bold md:text-3xl`}
+                            : "text-red-500 font-semibold"
+                        } font-base font-bold md:text-3xl text-xs md:p-0`}
                       >
                         {readableDeadline}
                       </p>
