@@ -47,7 +47,7 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
   try {
     const baseUrl: string = process.env.PUBLIC_DOMAIN || "";
     const cookies = request.headers.get("cookie");
-    // console.log(cookies);
+    console.log(cookies);
 
     if (!cookies) {
       throw new Error("No cookies found in the request headers");
@@ -91,6 +91,7 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
       }
     );
     const userDetails = scrapeDetails.data;
+    console.log(userDetails);
 
     const data = {
       baseUrl,
