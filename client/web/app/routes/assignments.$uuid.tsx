@@ -25,7 +25,6 @@ export default function assignments() {
     uuid: string;
     currentDomain: string;
   } = useLoaderData();
-  console.log(storedAssignment.deadline);
   const { userUuid, hasEditPrivileges, isAuthenticated, role } =
     useContext(GlobalContext);
 
@@ -53,55 +52,65 @@ export default function assignments() {
     useState<Solution[]>(solutions);
 
   useEffect(() => {
+    let interval: NodeJS.Timeout;
     const calculateTimeUntilDeadline = (deadline: string) => {
       const now = new Date();
       const deadlineDate = new Date(deadline);
       const timeDifference = deadlineDate.getTime() - now.getTime();
-      const daysUntilDeadline = Math.floor(
-        timeDifference / (1000 * 60 * 60 * 24)
-      );
-      const hoursUntilDeadline = Math.floor(
-        (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-      );
-      const minutesUntilDeadline = Math.floor(
-        (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
-      );
-      const secondsUntilDeadline = Math.floor(
-        (timeDifference % (1000 * 60)) / 1000
-      );
-
-      if (daysUntilDeadline > 0) {
-        setIsDanger(false);
-        setReadableDeadline(
-          `${daysUntilDeadline} day${
-            daysUntilDeadline === 1 ? "" : "s"
-          } ${hoursUntilDeadline} hour${
-            hoursUntilDeadline === 1 ? "" : "s"
-          } ${minutesUntilDeadline} min${
-            minutesUntilDeadline === 1 ? "" : "s"
-          } `
-        );
-      } else if (minutesUntilDeadline < 0) {
+      if (timeDifference <= 0) {
         setIsDanger(true);
         setReadableDeadline("Passed");
+        clearInterval(interval); // Stop the interval if deadline has passed
       } else {
-        setIsDanger(true);
-        setReadableDeadline(
-          `${hoursUntilDeadline} Hour${
-            hoursUntilDeadline === 1 ? "" : "s"
-          } ${minutesUntilDeadline} Min${
-            minutesUntilDeadline === 1 ? "" : "s"
-          } ${secondsUntilDeadline} Sec${secondsUntilDeadline === 1 ? "" : "s"}`
+        const daysUntilDeadline = Math.floor(
+          timeDifference / (1000 * 60 * 60 * 24)
         );
+        const hoursUntilDeadline = Math.floor(
+          (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutesUntilDeadline = Math.floor(
+          (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+        );
+        const secondsUntilDeadline = Math.floor(
+          (timeDifference % (1000 * 60)) / 1000
+        );
+
+        if (daysUntilDeadline > 0) {
+          setIsDanger(false);
+          setReadableDeadline(
+            `${daysUntilDeadline} day${
+              daysUntilDeadline === 1 ? "" : "s"
+            } ${hoursUntilDeadline} hour${
+              hoursUntilDeadline === 1 ? "" : "s"
+            } ${minutesUntilDeadline} min${
+              minutesUntilDeadline === 1 ? "" : "s"
+            } `
+          );
+        } else {
+          setIsDanger(true);
+          setReadableDeadline(
+            `${hoursUntilDeadline} Hour${
+              hoursUntilDeadline === 1 ? "" : "s"
+            } ${minutesUntilDeadline} Min${
+              minutesUntilDeadline === 1 ? "" : "s"
+            } ${secondsUntilDeadline} Sec${
+              secondsUntilDeadline === 1 ? "" : "s"
+            }`
+          );
+        }
       }
     };
 
-    const interval = setInterval(() => {
-      if (assignment.deadline) {
-        calculateTimeUntilDeadline(assignment.deadline);
+    if (assignment.deadline) {
+      const deadlineString = assignment.deadline;
+      calculateTimeUntilDeadline(deadlineString);
+      if (new Date(deadlineString) > new Date()) {
+        interval = setInterval(() => {
+          calculateTimeUntilDeadline(deadlineString);
+        }, 1000);
+        return () => clearInterval(interval);
       }
-    }, 1000);
-    return () => clearInterval(interval);
+    }
   }, [assignment.deadline]);
 
   const deleteAssignment = async () => {
