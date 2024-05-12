@@ -13,11 +13,11 @@ export const Landing = () => {
         </div>
         <div className="buttons mt-3 md:mt-6 flex space-x-3 md:space-x-5">
           <Link
-            to={"https://github.com/ik04/KaizenKlass-V2"}
+            to={"https://chat.whatsapp.com/ITL9hNLjMU25kPJH9t3MUK"}
             target="_blank"
             className="cursor-default border border-highlight text-highlight md:w-[280px] text-base w-[120px] md:text-3xl h-[40px] md:h-[75px] justify-center items-center flex rounded-full font-base"
           >
-            Github
+            Whatsapp
           </Link>
           <Link
             to={"/register"}
