@@ -107,7 +107,7 @@ Route::prefix("v2")->group(function(){
 
             Route::get("selected-subjects/tests",[TestController::class,"getTestsWithSelectedSubjects"]);
             Route::get("subjects/{uuid}/tests",[TestController::class,"getTestsBySubject"]);
-
+            
             Route::get("test/{uuid}",[TestController::class,"getTest"]);
         });
         Route::prefix("remove")->group(function(){
@@ -131,6 +131,5 @@ Route::prefix("v2")->group(function(){
         Route::prefix("update")->group(function(){
             Route::put("test/{uuid}",[TestController::class,"updateTest"]); 
         });
-
     });
 });
