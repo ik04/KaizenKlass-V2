@@ -30,8 +30,7 @@ class SubjectService{
     }
     public function getSubjects(){
         $subjects = Subject::select("subject", "subject_uuid")
-                    ->withCount('assignments') 
-                    ->orderByDesc('assignments_count') 
+                    ->orderBy("created_at","DESC")
                     ->get();
 
                     return $subjects;
