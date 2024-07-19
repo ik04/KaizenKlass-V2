@@ -101,7 +101,7 @@ export default function Subjects() {
             {!isLoading ? (
               <>
                 {(searchQuery ? filteredSubjects : subjects).map((subject) => (
-                  <div key={subject.subject} className="md:m-8 my-8">
+                  <div key={subject.subject} className="md:m-8 my-6">
                     <SubjectCard
                       subject={subject.subject}
                       uuid={subject.subject_uuid}
