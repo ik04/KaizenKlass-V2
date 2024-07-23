@@ -17,6 +17,11 @@ export const meta: MetaFunction = () => {
     { title: "Assignments | KaizenKlass" },
     { property: "og:title", content: "Assignments | KaizenKlass" },
     {
+      property: "og:image",
+      itemprop: "image",
+      content: "https://kaizenklass.me/assets/meta.png",
+    },
+    {
       property: "og:site_name",
       content: "Kaizen Klass",
     },

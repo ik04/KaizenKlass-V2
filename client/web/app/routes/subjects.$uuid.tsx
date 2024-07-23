@@ -147,5 +147,10 @@ export const meta: MetaFunction<typeof loader> = ({ data }: { data: any }) => {
       property: "og:site_name",
       content: "Kaizen Klass",
     },
+    {
+      property: "og:image",
+      itemprop: "image",
+      content: "https://kaizenklass.me/assets/meta.png",
+    },
   ];
 };

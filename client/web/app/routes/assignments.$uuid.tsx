@@ -480,6 +480,11 @@ export const meta: MetaFunction<typeof loader> = ({ data }: { data: any }) => {
       content: `${storedAssignment.description}`,
     },
     {
+      property: "og:image",
+      itemprop: "image",
+      content: "https://kaizenklass.me/assets/meta.png",
+    },
+    {
       property: "og:site_name",
       content: "Kaizen Klass",
     },

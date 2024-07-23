@@ -13,6 +13,11 @@ export const meta: MetaFunction = () => {
       property: "og:site_name",
       content: "Kaizen Klass",
     },
+    {
+      property: "og:image",
+      itemprop: "image",
+      content: "https://kaizenklass.me/assets/meta.png",
+    },
     // <meta property="og:site_name" content="Site Name" />
   ];
 };
